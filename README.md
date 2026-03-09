@@ -1,12 +1,12 @@
-# 🎟 Event Finder
+## 🎟 Event Finder
 
-## Description
+### Description
 
 Event Finder is a web platform for discovering and booking local events such as concerts, meetups, conferences, and community activities.
 
 Users can browse events, search for interesting activities, view event details, and reserve tickets. Organizers can create and manage their own events through the platform.
 
-## Main Features
+### Main Features
 
 - Browse a list of available events
 - View detailed information about each event
@@ -17,46 +17,21 @@ Users can browse events, search for interesting activities, view event details, 
 - User authentication
 - Organizer role for creating and managing events
 
-## Additional Features Inspiration
+### Additional Features Inspiration
 
 - Interactive map to display event locations
 - QR code ticket generation
 - Google Calendar integration
 - Payment integration for ticket booking
 
-## Tech Stack
+### Tech Stack
 
-Frontend:
-
-- HTML
-- CSS
-- JavaScript
-- React
-- Next.js
-
-Backend:
-
-- Node.js
-- Next.js API Routes
-
-Database:
-
-- MongoDB
-- Mongoose
-
-Authentication:
-
-- NextAuth
-
-Data Fetching:
-
-- SWR
-
-Tools:
-
-- Git
-- GitHub
-- VS Code
+**Frontend:** HTML, CSS, JavaScript, React, Next.js
+**Backend:** Node.js, Next.js API Routes
+**Database:** MongoDB, Mongoose
+**Authentication:** NextAuth
+**Data Fetching:** SWR
+**Tools:** Git, GitHub, VS Code
 
 ### Local Development
 
