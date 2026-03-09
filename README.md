@@ -27,10 +27,15 @@ Users can browse events, search for interesting activities, view event details, 
 ### Tech Stack
 
 **Frontend:** HTML, CSS, JavaScript, React, Next.js
+
 **Backend:** Node.js, Next.js API Routes
+
 **Database:** MongoDB, Mongoose
+
 **Authentication:** NextAuth
+
 **Data Fetching:** SWR
+
 **Tools:** Git, GitHub, VS Code
 
 ### Local Development
