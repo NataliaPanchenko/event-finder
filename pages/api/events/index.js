@@ -1,5 +1,5 @@
 import dbConnect from "@/db/connect";
-import Event from "@/db/models/Events";
+import Event from "@/db/models/Events.js";
 
 export default async function handler(request, response) {
   await dbConnect();

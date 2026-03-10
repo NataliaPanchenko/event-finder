@@ -2,7 +2,8 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
-    --titel-color: rgb(88, 88, 88);
+    --title-color: rgb(88, 88, 88);
+    --text-color: #888;
   }
 
   *,

@@ -9,7 +9,12 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} events={events} />
+      <Component
+        {...pageProps}
+        events={events}
+        isLoading={isLoading}
+        error={error}
+      />
     </>
   );
 }
