@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
+import { MapPin } from "lucide-react";
 
 export default function EventsList({ events, isLoading, error }) {
   if (isLoading) return <h2>Loading...</h2>;
@@ -27,7 +28,6 @@ export default function EventsList({ events, isLoading, error }) {
       {events?.map((event) => (
         <Card key={event._id}>
           <Content>
-            <Category>{event.category}</Category>
             <ImageWrapper>
               <Image
                 src={"/event-img.jpg"}
@@ -36,10 +36,12 @@ export default function EventsList({ events, isLoading, error }) {
                 height="50"
               />
             </ImageWrapper>
-
             <DateText>{getDate(event.date)}</DateText>
             <Title>{event.title}</Title>
-            <Organizer>{event.organizer}</Organizer>
+            <Location>
+              <MapPin size="12" />
+              {event.location}
+            </Location>
           </Content>
         </Card>
       ))}
@@ -88,7 +90,7 @@ const Content = styled.div`
 `;
 
 const DateText = styled.p`
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-color);
   margin: 0 0 4px 0;
 `;
@@ -99,13 +101,10 @@ const Title = styled.h3`
   color: #222;
 `;
 
-const Organizer = styled.p`
-  font-size: 12px;
-  color: var(--text-color);
-  margin: 0;
-`;
-
-const Category = styled.p`
+const Location = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 2px;
   font-size: 12px;
   color: var(--text-color);
   margin: 0 0 4px 0;
