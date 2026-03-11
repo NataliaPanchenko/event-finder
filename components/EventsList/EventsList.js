@@ -40,7 +40,7 @@ export default function EventsList({ events, isLoading, error }) {
             <Title>{event.title}</Title>
             <Location>
               <MapPin size="12" />
-              {event.location}
+              {event.location.name}
             </Location>
           </Content>
         </Card>
