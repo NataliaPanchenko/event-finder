@@ -31,4 +31,5 @@ const Container = styled.div`
 const StyledTitel = styled.h2`
   color: var(--title-color);
   margin-left: 10px;
+  font-weight: 500;
 `;
