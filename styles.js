@@ -5,6 +5,7 @@ export default createGlobalStyle`
     --title-color: rgb(88, 88, 88);
     --text-color: #888;
     --black-color: #000000;
+    --delete-color: red;
   }
 
   *,

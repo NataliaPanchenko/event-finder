@@ -8,7 +8,7 @@ import { mutate } from "swr";
 export default function EventPage({ event }) {
   if (!event) return <h2>Event not found</h2>;
 
-  async function handleAddToCart() {
+  async function handleAddToCart(title) {
     const item = {
       eventId: event._id,
       title: event.title,
@@ -25,6 +25,8 @@ export default function EventPage({ event }) {
     });
 
     mutate("/api/cart");
+
+    alert(`Ticket "${title}" added to cart ✨`);
   }
 
   return (
@@ -52,7 +54,9 @@ export default function EventPage({ event }) {
           <Price>${event.price}</Price>
           <Available>Available: {event.availableTickets}</Available>
         </Tickets>
-        <AddButton onClick={handleAddToCart}>🎫 Buy Tickets</AddButton>
+        <AddButton onClick={() => handleAddToCart(event.title)}>
+          🎫 Buy Tickets
+        </AddButton>
         <BackLink href="/">← Back to Homepage</BackLink>
       </Card>
     </PageContainer>

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { Trash2 } from "lucide-react";
+import { mutate } from "swr";
 
 export default function Cart({ cartItems }) {
   if (!cartItems || cartItems.length === 0)
@@ -12,6 +14,16 @@ export default function Cart({ cartItems }) {
 
   console.log("cartItems", cartItems);
 
+  async function handleDelete(id, title) {
+    const response = await fetch(`/api/cart/${id}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      mutate("/api/cart");
+      alert(`Ticket "${title}" has been deleted 🗑`);
+    }
+  }
+
   return (
     <Wrapper>
       {cartItems.map((item) => (
@@ -19,12 +31,14 @@ export default function Cart({ cartItems }) {
           <Info>
             <Title>{item.title}</Title>
             <Quantity>Tickets: {item.quantity}</Quantity>
+            <StyledTrash
+              size="17"
+              onClick={() => handleDelete(item._id, item.title)}
+            />
           </Info>
-
           <Price>${item.price}</Price>
         </TicketCard>
       ))}
-
       <BackLink href="/">← Continue browsing events</BackLink>
     </Wrapper>
   );
@@ -102,5 +116,13 @@ const BackLink = styled(Link)`
   font-size: 14px;
   &:hover {
     text-decoration: underline;
+  }
+`;
+
+const StyledTrash = styled(Trash2)`
+  color: var(--text-color);
+  cursor: pointer;
+  &:hover {
+    color: var(--delete-color);
   }
 `;
