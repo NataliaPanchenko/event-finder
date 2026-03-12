@@ -1,11 +1,27 @@
 import Cart from "@/components/Cart/Cart";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 
-export default function CartPage({ cartItems, setCartItems }) {
+export default function CartPage() {
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/cart")
+      .then((response) => response.json())
+      .then((data) => {
+        setCartItems(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <p>Loading cart...</p>;
+
   return (
     <Container>
       <h3>My tickets</h3>
-      <Cart cartItems={cartItems} setCartItems={setCartItems} />
+      <Cart cartItems={cartItems} />
     </Container>
   );
 }

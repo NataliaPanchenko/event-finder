@@ -156,7 +156,7 @@ const BackLink = styled(Link)`
 `;
 
 const AddButton = styled.button`
-  width: 100%;
+  width: 150px;
   padding: 12px 0;
   background-color: #0070f3;
   color: white;
