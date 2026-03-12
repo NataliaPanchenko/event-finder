@@ -31,6 +31,6 @@ const Container = styled.div`
   gap: 20px;
 `;
 
-const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)`
   text-decoration: none;
 `;
