@@ -8,7 +8,7 @@ import getEventById from "@/services/eventService";
 import { useState } from "react";
 
 export default function EventPage({ event }) {
-  const [message, setMessage] = useState("");
+  const [addMessage, setAddMessage] = useState("");
 
   if (!event) return <h2>Event not found</h2>;
 
@@ -28,14 +28,14 @@ export default function EventPage({ event }) {
       body: JSON.stringify(item),
     });
     mutate("/api/cart");
-    setMessage(`Ticket "${title}" added to cart ✨`);
-    setTimeout(() => setMessage(""), 3000);
+    setAddMessage(`Ticket "${title}" added to cart ✨`);
+    setTimeout(() => setAddMessage(""), 3000);
   }
 
   return (
     <PageContainer>
       <Card>
-        {message && <Message>{message}</Message>}
+        {addMessage && <Message>{addMessage}</Message>}
         <Title>{event.title}</Title>
         <ImageWrapper>
           <Image
@@ -92,6 +92,9 @@ const Card = styled.div`
 `;
 
 const Message = styled.div`
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #4caf50;
   color: white;
   padding: 10px 15px;
@@ -100,6 +103,7 @@ const Message = styled.div`
   text-align: center;
   font-weight: 400;
   font-size: 14px;
+  width: 80%;
 `;
 
 const ImageWrapper = styled.div`

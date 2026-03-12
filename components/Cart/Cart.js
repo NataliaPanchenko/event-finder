@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export default function Cart({ cartItems }) {
   const [confirmId, setConfirmId] = useState(null);
+  const [deleteMessage, setDeleteMessage] = useState("");
 
   if (!cartItems || cartItems.length === 0)
     return (
@@ -24,7 +25,8 @@ export default function Cart({ cartItems }) {
     if (response.ok) {
       mutate("/api/cart");
       setConfirmId(null);
-      alert(`Tickets "${title}" deleted 🗑`);
+      setDeleteMessage(`Ticket "${title}" has been deleted 🗑`);
+      setTimeout(() => setDeleteMessage(""), 3000);
     } else {
       alert("Error. Please try again");
     }
@@ -32,6 +34,7 @@ export default function Cart({ cartItems }) {
 
   return (
     <Wrapper>
+      {deleteMessage && <Message>{deleteMessage}</Message>}
       {cartItems.map((item) => (
         <TicketCard key={item._id}>
           <Info>
@@ -68,13 +71,10 @@ const TicketCard = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 18px 22px;
   background: white;
-
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-
   transition: transform 0.15s ease;
   &:hover {
     transform: translateY(-2px);
@@ -172,4 +172,20 @@ const ConfirmButtons = styled.div`
       color: black;
     }
   }
+`;
+
+const Message = styled.div`
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 20px;
+  background-color: #e74c3c;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 14px;
+  width: 80%;
 `;
