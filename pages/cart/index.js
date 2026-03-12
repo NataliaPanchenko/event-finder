@@ -1,22 +1,14 @@
 import Cart from "@/components/Cart/Cart";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import useSWR from "swr";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: cartItems, error, isLoading } = useSWR("/api/cart", fetcher);
 
-  useEffect(() => {
-    fetch("/api/cart")
-      .then((response) => response.json())
-      .then((data) => {
-        setCartItems(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
-
-  if (loading) return <p>Loading cart...</p>;
+  if (isLoading) return <p>Loading cart...</p>;
+  if (error) return <p>Failed to load cart</p>;
 
   return (
     <Container>
