@@ -15,12 +15,16 @@ export default function Cart({ cartItems }) {
   console.log("cartItems", cartItems);
 
   async function handleDelete(id, title) {
+    const confirmDelete = window.confirm(
+      `Do you want to delete "${title}" tickets?`
+    );
+    if (!confirmDelete) return;
     const response = await fetch(`/api/cart/${id}`, {
       method: "DELETE",
     });
     if (response.ok) {
       mutate("/api/cart");
-      alert(`Ticket "${title}" has been deleted 🗑`);
+      alert(`Tickets "${title}" deleted 🗑`);
     }
   }
 
