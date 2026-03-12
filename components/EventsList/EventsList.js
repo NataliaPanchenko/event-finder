@@ -8,7 +8,7 @@ export default function EventsList({ events, isLoading, error }) {
     return <h2>Error</h2>;
   }
 
-  if (!events || events.length === 0) {
+  if (!Array.isArray(events) || events.length === 0) {
     return <h3>No events found.</h3>;
   }
 

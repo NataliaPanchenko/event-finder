@@ -1,6 +1,4 @@
 import { getDate } from "@/components/EventsList/EventItem/EventItem";
-import dbConnect from "@/db/connect";
-import Event from "@/db/models/Events";
 import Link from "next/link";
 
 export default function EventPage({ event }) {
@@ -23,6 +21,11 @@ export default function EventPage({ event }) {
 }
 
 export async function getServerSideProps({ params }) {
+  const dbConnect = (await import("@/db/connect")).default;
+  const Event = (await import("@/db/models/Events")).default;
+  await import("@/db/models/Categories");
+  await import("@/db/models/Locations");
+
   await dbConnect();
 
   const event = await Event.findById(params.id)
