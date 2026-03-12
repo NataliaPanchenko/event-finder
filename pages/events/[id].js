@@ -34,7 +34,7 @@ export default function EventPage({ event }) {
           <Price>${event.price}</Price>
           <Available>Available: {event.availableTickets}</Available>
         </Tickets>
-        <AddButton onClick={handleAddToCart}>🎫 Buy Ticket</AddButton>
+        <AddButton onClick={handleAddToCart}>🎫 Buy Tickets</AddButton>
         <BackLink href="/">← Back to Homepage</BackLink>
       </Card>
     </PageContainer>

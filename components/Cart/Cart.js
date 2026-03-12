@@ -26,5 +26,5 @@ export default function Cart({ cartItems }) {
 }
 
 const Container = styled.div`
-  margin: 20px;
+  margin: 0;
 `;
