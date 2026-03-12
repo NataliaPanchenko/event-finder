@@ -13,7 +13,16 @@ export default async function handler(request, response) {
         .status(500)
         .json({ status: "Error", message: error.message });
     }
-  } else {
-    return response.status(405).json({ message: "Method not allowed" });
   }
+
+  if (request.method === "POST") {
+    try {
+      const newItem = await CartItem.create(request.body);
+      return response.status(201).json(newItem);
+    } catch (error) {
+      return response.status(500).json({ error: error.message });
+    }
+  }
+
+  return response.status(405).json({ message: "Method not allowed" });
 }

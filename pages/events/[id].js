@@ -3,11 +3,29 @@ import Link from "next/link";
 import styled from "styled-components";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
+import { mutate } from "swr";
 
 export default function EventPage({ event }) {
   if (!event) return <h2>Event not found</h2>;
 
-  function handleAddToCart() {}
+  async function handleAddToCart() {
+    const item = {
+      eventId: event._id,
+      title: event.title,
+      price: event.price,
+      quantity: 1,
+    };
+
+    await fetch("/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(item),
+    });
+
+    mutate("/api/cart");
+  }
 
   return (
     <PageContainer>
