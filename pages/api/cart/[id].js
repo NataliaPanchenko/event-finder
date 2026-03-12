@@ -11,5 +11,22 @@ export default async function handler(request, response) {
     return response.status(200).json({ status: `CartItem ${id} deleted.` });
   }
 
+  if (request.method === "PATCH") {
+    const { quantity } = request.body;
+    if (quantity < 1) {
+      return response
+        .status(400)
+        .json({ message: "Quantity must be at least 1" });
+    }
+
+    const updated = await CartItem.findByIdAndUpdate(
+      id,
+      { quantity },
+      { new: true }
+    );
+
+    return response.status(200).json(updated);
+  }
+
   return response.status(405).json({ message: "Method not allowed" });
 }

@@ -1,5 +1,6 @@
 import dbConnect from "@/db/connect";
 import CartItem from "@/db/models/CartItem";
+import Event from "@/db/models/Events";
 
 export default async function handler(request, response) {
   await dbConnect();
@@ -16,12 +17,19 @@ export default async function handler(request, response) {
   }
 
   if (request.method === "POST") {
-    try {
-      const newItem = await CartItem.create(request.body);
-      return response.status(201).json(newItem);
-    } catch (error) {
-      return response.status(500).json({ error: error.message });
-    }
+    const { eventId, quantity } = request.body;
+    const event = await Event.findById(eventId);
+    if (!event) return res.status(404).json({ message: "Event not found" });
+    if (quantity > event.availableTickets)
+      return res.status(400).json({ message: "Not enough tickets" });
+    const newItem = await CartItem.create({
+      eventId,
+      title: event.title,
+      price: event.price,
+      quantity,
+      availableTickets: event.availableTickets,
+    });
+    return res.status(201).json(newItem);
   }
 
   return response.status(405).json({ message: "Method not allowed" });

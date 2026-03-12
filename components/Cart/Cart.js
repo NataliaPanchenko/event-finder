@@ -16,8 +16,6 @@ export default function Cart({ cartItems }) {
       </EmptyCart>
     );
 
-  console.log("cartItems", cartItems);
-
   async function handleDelete(id, title) {
     const response = await fetch(`/api/cart/${id}`, {
       method: "DELETE",
@@ -32,6 +30,19 @@ export default function Cart({ cartItems }) {
     }
   }
 
+  async function updateQuantity(id, newQuantity) {
+    const response = await fetch(`/api/cart/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ quantity: newQuantity }),
+    });
+    if (response.ok) {
+      mutate("/api/cart");
+    } else {
+      alert("Error updating quantity");
+    }
+  }
+
   return (
     <Wrapper>
       {deleteMessage && <Message>{deleteMessage}</Message>}
@@ -39,7 +50,24 @@ export default function Cart({ cartItems }) {
         <TicketCard key={item._id}>
           <Info>
             <Title>{item.title}</Title>
-            <Quantity>Tickets: {item.quantity}</Quantity>
+            <CartItemControls>
+              <button
+                disabled={item.quantity <= 1}
+                onClick={() =>
+                  item.quantity > 1 &&
+                  updateQuantity(item._id, item.quantity - 1)
+                }
+              >
+                −
+              </button>
+              <span>{item.quantity}</span>
+              <button
+                disabled={item.quantity >= item.availableTickets}
+                onClick={() => updateQuantity(item._id, item.quantity + 1)}
+              >
+                +
+              </button>
+            </CartItemControls>
             <StyledTrash size="17" onClick={() => setConfirmId(item._id)} />
           </Info>
           <Price>${item.price}</Price>
@@ -188,4 +216,30 @@ const Message = styled.div`
   font-weight: 400;
   font-size: 14px;
   width: 80%;
+`;
+
+const CartItemControls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  button {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background: #f0f0f0;
+    }
+  }
+  span {
+    min-width: 24px;
+    text-align: center;
+  }
 `;

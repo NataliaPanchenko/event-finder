@@ -1,6 +1,5 @@
 import EventsList from "@/components/EventsList/EventsList";
 import styled from "styled-components";
-import Footer from "@/components/Footer";
 
 export default function HomePage({ events, error, isLoading }) {
   if (isLoading) return <h2>Loading...</h2>;
@@ -12,7 +11,6 @@ export default function HomePage({ events, error, isLoading }) {
     <Container>
       <StyledTitel>🎫 Event Finder App</StyledTitel>
       <EventsList events={events} />
-      <Footer />
     </Container>
   );
 }
