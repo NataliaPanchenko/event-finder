@@ -8,6 +8,8 @@ import getEventById from "@/services/eventService";
 import { useState } from "react";
 
 export default function EventPage({ event }) {
+  const [message, setMessage] = useState("");
+
   if (!event) return <h2>Event not found</h2>;
 
   async function handleAddToCart(title) {
@@ -26,11 +28,14 @@ export default function EventPage({ event }) {
       body: JSON.stringify(item),
     });
     mutate("/api/cart");
+    setMessage(`Ticket "${title}" added to cart ✨`);
+    setTimeout(() => setMessage(""), 3000);
   }
 
   return (
     <PageContainer>
       <Card>
+        {message && <Message>{message}</Message>}
         <Title>{event.title}</Title>
         <ImageWrapper>
           <Image
@@ -84,6 +89,17 @@ const Card = styled.div`
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   max-width: 600px;
   width: 100%;
+`;
+
+const Message = styled.div`
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 14px;
 `;
 
 const ImageWrapper = styled.div`
