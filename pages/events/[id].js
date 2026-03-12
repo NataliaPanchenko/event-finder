@@ -7,6 +7,8 @@ import { MapPin } from "lucide-react";
 export default function EventPage({ event }) {
   if (!event) return <h2>Event not found</h2>;
 
+  function handleAddToCart() {}
+
   return (
     <PageContainer>
       <Card>
@@ -32,6 +34,7 @@ export default function EventPage({ event }) {
           <Price>${event.price}</Price>
           <Available>Available: {event.availableTickets}</Available>
         </Tickets>
+        <AddButton onClick={handleAddToCart}>🎫 Buy Ticket</AddButton>
         <BackLink href="/">← Back to Homepage</BackLink>
       </Card>
     </PageContainer>
@@ -149,5 +152,26 @@ const BackLink = styled(Link)`
   text-decoration: none;
   &:hover {
     text-decoration: underline;
+  }
+`;
+
+const AddButton = styled.button`
+  width: 100%;
+  padding: 12px 0;
+  background-color: #0070f3;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  border: none;
+  &:hover {
+    background-color: rgb(4, 151, 255);
   }
 `;
