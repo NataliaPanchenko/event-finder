@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { mutate } from "swr";
+import getEventById from "@/services/eventService";
+import { useState } from "react";
 
 export default function EventPage({ event }) {
   if (!event) return <h2>Event not found</h2>;
@@ -23,10 +25,7 @@ export default function EventPage({ event }) {
       },
       body: JSON.stringify(item),
     });
-
     mutate("/api/cart");
-
-    alert(`Ticket "${title}" added to cart ✨`);
   }
 
   return (
@@ -51,7 +50,7 @@ export default function EventPage({ event }) {
         </Meta>
         <Description>{event.description}</Description>
         <Tickets>
-          <Price>${event.price}</Price>
+          <Price>€{event.price}</Price>
           <Available>Available: {event.availableTickets}</Available>
         </Tickets>
         <AddButton onClick={() => handleAddToCart(event.title)}>
@@ -64,22 +63,8 @@ export default function EventPage({ event }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const dbConnect = (await import("@/db/connect")).default;
-  const Event = (await import("@/db/models/Events")).default;
-  await import("@/db/models/Categories");
-  await import("@/db/models/Locations");
-
-  await dbConnect();
-
-  const event = await Event.findById(params.id)
-    .populate(["category", "location"])
-    .lean();
-
+  const event = await getEventById(params.id);
   if (!event) return { notFound: true };
-
-  event._id = event._id.toString();
-  if (event.category?._id) event.category._id = event.category._id.toString();
-  if (event.location?._id) event.location._id = event.location._id.toString();
 
   return { props: { event } };
 }

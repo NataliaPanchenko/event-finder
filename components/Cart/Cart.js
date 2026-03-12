@@ -2,8 +2,11 @@ import styled from "styled-components";
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
 import { mutate } from "swr";
+import { useState } from "react";
 
 export default function Cart({ cartItems }) {
+  const [confirmId, setConfirmId] = useState(null);
+
   if (!cartItems || cartItems.length === 0)
     return (
       <EmptyCart>
@@ -15,16 +18,15 @@ export default function Cart({ cartItems }) {
   console.log("cartItems", cartItems);
 
   async function handleDelete(id, title) {
-    const confirmDelete = window.confirm(
-      `Do you want to delete "${title}" tickets?`
-    );
-    if (!confirmDelete) return;
     const response = await fetch(`/api/cart/${id}`, {
       method: "DELETE",
     });
     if (response.ok) {
       mutate("/api/cart");
+      setConfirmId(null);
       alert(`Tickets "${title}" deleted 🗑`);
+    } else {
+      alert("Error. Please try again");
     }
   }
 
@@ -35,12 +37,20 @@ export default function Cart({ cartItems }) {
           <Info>
             <Title>{item.title}</Title>
             <Quantity>Tickets: {item.quantity}</Quantity>
-            <StyledTrash
-              size="17"
-              onClick={() => handleDelete(item._id, item.title)}
-            />
+            <StyledTrash size="17" onClick={() => setConfirmId(item._id)} />
           </Info>
           <Price>${item.price}</Price>
+          {confirmId === item._id && (
+            <ConfirmBox>
+              <p>Delete this ticket?</p>
+              <ConfirmButtons>
+                <button onClick={() => handleDelete(item._id, item.title)}>
+                  Yes
+                </button>
+                <button onClick={() => setConfirmId(null)}>Cancel</button>
+              </ConfirmButtons>
+            </ConfirmBox>
+          )}
         </TicketCard>
       ))}
       <BackLink href="/">← Continue browsing events</BackLink>
@@ -128,5 +138,38 @@ const StyledTrash = styled(Trash2)`
   cursor: pointer;
   &:hover {
     color: var(--delete-color);
+  }
+`;
+
+const ConfirmBox = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  text-align: center;
+`;
+
+const ConfirmButtons = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 8px;
+  button {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    &:first-child {
+      background: #e74c3c;
+      color: white;
+    }
+    &:last-child {
+      background: #bdc3c7;
+      color: black;
+    }
   }
 `;
