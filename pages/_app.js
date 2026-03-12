@@ -2,9 +2,7 @@ import GlobalStyle from "../styles";
 import useSWR from "swr";
 import styled from "styled-components";
 import { ShoppingCart } from "lucide-react";
-import Cart from "@/components/Cart/Cart";
-import { useState } from "react";
-import Link from "next/link";
+import { useState, useEffect } from "react";
 import { StyledLink } from "@/components/EventsList/EventsList";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());

@@ -1,21 +1,15 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Link from "next/link";
 
-export default function Cart({ cartItems, setCartItems }) {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/api/cart")
-      .then((response) => response.json())
-      .then((data) => {
-        setCartItems(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, [setCartItems]);
-
-  if (!cartItems || loading) return <p>Loading cart...</p>;
-  if (cartItems.length === 0) return <p>Your cart is empty 🛒</p>;
+export default function Cart({ cartItems }) {
+  if (!cartItems) return <p>Loading cart...</p>;
+  if (cartItems.length === 0)
+    return (
+      <Container>
+        <p>Your cart is empty 🛒</p>
+        <Link href="/">← Back to Homepage</Link>
+      </Container>
+    );
 
   return (
     <Container>
@@ -32,5 +26,5 @@ export default function Cart({ cartItems, setCartItems }) {
 }
 
 const Container = styled.div`
-  background-color: rgb(80, 80, 80);
+  margin: 20px;
 `;
