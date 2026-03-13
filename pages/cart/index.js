@@ -1,6 +1,7 @@
 import Cart from "@/components/Cart/Cart";
 import styled from "styled-components";
 import useSWR from "swr";
+import OrderSummary from "@/components/Cart/OrderSummary";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -16,8 +17,10 @@ export default function CartPage() {
         <Title>Shopping Cart</Title>
         <Clear>Clear Cart</Clear>
       </Header>
-      <h3>My tickets</h3>
-      <Cart cartItems={cartItems} />
+      <CartLayout>
+        <Cart cartItems={cartItems} />
+        <OrderSummary cartItems={cartItems} />
+      </CartLayout>
     </Container>
   );
 }
@@ -30,4 +33,30 @@ const Container = styled.div`
   @media (max-width: 600px) {
     padding: 20px 10px;
   }
+`;
+
+const CartLayout = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+`;
+
+const Title = styled.h2`
+  font-size: 28px;
+`;
+
+const Clear = styled.button`
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
 `;

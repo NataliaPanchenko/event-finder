@@ -103,7 +103,7 @@ const Message = styled.div`
   text-align: center;
   font-weight: 400;
   font-size: 14px;
-  width: 80%;
+  max-width: 600px;
 `;
 
 const ImageWrapper = styled.div`

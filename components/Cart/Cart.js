@@ -73,7 +73,7 @@ export default function Cart({ cartItems }) {
           <Price>${item.price}</Price>
           {confirmId === item._id && (
             <ConfirmBox>
-              <p>Delete this ticket?</p>
+              <p>Delete this ticket(s)?</p>
               <ConfirmButtons>
                 <button onClick={() => handleDelete(item._id, item.title)}>
                   Yes

@@ -32,5 +32,14 @@ export default async function handler(request, response) {
     return res.status(201).json(newItem);
   }
 
+  if (request.method === "DELETE") {
+    try {
+      await CartItem.deleteMany({});
+      return response.status(200).json({ message: "Cart cleared" });
+    } catch (error) {
+      return response.status(500).json({ error: error.message });
+    }
+  }
+
   return response.status(405).json({ message: "Method not allowed" });
 }
