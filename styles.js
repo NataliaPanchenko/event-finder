@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
-    --title-color: rgb(88, 88, 88);
+    --title-color: rgb(64, 63, 63);
     --text-color: #888;
     --black-color: #000000;
     --delete-color: red;

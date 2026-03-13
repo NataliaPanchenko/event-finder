@@ -9,4 +9,9 @@ const StyledFooter = styled.footer`
   padding: 8px;
   font-size: 13px;
   color: #888;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  left: -50%;
+  transform: translateX(50%);
 `;

@@ -12,6 +12,10 @@ export default function CartPage() {
 
   return (
     <Container>
+      <Header>
+        <Title>Shopping Cart</Title>
+        <Clear>Clear Cart</Clear>
+      </Header>
       <h3>My tickets</h3>
       <Cart cartItems={cartItems} />
     </Container>

@@ -9,25 +9,18 @@ export default function HomePage({ events, error, isLoading }) {
 
   return (
     <Container>
-      <StyledTitel>🎫 Event Finder App</StyledTitel>
       <EventsList events={events} />
     </Container>
   );
 }
 
 const Container = styled.div`
+  max-width: 1200px;
   min-height: 100vh;
   padding: 10px;
   color: var(--text-color);
-  max-width: 1000px;
   margin: 0 auto;
   @media (max-width: 600px) {
     padding: 20px 10px;
   }
-`;
-
-const StyledTitel = styled.h2`
-  color: var(--title-color);
-  margin-left: 10px;
-  font-weight: 500;
 `;

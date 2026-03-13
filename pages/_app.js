@@ -1,7 +1,7 @@
 import GlobalStyle from "../styles";
 import useSWR from "swr";
 import styled from "styled-components";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { StyledLink } from "@/components/EventsList/EventsList";
 import Footer from "@/components/Footer";
 
@@ -13,9 +13,13 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
+      <StyledTitel>
+        🎫 <GradientWord>Event</GradientWord>{" "}
+        <GraphiteWord>Finder</GraphiteWord>
+      </StyledTitel>
       <CartWrapper>
         <StyledLink href="/cart">
-          <ShoppingCart size="25" />
+          <ShoppingBag size="25" />
         </StyledLink>
       </CartWrapper>
       <Component
@@ -42,4 +46,23 @@ const CartWrapper = styled.div`
     transform: translateY(-2px);
     color: var(--black-color);
   }
+`;
+
+const StyledTitel = styled.h2`
+  margin-left: 10px;
+  font-weight: 700;
+  display: flex;
+  gap: 6px;
+  font-size: 32px;
+`;
+
+const GradientWord = styled.span`
+  background: linear-gradient(90deg, #b23cfb, #d147ff, #fb39ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+`;
+
+const GraphiteWord = styled.span`
+  color: #3a3a3a;
 `;

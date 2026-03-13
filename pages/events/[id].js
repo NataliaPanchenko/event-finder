@@ -41,7 +41,7 @@ export default function EventPage({ event }) {
           <Image
             src={"/event-img.jpg"}
             alt={event.title}
-            width="200"
+            width="230"
             height="150"
           />
         </ImageWrapper>
@@ -61,7 +61,7 @@ export default function EventPage({ event }) {
         <AddButton onClick={() => handleAddToCart(event.title)}>
           🎫 Buy Tickets
         </AddButton>
-        <BackLink href="/">← Back to Homepage</BackLink>
+        <BackLink href="/">← Back to Events</BackLink>
       </Card>
     </PageContainer>
   );
@@ -136,8 +136,8 @@ const Location = styled.span`
   align-items: center;
   justify-content: center;
   gap: 4px;
-  font-size: 12px;
-  color: var(--text-color);
+  font-size: 0.95rem;
+  color: #555;
   margin: 0;
 `;
 
