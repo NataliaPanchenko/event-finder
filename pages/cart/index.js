@@ -12,6 +12,11 @@ export default function CartPage() {
   const [clearCartMessage, setClearCartMessage] = useState("");
   const [confirmClear, setConfirmClear] = useState(false);
 
+  const quantityItems = cartItems?.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
+
   async function clearCart() {
     const response = await fetch("/api/cart", {
       method: "DELETE",
@@ -34,7 +39,13 @@ export default function CartPage() {
     <Container>
       <Header>
         {clearCartMessage && <Message>{clearCartMessage}</Message>}
-        <Title>Shopping Cart</Title>
+        <TitleBlock>
+          <Title>Shopping Cart</Title>
+          <CartInfo>
+            {quantityItems}
+            {quantityItems === 1 ? ` item` : ` items`} in your cart
+          </CartInfo>
+        </TitleBlock>
         {confirmClear && (
           <ConfirmBox>
             <p>Delele all tickets?</p>
@@ -81,6 +92,7 @@ const Header = styled.div`
 
 const Title = styled.h2`
   font-size: 28px;
+  margin: 10px 0;
 `;
 
 const Clear = styled.button`
@@ -134,4 +146,15 @@ const Message = styled.div`
   font-weight: 400;
   font-size: 14px;
   width: 80%;
+`;
+
+const TitleBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const CartInfo = styled.p`
+  font-size: 14px;
+  color: #666;
+  margin: 0;
 `;

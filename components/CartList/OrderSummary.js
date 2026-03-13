@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function OrderSummary({ cartItems }) {
   const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.eventId.price * item.quantity,
+    (sum, item) => sum + item.eventId?.price * item.quantity,
     0
   );
   const serviceFee = subtotal * 0.03;
