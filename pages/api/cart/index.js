@@ -7,7 +7,7 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     try {
-      const items = await CartItem.find().lean();
+      const items = await CartItem.find().populate("eventId").lean();
       return response.status(200).json(items);
     } catch (error) {
       return response
@@ -19,17 +19,24 @@ export default async function handler(request, response) {
   if (request.method === "POST") {
     const { eventId, quantity } = request.body;
     const event = await Event.findById(eventId);
-    if (!event) return res.status(404).json({ message: "Event not found" });
+    if (!event)
+      return response.status(404).json({ message: "Event not found" });
     if (quantity > event.availableTickets)
-      return res.status(400).json({ message: "Not enough tickets" });
+      return response.status(400).json({ message: "Not enough tickets" });
+
+    const existingItem = await CartItem.findOne({ eventId });
+    if (existingItem) {
+      existingItem.quantity += quantity;
+      await existingItem.save();
+      return response.status(200).json(existingItem);
+    }
+
     const newItem = await CartItem.create({
       eventId,
-      title: event.title,
-      price: event.price,
       quantity,
-      availableTickets: event.availableTickets,
     });
-    return res.status(201).json(newItem);
+
+    return response.status(201).json(newItem);
   }
 
   if (request.method === "DELETE") {

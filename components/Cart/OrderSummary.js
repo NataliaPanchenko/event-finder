@@ -3,10 +3,10 @@ import Link from "next/link";
 
 export default function OrderSummary({ cartItems }) {
   const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc, item) => acc + item.eventId.price * item.quantity,
     0
   );
-  const serviceFee = subtotal * 0.02;
+  const serviceFee = subtotal * 0.03;
   const total = subtotal + serviceFee;
 
   return (
@@ -17,7 +17,7 @@ export default function OrderSummary({ cartItems }) {
         <span>${subtotal.toFixed(2)}</span>
       </Row>
       <Row>
-        <span>Service Fee (2%)</span>
+        <span>Service Fee (3%)</span>
         <span>${serviceFee.toFixed(2)}</span>
       </Row>
       <Divider />
@@ -78,4 +78,7 @@ const Continue = styled(Link)`
   text-align: center;
   margin-top: 16px;
   color: #2563eb;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 600;
 `;

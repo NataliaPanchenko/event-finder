@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Trash2 } from "lucide-react";
 import { mutate } from "swr";
 import { useState } from "react";
+import Image from "next/image";
+import { getDate } from "../EventsList/EventItem/EventItem";
 
 export default function Cart({ cartItems }) {
   const [confirmId, setConfirmId] = useState(null);
@@ -48,8 +50,14 @@ export default function Cart({ cartItems }) {
       {deleteMessage && <Message>{deleteMessage}</Message>}
       {cartItems.map((item) => (
         <TicketCard key={item._id}>
+          <ImageWrapper>
+            <Image src={"/event-img.jpg"} alt={item.eventId.title} fill />
+          </ImageWrapper>
           <Info>
-            <Title>{item.title}</Title>
+            <Title>{item.eventId.title}</Title>
+            <DateRow>
+              📅 <span>{getDate(item.eventId.date)}</span>
+            </DateRow>
             <CartItemControls>
               <button
                 disabled={item.quantity <= 1}
@@ -60,9 +68,9 @@ export default function Cart({ cartItems }) {
               >
                 −
               </button>
-              <span>{item.quantity}</span>
+              <Quantity>{item.quantity}</Quantity>
               <button
-                disabled={item.quantity >= item.availableTickets}
+                disabled={item.quantity >= item.eventId.availableTickets}
                 onClick={() => updateQuantity(item._id, item.quantity + 1)}
               >
                 +
@@ -70,12 +78,14 @@ export default function Cart({ cartItems }) {
             </CartItemControls>
             <StyledTrash size="17" onClick={() => setConfirmId(item._id)} />
           </Info>
-          <Price>${item.price}</Price>
+          <Price>€{item.eventId.price * item.quantity}</Price>
           {confirmId === item._id && (
             <ConfirmBox>
               <p>Delete this ticket(s)?</p>
               <ConfirmButtons>
-                <button onClick={() => handleDelete(item._id, item.title)}>
+                <button
+                  onClick={() => handleDelete(item._id, item.eventId.title)}
+                >
                   Yes
                 </button>
                 <button onClick={() => setConfirmId(null)}>Cancel</button>
@@ -96,6 +106,7 @@ const Wrapper = styled.div`
 `;
 
 const TicketCard = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -121,16 +132,23 @@ const Title = styled.h4`
   color: #222;
 `;
 
+const DateRow = styled.div`
+  margin-top: 6px;
+  color: #777;
+  font-size: 14px;
+`;
+
 const Quantity = styled.p`
   margin: 0;
   font-size: 14px;
   color: #777;
+  padding: 0 8px;
 `;
 
 const Price = styled.div`
-  font-weight: 600;
+  font-weight: 700;
   font-size: 18px;
-  color: #0070f3;
+  color: #000000;
 `;
 
 const EmptyCart = styled.div`
@@ -167,6 +185,9 @@ const StyledTrash = styled(Trash2)`
   &:hover {
     color: var(--delete-color);
   }
+  position: absolute;
+  top: 15px;
+  right: 15px;
 `;
 
 const ConfirmBox = styled.div`
@@ -241,5 +262,17 @@ const CartItemControls = styled.div`
   span {
     min-width: 24px;
     text-align: center;
+  }
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
+  width: 180px;
+  height: 140px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 12px 0 0 12px;
+  img {
+    object-fit: cover;
   }
 `;
