@@ -230,7 +230,7 @@ const Message = styled.div`
   left: 50%;
   transform: translateX(-50%);
   top: 20px;
-  border: 1px solid #e74c3c;
+  border: 1px solid #4caf50;
   color: var(--text-color);
   background-color: white;
   padding: 10px 15px;

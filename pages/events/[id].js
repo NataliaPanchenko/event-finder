@@ -19,17 +19,20 @@ export default function EventPage({ event }) {
       price: event.price,
       quantity: 1,
     };
-
-    await fetch("/api/cart", {
+    const response = await fetch("/api/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(item),
     });
-    mutate("/api/cart");
-    setAddMessage(`Ticket "${title}" added to cart ✨`);
-    setTimeout(() => setAddMessage(""), 3000);
+    if (response.ok) {
+      mutate("/api/cart");
+      setAddMessage(`Ticket "${title}" added to cart ✨`);
+      setTimeout(() => setAddMessage(""), 3000);
+    } else {
+      alert("Error. Please try again");
+    }
   }
 
   return (
