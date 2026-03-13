@@ -14,16 +14,16 @@ export default function OrderSummary({ cartItems }) {
       <h3>Order Summary</h3>
       <Row>
         <span>Subtotal</span>
-        <span>${subtotal.toFixed(2)}</span>
+        <span>€{subtotal.toFixed(2)}</span>
       </Row>
       <Row>
         <span>Service Fee (3%)</span>
-        <span>${serviceFee.toFixed(2)}</span>
+        <span>€{serviceFee.toFixed(2)}</span>
       </Row>
       <Divider />
       <TotalRow>
         <span>Total</span>
-        <span>${total.toFixed(2)}</span>
+        <span>€{total.toFixed(2)}</span>
       </TotalRow>
       {/* <CheckoutButton>Proceed to Checkout →</CheckoutButton> */}
       <Continue href="/">Continue Shopping</Continue>

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import EventItem from "./EventItem/EventItem";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function EventsList({ events, isLoading, error }) {
+  const router = useRouter();
   if (isLoading) return <h2>Loading...</h2>;
   if (error) {
     return <h2>Error</h2>;
@@ -15,9 +16,11 @@ export default function EventsList({ events, isLoading, error }) {
   return (
     <Container>
       {events.map((event) => (
-        <StyledLink key={event._id} href={`/events/${event._id}`}>
-          <EventItem event={event} />
-        </StyledLink>
+        <EventItem
+          key={event._id}
+          event={event}
+          onClick={() => router.push(`/events/${event._id}`)}
+        />
       ))}
     </Container>
   );
@@ -29,8 +32,4 @@ const Container = styled.div`
   justify-content: center;
   justify-items: center;
   gap: 20px;
-`;
-
-export const StyledLink = styled(Link)`
-  text-decoration: none;
 `;

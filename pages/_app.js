@@ -2,8 +2,8 @@ import GlobalStyle from "../styles";
 import useSWR from "swr";
 import styled from "styled-components";
 import { ShoppingBag } from "lucide-react";
-import { StyledLink } from "@/components/EventsList/EventsList";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -65,4 +65,8 @@ const GradientWord = styled.span`
 
 const GraphiteWord = styled.span`
   color: #3a3a3a;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;

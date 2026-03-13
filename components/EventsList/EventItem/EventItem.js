@@ -14,9 +14,9 @@ export function getDate(date) {
   return eventDate;
 }
 
-export default function EventItem({ event }) {
+export default function EventItem({ event, onClick }) {
   return (
-    <Card>
+    <Card onClick={onClick}>
       <Content>
         <ImageWrapper>
           <Image src={"/event-img.jpg"} alt={event.title} fill />
@@ -24,7 +24,6 @@ export default function EventItem({ event }) {
         </ImageWrapper>
         <Title>{event.title}</Title>
         <DateText>
-          {" "}
           <Calendar size="12" /> {getDate(event.date)}
         </DateText>
         <Location>
@@ -32,7 +31,7 @@ export default function EventItem({ event }) {
           {event.location?.name || "Unknown location"}
         </Location>
         <CardFooter>
-          <Price>${event.price}</Price>
+          <Price>€{event.price}</Price>
           <DetailsButton>View Details</DetailsButton>
         </CardFooter>
       </Content>
