@@ -3,19 +3,48 @@ import Link from "next/link";
 import styled from "styled-components";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
+import { mutate } from "swr";
+import getEventById from "@/services/eventService";
+import { useState } from "react";
 
 export default function EventPage({ event }) {
+  const [addMessage, setAddMessage] = useState("");
+
   if (!event) return <h2>Event not found</h2>;
+
+  async function handleAddToCart(title) {
+    const item = {
+      eventId: event._id,
+      title: event.title,
+      price: event.price,
+      quantity: 1,
+    };
+    const response = await fetch("/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(item),
+    });
+    if (response.ok) {
+      mutate("/api/cart");
+      setAddMessage(`Ticket "${title}" added to cart ✨`);
+      setTimeout(() => setAddMessage(""), 3000);
+    } else {
+      alert("Error. Please try again");
+    }
+  }
 
   return (
     <PageContainer>
       <Card>
+        {addMessage && <Message>{addMessage}</Message>}
         <Title>{event.title}</Title>
         <ImageWrapper>
           <Image
             src={"/event-img.jpg"}
             alt={event.title}
-            width="200"
+            width="230"
             height="150"
           />
         </ImageWrapper>
@@ -29,32 +58,21 @@ export default function EventPage({ event }) {
         </Meta>
         <Description>{event.description}</Description>
         <Tickets>
-          <Price>${event.price}</Price>
+          <Price>€{event.price}</Price>
           <Available>Available: {event.availableTickets}</Available>
         </Tickets>
-        <BackLink href="/">← Back to Homepage</BackLink>
+        <AddButton onClick={() => handleAddToCart(event.title)}>
+          🎫 Add to cart
+        </AddButton>
+        <BackLink href="/">← Back to Events</BackLink>
       </Card>
     </PageContainer>
   );
 }
 
 export async function getServerSideProps({ params }) {
-  const dbConnect = (await import("@/db/connect")).default;
-  const Event = (await import("@/db/models/Events")).default;
-  await import("@/db/models/Categories");
-  await import("@/db/models/Locations");
-
-  await dbConnect();
-
-  const event = await Event.findById(params.id)
-    .populate(["category", "location"])
-    .lean();
-
+  const event = await getEventById(params.id);
   if (!event) return { notFound: true };
-
-  event._id = event._id.toString();
-  if (event.category?._id) event.category._id = event.category._id.toString();
-  if (event.location?._id) event.location._id = event.location._id.toString();
 
   return { props: { event } };
 }
@@ -74,6 +92,22 @@ const Card = styled.div`
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   max-width: 600px;
   width: 100%;
+`;
+
+const Message = styled.div`
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid #4caf50;
+  color: var(--text-color);
+  background-color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 14px;
+  max-width: 600px;
 `;
 
 const ImageWrapper = styled.div`
@@ -106,8 +140,8 @@ const Location = styled.span`
   align-items: center;
   justify-content: center;
   gap: 4px;
-  font-size: 12px;
-  color: var(--text-color);
+  font-size: 0.95rem;
+  color: #555;
   margin: 0;
 `;
 
@@ -149,5 +183,26 @@ const BackLink = styled(Link)`
   text-decoration: none;
   &:hover {
     text-decoration: underline;
+  }
+`;
+
+const AddButton = styled.button`
+  width: 150px;
+  padding: 12px 0;
+  background-color: #0070f3;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  border: none;
+  &:hover {
+    background-color: rgb(4, 151, 255);
   }
 `;
