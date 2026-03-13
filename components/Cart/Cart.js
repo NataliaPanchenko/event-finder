@@ -84,7 +84,7 @@ export default function Cart({ cartItems }) {
           )}
         </TicketCard>
       ))}
-      <BackLink href="/">← Continue browsing events</BackLink>
+      <BackLink href="/">← Back to events</BackLink>
     </Wrapper>
   );
 }
@@ -215,7 +215,7 @@ const Message = styled.div`
   text-align: center;
   font-weight: 400;
   font-size: 14px;
-  width: 80%;
+  width: 30%;
 `;
 
 const CartItemControls = styled.div`
