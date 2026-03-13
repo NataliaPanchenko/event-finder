@@ -1,14 +1,14 @@
 import dbConnect from "@/db/connect";
-import CartItem from "@/db/models/CartItem";
+import Cart from "@/db/models/Cart";
 
 export default async function handler(request, response) {
   await dbConnect();
   const { id } = request.query;
 
   if (request.method === "DELETE") {
-    const deleted = await CartItem.findByIdAndDelete(id);
+    const deleted = await Cart.findByIdAndDelete(id);
     if (!deleted) return response.status(404).json({ error: "Item not found" });
-    return response.status(200).json({ status: `CartItem ${id} deleted.` });
+    return response.status(200).json({ status: `Cart item ${id} deleted.` });
   }
 
   if (request.method === "PATCH") {
@@ -19,7 +19,7 @@ export default async function handler(request, response) {
         .json({ message: "Quantity must be at least 1" });
     }
 
-    const updated = await CartItem.findByIdAndUpdate(
+    const updated = await Cart.findByIdAndUpdate(
       id,
       { quantity },
       { new: true }

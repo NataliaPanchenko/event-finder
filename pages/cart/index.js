@@ -1,7 +1,7 @@
-import Cart from "@/components/Cart/Cart";
+import CartList from "@/components/CartList/CartList";
 import styled from "styled-components";
 import useSWR from "swr";
-import OrderSummary from "@/components/Cart/OrderSummary";
+import OrderSummary from "@/components/CartList/OrderSummary";
 import { useState } from "react";
 import { mutate } from "swr";
 
@@ -47,7 +47,7 @@ export default function CartPage() {
         <Clear onClick={() => setConfirmClear(true)}>Clear Cart</Clear>
       </Header>
       <CartLayout>
-        <Cart cartItems={cartItems} />
+        <CartList cartItems={cartItems} />
         <OrderSummary cartItems={cartItems} />
       </CartLayout>
     </Container>

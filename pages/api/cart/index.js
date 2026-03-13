@@ -1,5 +1,5 @@
 import dbConnect from "@/db/connect";
-import CartItem from "@/db/models/CartItem";
+import Cart from "@/db/models/Cart";
 import Event from "@/db/models/Events";
 
 export default async function handler(request, response) {
@@ -7,7 +7,7 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     try {
-      const items = await CartItem.find()
+      const items = await Cart.find()
         .populate({
           path: "eventId",
           populate: { path: "category", model: "Category" },
@@ -29,14 +29,14 @@ export default async function handler(request, response) {
     if (quantity > event.availableTickets)
       return response.status(400).json({ message: "Not enough tickets" });
 
-    const existingItem = await CartItem.findOne({ eventId });
+    const existingItem = await Cart.findOne({ eventId });
     if (existingItem) {
       existingItem.quantity += quantity;
       await existingItem.save();
       return response.status(200).json(existingItem);
     }
 
-    const newItem = await CartItem.create({
+    const newItem = await Cart.create({
       eventId,
       quantity,
     });
@@ -46,7 +46,7 @@ export default async function handler(request, response) {
 
   if (request.method === "DELETE") {
     try {
-      await CartItem.deleteMany({});
+      await Cart.deleteMany({});
       return response.status(200).json({ message: "Cart cleared" });
     } catch (error) {
       return response.status(500).json({ error: error.message });

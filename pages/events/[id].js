@@ -59,7 +59,7 @@ export default function EventPage({ event }) {
           <Available>Available: {event.availableTickets}</Available>
         </Tickets>
         <AddButton onClick={() => handleAddToCart(event.title)}>
-          🎫 Buy Tickets
+          🎫 Add to cart
         </AddButton>
         <BackLink href="/">← Back to Events</BackLink>
       </Card>

@@ -6,7 +6,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { getDate } from "../EventsList/EventItem/EventItem";
 
-export default function Cart({ cartItems }) {
+export default function CartList({ cartItems }) {
   const [confirmId, setConfirmId] = useState(null);
   const [deleteMessage, setDeleteMessage] = useState("");
 
