@@ -51,13 +51,13 @@ export default function CartList({ cartItems }) {
       {cartItems.map((item) => (
         <TicketCard key={item._id}>
           <ImageWrapper>
-            <Image src={"/event-img.jpg"} alt={item.eventId.title} fill />
+            <Image src={"/event-img.jpg"} alt={item.eventId?.title} fill />
           </ImageWrapper>
           <Info>
             <Category>{item.eventId.category?.name || "No category"}</Category>
-            <Title>{item.eventId.title}</Title>
+            <Title>{item.eventId?.title}</Title>
             <DateRow>
-              📅 <span>{getDate(item.eventId.date)}</span>
+              📅 <span>{getDate(item.eventId?.date)}</span>
             </DateRow>
             <CartItemControls>
               <button
@@ -71,7 +71,7 @@ export default function CartList({ cartItems }) {
               </button>
               <Quantity>{item.quantity}</Quantity>
               <button
-                disabled={item.quantity >= item.eventId.availableTickets}
+                disabled={item.quantity >= item.eventId?.availableTickets}
                 onClick={() => updateQuantity(item._id, item.quantity + 1)}
               >
                 +
@@ -85,7 +85,7 @@ export default function CartList({ cartItems }) {
               <p>Delete this ticket(s)?</p>
               <ConfirmButtons>
                 <button
-                  onClick={() => handleDelete(item._id, item.eventId.title)}
+                  onClick={() => handleDelete(item._id, item.eventId?.title)}
                 >
                   Yes
                 </button>

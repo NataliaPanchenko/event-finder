@@ -20,7 +20,7 @@ export default function EventItem({ event }) {
       <Content>
         <ImageWrapper>
           <Image src={"/event-img.jpg"} alt={event.title} fill />
-          <CategoryBadge>{event.category.name}</CategoryBadge>
+          <CategoryBadge>{event.category?.name}</CategoryBadge>
         </ImageWrapper>
         <Title>{event.title}</Title>
         <DateText>
@@ -29,7 +29,7 @@ export default function EventItem({ event }) {
         </DateText>
         <Location>
           <MapPin size="12" />
-          {event.location.name}
+          {event.location?.name || "Unknown location"}
         </Location>
         <CardFooter>
           <Price>${event.price}</Price>
