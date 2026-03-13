@@ -7,7 +7,12 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     try {
-      const items = await CartItem.find().populate("eventId").lean();
+      const items = await CartItem.find()
+        .populate({
+          path: "eventId",
+          populate: { path: "category", model: "Category" },
+        })
+        .lean();
       return response.status(200).json(items);
     } catch (error) {
       return response

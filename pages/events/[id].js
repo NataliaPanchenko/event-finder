@@ -95,8 +95,9 @@ const Message = styled.div`
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #4caf50;
-  color: white;
+  border: 1px solid #4caf50;
+  color: var(--text-color);
+  background-color: white;
   padding: 10px 15px;
   border-radius: 8px;
   margin-bottom: 15px;

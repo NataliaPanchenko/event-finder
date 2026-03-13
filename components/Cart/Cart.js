@@ -54,6 +54,7 @@ export default function Cart({ cartItems }) {
             <Image src={"/event-img.jpg"} alt={item.eventId.title} fill />
           </ImageWrapper>
           <Info>
+            <Category>{item.eventId.category?.name || "No category"}</Category>
             <Title>{item.eventId.title}</Title>
             <DateRow>
               📅 <span>{getDate(item.eventId.date)}</span>
@@ -124,6 +125,7 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin: 0;
 `;
 
 const Title = styled.h4`
@@ -228,8 +230,9 @@ const Message = styled.div`
   left: 50%;
   transform: translateX(-50%);
   top: 20px;
-  background-color: #e74c3c;
-  color: white;
+  border: 1px solid #e74c3c;
+  color: var(--text-color);
+  background-color: white;
   padding: 10px 15px;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -275,4 +278,19 @@ const ImageWrapper = styled.div`
   img {
     object-fit: cover;
   }
+  @media (max-width: 600px) {
+    margin-right: 10px;
+  }
+`;
+
+const Category = styled.p`
+  display: block;
+  width: fit-content;
+  background-color: rgba(129, 177, 255, 0.7);
+  border-radius: 5px;
+  color: white;
+  font-size: 0.95rem;
+  padding: 5px;
+  color: rgb(26, 7, 123);
+  margin: 0;
 `;

@@ -6,12 +6,9 @@ export default function Footer() {
 
 const StyledFooter = styled.footer`
   text-align: center;
-  padding: 8px;
+  padding: 8px 0;
   font-size: 13px;
   color: #888;
-  position: fixed;
-  bottom: 0;
-  display: flex;
-  left: -50%;
-  transform: translateX(50%);
+  width: 100%;
+  background: white;
 `;
