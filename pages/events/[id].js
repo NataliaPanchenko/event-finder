@@ -6,6 +6,7 @@ import { MapPin } from "lucide-react";
 import { mutate } from "swr";
 import getEventById from "@/services/eventService";
 import { useState } from "react";
+import { Category } from "@/components/CartList/CartList";
 
 export default function EventPage({ event }) {
   const [addMessage, setAddMessage] = useState("");
@@ -54,7 +55,7 @@ export default function EventPage({ event }) {
             <MapPin size={12} />
             {event.location?.name}
           </Location>
-          <CategoryText>{event.category?.name}</CategoryText>
+          <Category>{event.category?.name}</Category>
         </Meta>
         <Description>{event.description}</Description>
         <Tickets>
@@ -127,12 +128,14 @@ const Meta = styled.div`
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  align-items: center;
 `;
 
 const DateText = styled.span`
   font-size: 0.95rem;
   color: #555;
+  display: flex;
+  align-items: center;
 `;
 
 const Location = styled.span`
@@ -143,13 +146,6 @@ const Location = styled.span`
   font-size: 0.95rem;
   color: #555;
   margin: 0;
-`;
-
-const CategoryText = styled.span`
-  font-size: 0.95rem;
-  color: #555;
-  text-transform: uppercase;
-  font-weight: 500;
 `;
 
 const Description = styled.p`
