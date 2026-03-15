@@ -14,10 +14,10 @@ export default function NoElements({ icon, titel, description }) {
 
 const EmptyCart = styled.div`
   display: flex;
+  margin-top: 50px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 120px;
   text-align: center;
 `;
 
@@ -30,7 +30,6 @@ const IconWrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 24px;
-
   svg {
     width: 36px;
     height: 36px;
@@ -59,6 +58,5 @@ const ButtonLink = styled(Link)`
   cursor: pointer;
   &:hover {
     background: #1d4ed8;
-    text-decoration: underline;
   }
 `;

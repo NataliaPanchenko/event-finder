@@ -55,20 +55,19 @@ export default function CartPage() {
             </ConfirmButtons>
           </ConfirmBox>
         )}
-        {quantityItems !== 0 ?? (
+        {quantityItems !== 0 && (
           <Clear onClick={() => setConfirmClear(true)}>Clear Cart</Clear>
         )}
       </Header>
       <CartLayout>
         <CartList cartItems={cartItems} />
-        {quantityItems !== 0 ?? <OrderSummary cartItems={cartItems} />}
+        {quantityItems !== 0 && <OrderSummary cartItems={cartItems} />}
       </CartLayout>
     </Container>
   );
 }
 
 const Container = styled.div`
-  min-height: 100vh;
   padding: 20px;
   max-width: 1000px;
   margin: 20px;
