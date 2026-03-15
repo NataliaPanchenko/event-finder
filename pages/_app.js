@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { ShoppingBag } from "lucide-react";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { Heart } from "lucide-react";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -18,8 +19,11 @@ export default function App({ Component, pageProps }) {
         <GraphiteWord>Finder</GraphiteWord>
       </StyledTitel>
       <CartWrapper>
+        <StyledLink href="/favorites">
+          <Heart size="30" />
+        </StyledLink>
         <StyledLink href="/cart">
-          <ShoppingBag size="25" />
+          <ShoppingBag size="30" />
         </StyledLink>
       </CartWrapper>
       <Component
@@ -69,4 +73,5 @@ const GraphiteWord = styled.span`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  margin-left: 10px;
 `;
