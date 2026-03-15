@@ -6,11 +6,20 @@ import { MapPin } from "lucide-react";
 import { mutate } from "swr";
 import getEventById from "@/services/eventService";
 import { useState } from "react";
+import { Heart } from "lucide-react";
 
-export default function EventPage({ event }) {
+export default function EventPage({ event, favorites, setFavorites }) {
   const [addMessage, setAddMessage] = useState("");
 
   if (!event) return <h2>Event not found</h2>;
+
+  const handleFavorites = (id) => {
+    if (favorites?.includes(id)) {
+      setFavorites(favorites.filter((item) => item !== id));
+    } else {
+      setFavorites([...favorites, id]);
+    }
+  };
 
   async function handleAddToCart(title) {
     const item = {
@@ -39,6 +48,11 @@ export default function EventPage({ event }) {
     <PageContainer>
       <Card>
         {addMessage && <Message>{addMessage}</Message>}
+        <FavoriteIcon
+          size="40"
+          onClick={() => handleFavorites(event._id)}
+          $active={favorites.includes(event._id)}
+        />
         <Title>{event.title}</Title>
         <ImageWrapper>
           <Image
@@ -86,12 +100,24 @@ const PageContainer = styled.div`
 `;
 
 const Card = styled.div`
+  position: relative;
   background-color: #ffffff;
   padding: 30px 40px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   max-width: 600px;
   width: 100%;
+`;
+
+const FavoriteIcon = styled(Heart)`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #f4f2f2;
+  border-radius: 20px;
+  cursor: pointer;
+  color: ${({ $active }) => ($active ? "red" : "#555")};
 `;
 
 const Message = styled.div`

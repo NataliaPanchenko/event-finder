@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import EventItem from "@/components/EventsList/EventItem/EventItem";
 
-export default function Favorites({ events }) {
+export default function Favorites({ events, favorites, setFavorites }) {
   return (
     <>
       <Container>
@@ -12,6 +13,8 @@ export default function Favorites({ events }) {
             ? favorite events
           </TitleBlock>
         </Header>
+        {console.log("events", events)}
+        {console.log("favorites", favorites)}
       </Container>
     </>
   );

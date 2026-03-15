@@ -5,59 +5,69 @@ import { ShoppingBag } from "lucide-react";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { Heart } from "lucide-react";
+import useLocalStorageState from "use-local-storage-state";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function App({ Component, pageProps }) {
   const { data: events, error, isLoading } = useSWR("/api/events", fetcher);
+  const [favorites, setFavorites] = useLocalStorageState("favorites", {
+    defaultValue: [],
+  });
 
   return (
     <>
       <GlobalStyle />
-      <StyledTitel>
-        🎫 <GradientWord>Event</GradientWord>{" "}
-        <GraphiteWord>Finder</GraphiteWord>
-      </StyledTitel>
-      <CartWrapper>
-        <StyledLink href="/favorites">
-          <Heart size="30" />
-        </StyledLink>
-        <StyledLink href="/cart">
-          <ShoppingBag size="30" />
-        </StyledLink>
-      </CartWrapper>
+      <StyledHeader>
+        <StyledTitel href="/">
+          🎫 <GradientWord>Event</GradientWord>{" "}
+          <GraphiteWord>Finder</GraphiteWord>
+        </StyledTitel>
+        <IconsWrapper>
+          <StyledIcon href="/favorites">
+            <Heart size="25" />
+          </StyledIcon>
+          <StyledIcon href="/cart">
+            <ShoppingBag size="25" />
+          </StyledIcon>
+        </IconsWrapper>
+      </StyledHeader>
       <Component
         {...pageProps}
         events={events}
         isLoading={isLoading}
         error={error}
+        favorites={favorites}
+        setFavorites={setFavorites}
       />
       <Footer />
     </>
   );
 }
 
-const CartWrapper = styled.div`
-  position: absolute;
-  top: 35px;
-  right: 30px;
-  cursor: pointer;
-  color: var(--title-color);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-  &:hover {
-    transform: translateY(-2px);
-    color: var(--black-color);
-  }
+const StyledHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin: 15px;
 `;
 
-const StyledTitel = styled.h2`
-  margin-left: 10px;
+const StyledTitel = styled(Link)`
+  text-decoration: none;
   font-weight: 700;
   display: flex;
   gap: 6px;
   font-size: 32px;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.01);
+  }
+`;
+
+const IconsWrapper = styled.div`
+  cursor: pointer;
+  color: var(--title-color);
+  margin: 10px 15px 0 0;
 `;
 
 const GradientWord = styled.span`
@@ -71,7 +81,14 @@ const GraphiteWord = styled.span`
   color: #3a3a3a;
 `;
 
-const StyledLink = styled(Link)`
+const StyledIcon = styled(Link)`
   text-decoration: none;
-  margin-left: 10px;
+  margin-left: 20px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  &:hover {
+    transform: scale(1.01);
+    color: var(--black-color);
+  }
 `;
