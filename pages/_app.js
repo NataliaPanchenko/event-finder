@@ -16,27 +16,40 @@ export default function App({ Component, pageProps }) {
 
   return (
     <AppWrapper>
-      <GlobalStyle />
-      <StyledTitel>
-        🎫 <GradientWord>Event</GradientWord>{" "}
-        <GraphiteWord>Finder</GraphiteWord>
-      </StyledTitel>
-      <CartWrapper>
-        <StyledLink href="/cart">
-          <ShoppingBag size="25" />
-          {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
-        </StyledLink>
-      </CartWrapper>
-      <Component
-        {...pageProps}
-        events={events}
-        isLoading={isLoading}
-        error={error}
-      />
+      <ContentWrapper>
+        <GlobalStyle />
+        <StyledTitel>
+          🎫 <GradientWord>Event</GradientWord>{" "}
+          <GraphiteWord>Finder</GraphiteWord>
+        </StyledTitel>
+        <CartWrapper>
+          <StyledLink href="/cart">
+            <ShoppingBag size="25" />
+            {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
+          </StyledLink>
+        </CartWrapper>
+        <Component
+          {...pageProps}
+          events={events}
+          isLoading={isLoading}
+          error={error}
+        />
+      </ContentWrapper>
       <Footer />
     </AppWrapper>
   );
 }
+
+const AppWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const ContentWrapper = styled.div`
+  flex: 1;
+  position: relative;
+`;
 
 const CartWrapper = styled.div`
   position: absolute;
