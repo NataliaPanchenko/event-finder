@@ -17,6 +17,7 @@ export default function App({ Component, pageProps }) {
 
   const { data: cartItems } = useSWR("/api/cart", fetcher);
 
+<<<<<<< HEAD
   const cartCount =
     cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0;
   const favoritesCount = favorites?.length;
@@ -50,16 +51,70 @@ export default function App({ Component, pageProps }) {
         favorites={favorites}
         setFavorites={setFavorites}
       />
+=======
+  const cartCount = Array.isArray(cartItems)
+    ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
+    : 0;
+
+  return (
+    <AppWrapper>
+      <ContentWrapper>
+        <GlobalStyle />
+        <StyledTitel>
+          🎫 <GradientWord>Event</GradientWord>{" "}
+          <GraphiteWord>Finder</GraphiteWord>
+        </StyledTitel>
+        <CartWrapper>
+          <StyledLink href="/cart">
+            <ShoppingBag size="25" />
+            {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
+          </StyledLink>
+        </CartWrapper>
+        <Component
+          {...pageProps}
+          events={events}
+          isLoading={isLoading}
+          error={error}
+        />
+      </ContentWrapper>
+>>>>>>> main
       <Footer />
-    </>
+    </AppWrapper>
   );
 }
 
+<<<<<<< HEAD
 const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   margin: 15px;
+=======
+const AppWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const ContentWrapper = styled.div`
+  flex: 1;
+  position: relative;
+`;
+
+const CartWrapper = styled.div`
+  position: absolute;
+  top: 35px;
+  right: 30px;
+  cursor: pointer;
+  color: var(--title-color);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+    color: var(--black-color);
+  }
+>>>>>>> main
 `;
 
 const StyledTitel = styled(Link)`
