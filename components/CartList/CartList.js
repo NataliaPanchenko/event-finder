@@ -268,7 +268,7 @@ const ImageWrapper = styled.div`
   }
 `;
 
-const Category = styled.p`
+export const Category = styled.p`
   display: block;
   width: fit-content;
   background-color: rgba(129, 177, 255, 0.7);
