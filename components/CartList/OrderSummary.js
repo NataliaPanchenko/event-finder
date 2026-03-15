@@ -82,6 +82,6 @@ const Continue = styled(Link)`
   cursor: pointer;
   font-weight: 600;
   &:hover {
-    text-decoration: 
+    text-decoration: underline;
   }
 `;
