@@ -55,11 +55,13 @@ export default function CartPage() {
             </ConfirmButtons>
           </ConfirmBox>
         )}
-        <Clear onClick={() => setConfirmClear(true)}>Clear Cart</Clear>
+        {quantityItems !== 0 ?? (
+          <Clear onClick={() => setConfirmClear(true)}>Clear Cart</Clear>
+        )}
       </Header>
       <CartLayout>
         <CartList cartItems={cartItems} />
-        <OrderSummary cartItems={cartItems} />
+        {quantityItems !== 0 ?? <OrderSummary cartItems={cartItems} />}
       </CartLayout>
     </Container>
   );
