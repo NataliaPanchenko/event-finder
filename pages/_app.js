@@ -79,14 +79,14 @@ const StyledLink = styled(Link)`
 
 const CartBadge = styled.div`
   position: absolute;
-  top: -15px;
-  right: -8px;
+  top: -19px;
+  right: -12px;
   background: #2563eb;
   color: white;
   font-size: 12px;
-  font-weight: 600;
-  width: 20px;
-  height: 20px;
+  font-weight: 700;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   display: flex;
   align-items: center;
