@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
     cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0;
 
   return (
-    <>
+    <AppWrapper>
       <GlobalStyle />
       <StyledTitel>
         🎫 <GradientWord>Event</GradientWord>{" "}
@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }) {
         error={error}
       />
       <Footer />
-    </>
+    </AppWrapper>
   );
 }
 
