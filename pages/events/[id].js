@@ -52,6 +52,7 @@ export default function EventPage({ event, favorites, setFavorites }) {
           size="40"
           onClick={() => handleFavorites(event._id)}
           $active={favorites.includes(event._id)}
+          fill={favorites.includes(event._id) ? "white" : "none"}
         />
         <Title>{event.title}</Title>
         <ImageWrapper>
@@ -117,7 +118,8 @@ const FavoriteIcon = styled(Heart)`
   background-color: #f4f2f2;
   border-radius: 20px;
   cursor: pointer;
-  color: ${({ $active }) => ($active ? "red" : "#555")};
+  color: ${({ $active }) => ($active ? "white" : "#555")};
+  background-color: ${({ $active }) => ($active ? "#ff4d4d" : "#f4f2f2")};
 `;
 
 const Message = styled.div`

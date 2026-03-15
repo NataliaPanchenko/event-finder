@@ -153,7 +153,7 @@ const Price = styled.div`
   color: #000000;
 `;
 
-const EmptyCart = styled.div`
+export const EmptyCart = styled.div`
   text-align: center;
   margin-top: 80px;
   p {
@@ -162,7 +162,7 @@ const EmptyCart = styled.div`
   }
 `;
 
-const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)`
   color: #0070f3;
   text-decoration: none;
   font-weight: 500;
