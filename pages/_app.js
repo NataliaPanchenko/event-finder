@@ -14,10 +14,12 @@ export default function App({ Component, pageProps }) {
   const [favorites, setFavorites] = useLocalStorageState("favorites", {
     defaultValue: [],
   });
+
   const { data: cartItems } = useSWR("/api/cart", fetcher);
 
   const cartCount =
     cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+  const favoritesCount = favorites?.length;
 
   return (
     <>
@@ -30,6 +32,9 @@ export default function App({ Component, pageProps }) {
         <IconsWrapper>
           <StyledIcon href="/favorites">
             <Heart size="25" />
+            {favoritesCount > 0 && (
+              <FavoritesBadge>{favoritesCount}</FavoritesBadge>
+            )}
           </StyledIcon>
           <StyledIcon href="/cart">
             <ShoppingBag size="25" />
@@ -87,6 +92,7 @@ const GraphiteWord = styled.span`
 `;
 
 const StyledIcon = styled(Link)`
+  position: relative;
   text-decoration: none;
   margin-left: 20px;
   transition:
@@ -106,8 +112,24 @@ const CartBadge = styled.div`
   color: white;
   font-size: 12px;
   font-weight: 700;
-  width: 22px;
-  height: 22px;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const FavoritesBadge = styled.div`
+  position: absolute;
+  top: -19px;
+  right: -12px;
+  background: #ff4d4d;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  width: 21px;
+  height: 21px;
   border-radius: 50%;
   display: flex;
   align-items: center;

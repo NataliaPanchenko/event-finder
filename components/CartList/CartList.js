@@ -53,7 +53,7 @@ export default function CartList({ cartItems }) {
       {deleteMessage && <Message>{deleteMessage}</Message>}
       {cartItems.map((item) => (
         <TicketCard key={item._id}>
-          <ImageWrapper>
+          <ImageWrapper href={`/events/${item.eventId._id}`}>
             <Image src={"/event-img.jpg"} alt={item.eventId?.title} fill />
           </ImageWrapper>
           <Info>
@@ -253,15 +253,20 @@ const CartItemControls = styled.div`
   }
 `;
 
-const ImageWrapper = styled.div`
+const ImageWrapper = styled(Link)`
   position: relative;
   width: 180px;
   height: 140px;
   flex-shrink: 0;
   overflow: hidden;
   border-radius: 12px 0 0 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
   img {
     object-fit: cover;
+  }
+  &:hover {
+    transform: scale(1.05);
   }
   @media (max-width: 600px) {
     margin-right: 10px;
