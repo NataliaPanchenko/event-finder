@@ -11,8 +11,9 @@ export default function App({ Component, pageProps }) {
   const { data: events, error, isLoading } = useSWR("/api/events", fetcher);
   const { data: cartItems } = useSWR("/api/cart", fetcher);
 
-  const cartCount =
-    cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+  const cartCount = Array.isArray(cartItems)
+    ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
+    : 0;
 
   return (
     <AppWrapper>
