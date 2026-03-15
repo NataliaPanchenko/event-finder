@@ -81,4 +81,7 @@ const Continue = styled(Link)`
   text-decoration: none;
   cursor: pointer;
   font-weight: 600;
+  &:hover {
+    text-decoration: 
+  }
 `;
