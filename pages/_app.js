@@ -9,6 +9,10 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function App({ Component, pageProps }) {
   const { data: events, error, isLoading } = useSWR("/api/events", fetcher);
+  const { data: cartItems } = useSWR("/api/cart", fetcher);
+
+  const cartCount =
+    cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0;
 
   return (
     <>
@@ -20,6 +24,7 @@ export default function App({ Component, pageProps }) {
       <CartWrapper>
         <StyledLink href="/cart">
           <ShoppingBag size="25" />
+          {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
         </StyledLink>
       </CartWrapper>
       <Component
@@ -69,4 +74,21 @@ const GraphiteWord = styled.span`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  position: relative;
+`;
+
+const CartBadge = styled.div`
+  position: absolute;
+  top: -19px;
+  right: -12px;
+  background: #2563eb;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

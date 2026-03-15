@@ -5,6 +5,8 @@ import { mutate } from "swr";
 import { useState } from "react";
 import Image from "next/image";
 import { getDate } from "../EventsList/EventItem/EventItem";
+import NoElements from "../NoElements";
+import { ShoppingCart } from "lucide-react";
 
 export default function CartList({ cartItems }) {
   const [confirmId, setConfirmId] = useState(null);
@@ -12,10 +14,11 @@ export default function CartList({ cartItems }) {
 
   if (!cartItems || cartItems.length === 0)
     return (
-      <EmptyCart>
-        <p>Your cart is empty 🛒</p>
-        <StyledLink href="/">Browse events</StyledLink>
-      </EmptyCart>
+      <NoElements
+        titel="Your cart is empty"
+        description="Add some events to your cart to get started"
+        icon={<ShoppingCart size="30" />}
+      />
     );
 
   async function handleDelete(id, title) {
@@ -151,24 +154,6 @@ const Price = styled.div`
   font-weight: 700;
   font-size: 18px;
   color: #000000;
-`;
-
-const EmptyCart = styled.div`
-  text-align: center;
-  margin-top: 80px;
-  p {
-    font-size: 18px;
-    margin-bottom: 16px;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  color: #0070f3;
-  text-decoration: none;
-  font-weight: 500;
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 const BackLink = styled(Link)`
