@@ -57,7 +57,7 @@ export default function EventPage({ event, favorites, setFavorites }) {
         <Title>{event.title}</Title>
         <ImageWrapper>
           <Image
-            src={"/event-img.jpg"}
+            src={event.image ? `${event.image}` : "/event-img.jpg"}
             alt={event.title}
             width="230"
             height="150"
