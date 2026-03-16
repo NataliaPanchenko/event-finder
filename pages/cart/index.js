@@ -4,6 +4,8 @@ import useSWR from "swr";
 import OrderSummary from "@/components/CartList/OrderSummary";
 import { useState } from "react";
 import { mutate } from "swr";
+import Error from "@/components/Error";
+import Loading from "@/components/Loading";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -32,8 +34,8 @@ export default function CartPage() {
     }
   }
 
-  if (isLoading) return <p>Loading cart...</p>;
-  if (error) return <p>Failed to load cart</p>;
+  if (isLoading) return <Loading />;
+  if (error) return <Error message="Failed to load cart" />;
 
   return (
     <Container>

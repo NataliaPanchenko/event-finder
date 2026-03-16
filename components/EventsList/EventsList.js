@@ -2,16 +2,17 @@ import styled from "styled-components";
 import EventItem from "./EventItem/EventItem";
 import { useRouter } from "next/router";
 import Error from "../Error";
+import Loading from "../Loading";
 
 export default function EventsList({ events, isLoading, error }) {
   const router = useRouter();
-  if (isLoading) return <h2>Loading...</h2>;
+  if (isLoading) return <Loading />;
   if (error) {
     return <Error />;
   }
 
   if (!Array.isArray(events) || events.length === 0) {
-    return <h3>No events found.</h3>;
+    return <Error message="No events found." />;
   }
 
   return (
