@@ -20,7 +20,7 @@ export default function EventItem({ event, onClick }) {
       <Content>
         <ImageWrapper>
           <Image
-            src={event.image ? `${event.image}` : "/event-img.jpg"}
+            src={event.image ? event.image : "/event-img.jpg"}
             alt={event.title}
             fill
           />

@@ -10,6 +10,7 @@ import { Heart } from "lucide-react";
 
 export default function EventPage({ event, favorites, setFavorites }) {
   const [addMessage, setAddMessage] = useState("");
+  const [imageOpen, setImageOpen] = useState(false);
 
   if (!event) return <h2>Event not found</h2>;
 
@@ -55,13 +56,28 @@ export default function EventPage({ event, favorites, setFavorites }) {
           fill={favorites.includes(event._id) ? "white" : "none"}
         />
         <Title>{event.title}</Title>
-        <ImageWrapper>
+        <ImageWrapper onClick={() => setImageOpen(true)}>
           <Image
-            src={event.image ? `${event.image}` : "/event-img.jpg"}
+            src={event.image ? event.image : "/event-img.jpg"}
             alt={event.title}
             fill
           />
         </ImageWrapper>
+
+        {imageOpen && (
+          <ModalOverlay onClick={() => setImageOpen(false)}>
+            <ModalContent onClick={(e) => e.stopPropagation()}>
+              <CloseButton onClick={() => setImageOpen(false)}>✕</CloseButton>
+              <ModalImage
+                src={event.image ? event.image : "/event-img.jpg"}
+                alt={event.title}
+                fill
+                style={{ objectFit: "contain" }}
+              />
+            </ModalContent>
+          </ModalOverlay>
+        )}
+
         <Meta>
           <DateText>{getDate(event.date)}</DateText>
           <Location>
@@ -144,9 +160,52 @@ const ImageWrapper = styled.div`
   border-radius: 8px;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
   img {
     object-fit: cover;
   }
+`;
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+const ModalContent = styled.div`
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  height: 80%;
+`;
+
+const ModalImage = styled(Image)`
+  width: 100%;
+  height: 100%;
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
 `;
 
 const Title = styled.h1`
