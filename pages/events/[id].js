@@ -151,6 +151,7 @@ const Message = styled.div`
   font-weight: 400;
   font-size: 14px;
   max-width: 600px;
+  z-index: 100;
 `;
 
 const ImageWrapper = styled.div`
