@@ -155,8 +155,8 @@ const Message = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
   margin: 0 auto 12px;
   border-radius: 8px;
   overflow: hidden;
