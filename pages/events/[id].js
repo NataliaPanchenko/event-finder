@@ -59,8 +59,7 @@ export default function EventPage({ event, favorites, setFavorites }) {
           <Image
             src={event.image ? `${event.image}` : "/event-img.jpg"}
             alt={event.title}
-            width="230"
-            height="150"
+            fill
           />
         </ImageWrapper>
         <Meta>
@@ -139,10 +138,15 @@ const Message = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 12px 0 8px 0;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  img {
+    object-fit: cover;
+  }
 `;
 
 const Title = styled.h1`

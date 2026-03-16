@@ -66,7 +66,7 @@ const Card = styled.div`
 const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 150px;
+  height: 180px;
   overflow: hidden;
   img {
     object-fit: cover;
