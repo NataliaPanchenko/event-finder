@@ -6,12 +6,20 @@ import { MapPin } from "lucide-react";
 import { mutate } from "swr";
 import getEventById from "@/services/eventService";
 import { useState } from "react";
-import { Category } from "@/components/CartList/CartList";
+import { Heart } from "lucide-react";
 
-export default function EventPage({ event }) {
+export default function EventPage({ event, favorites, setFavorites }) {
   const [addMessage, setAddMessage] = useState("");
 
   if (!event) return <h2>Event not found</h2>;
+
+  const handleFavorites = (id) => {
+    if (favorites?.includes(id)) {
+      setFavorites(favorites.filter((item) => item !== id));
+    } else {
+      setFavorites([...favorites, id]);
+    }
+  };
 
   async function handleAddToCart(title) {
     const item = {
@@ -40,6 +48,12 @@ export default function EventPage({ event }) {
     <PageContainer>
       <Card>
         {addMessage && <Message>{addMessage}</Message>}
+        <FavoriteIcon
+          size="40"
+          onClick={() => handleFavorites(event._id)}
+          $active={favorites?.includes(event._id)}
+          fill={favorites.includes(event._id) ? "white" : "none"}
+        />
         <Title>{event.title}</Title>
         <ImageWrapper>
           <Image
@@ -87,12 +101,25 @@ const PageContainer = styled.div`
 `;
 
 const Card = styled.div`
+  position: relative;
   background-color: #ffffff;
   padding: 30px 40px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   max-width: 600px;
   width: 100%;
+`;
+
+const FavoriteIcon = styled(Heart)`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #f4f2f2;
+  border-radius: 20px;
+  cursor: pointer;
+  color: ${({ $active }) => ($active ? "white" : "#555")};
+  background-color: ${({ $active }) => ($active ? "#ff4d4d" : "#f4f2f2")};
 `;
 
 const Message = styled.div`
@@ -202,3 +229,15 @@ const AddButton = styled.button`
     background-color: rgb(4, 151, 255);
   }
 `;
+
+const Category = styled.p`
+  display: block;
+  width: fit-content;
+  background-color: rgba(129, 177, 255, 0.7);
+  border-radius: 5px;
+  font-size: 0.95rem;
+  padding: 5px;
+  color: rgb(26, 7, 123);
+  margin: 0;
+`;
+

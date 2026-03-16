@@ -91,6 +91,11 @@ const Header = styled.div`
   margin-bottom: 30px;
 `;
 
+const TitleBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const Title = styled.h2`
   font-size: 28px;
   margin: 10px 0;
@@ -147,11 +152,6 @@ const Message = styled.div`
   font-weight: 400;
   font-size: 14px;
   width: 80%;
-`;
-
-const TitleBlock = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 const CartInfo = styled.p`
