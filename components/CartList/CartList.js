@@ -51,7 +51,7 @@ export default function CartList({ cartItems }) {
   return (
     <Wrapper>
       {deleteMessage && <Message>{deleteMessage}</Message>}
-      {cartItems.map((item) => (
+      {cartItems?.map((item) => (
         <TicketCard key={item._id}>
           <ImageWrapper href={`/events/${item.eventId._id}`}>
             <Image src={"/event-img.jpg"} alt={item.eventId?.title} fill />

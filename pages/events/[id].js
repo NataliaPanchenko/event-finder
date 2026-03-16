@@ -95,9 +95,9 @@ export async function getServerSideProps({ params }) {
 const PageContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 20px;
   background-color: #f9f9f9;
-  min-height: 100vh;
+  min-height: 70vh;
 `;
 
 const Card = styled.div`
@@ -240,4 +240,3 @@ const Category = styled.p`
   color: rgb(26, 7, 123);
   margin: 0;
 `;
-
