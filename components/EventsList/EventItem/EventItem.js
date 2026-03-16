@@ -14,7 +14,7 @@ export function getDate(date) {
   return eventDate;
 }
 
-export default function EventItem({ event, onClick }) {
+export default function EventItem({ event, onClick}) {
   return (
     <Card onClick={onClick}>
       <Content>

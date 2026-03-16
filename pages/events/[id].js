@@ -3,23 +3,30 @@ import Link from "next/link";
 import styled from "styled-components";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
-import { mutate } from "swr";
 import getEventById from "@/services/eventService";
 import { useState } from "react";
 import { Heart } from "lucide-react";
+import { mutate } from "swr";
 
-export default function EventPage({ event, favorites, setFavorites }) {
+export default function EventPage({ event, favorites }) {
   const [addMessage, setAddMessage] = useState("");
   const [imageOpen, setImageOpen] = useState(false);
 
   if (!event) return <h2>Event not found</h2>;
 
-  const handleFavorites = (id) => {
-    if (favorites?.includes(id)) {
-      setFavorites(favorites.filter((item) => item !== id));
+  const isFavorite = favorites?.some((fav) => fav.eventId._id === event._id);
+
+  const handleFavorites = async () => {
+    if (isFavorite) {
+      await fetch(`/api/favorites/${event._id}`, { method: "DELETE" });
     } else {
-      setFavorites([...favorites, id]);
+      await fetch("/api/favorites", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ eventId: event._id }),
+      });
     }
+    mutate("/api/favorites");
   };
 
   async function handleAddToCart(title) {
@@ -52,8 +59,8 @@ export default function EventPage({ event, favorites, setFavorites }) {
         <FavoriteIcon
           size="40"
           onClick={() => handleFavorites(event._id)}
-          $active={favorites?.includes(event._id)}
-          fill={favorites.includes(event._id) ? "white" : "none"}
+          $active={isFavorite}
+          fill={isFavorite ? "white" : "none"}
         />
         <Title>{event.title}</Title>
         <ImageWrapper onClick={() => setImageOpen(true)}>

@@ -1,5 +1,5 @@
 import dbConnect from "@/db/connect";
-import Favorites from "@/pages/favorites";
+import Favorites from "@/db/models/Favorites";
 import Event from "@/db/models/Events";
 
 export default async function handler(request, response) {

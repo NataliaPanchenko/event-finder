@@ -5,17 +5,13 @@ import { ShoppingBag } from "lucide-react";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { Heart } from "lucide-react";
-import useLocalStorageState from "use-local-storage-state";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function App({ Component, pageProps }) {
   const { data: events, error, isLoading } = useSWR("/api/events", fetcher);
-  const [favorites, setFavorites] = useLocalStorageState("favorites", {
-    defaultValue: [],
-  });
-
   const { data: cartItems } = useSWR("/api/cart", fetcher);
+  const { data: favorites } = useSWR("/api/favorites", fetcher);
 
   const cartCount = Array.isArray(cartItems)
     ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
@@ -50,7 +46,6 @@ export default function App({ Component, pageProps }) {
           isLoading={isLoading}
           error={error}
           favorites={favorites}
-          setFavorites={setFavorites}
         />
       </ContentWrapper>
       <Footer />

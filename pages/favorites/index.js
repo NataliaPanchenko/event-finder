@@ -3,13 +3,15 @@ import EventItem from "@/components/EventsList/EventItem/EventItem";
 import { useRouter } from "next/router";
 import NoElements from "@/components/NoElements";
 import { Heart } from "lucide-react";
+import { mutate } from "swr";
 
 export default function Favorites({ events, favorites }) {
-  const router = useRouter();
+  const handleRemoveFavorites = async (id) => {
+    await fetch(`/api/favorites/${id}`, { method: "DELETE" });
+    mutate("/api/favorites");
+  };
 
-  const favoriteEvents = events?.filter((event) =>
-    favorites?.includes(event._id)
-  );
+  const router = useRouter();
 
   if (!favorites || favorites.length === 0)
     return (
@@ -30,15 +32,13 @@ export default function Favorites({ events, favorites }) {
             {favorites.length === 1 ? ` event` : ` events`}
           </TitleBlock>
         </Header>
-        {console.log("events", events)}
-        {console.log("favorites", favorites)}
-        {console.log("favoriteEvents", favoriteEvents)}
         <EventsWrapper>
-          {favoriteEvents?.map((event) => (
+          {favorites?.map((fav) => (
             <EventItem
-              key={event._id}
-              event={event}
-              onClick={() => router.push(`/events/${event._id}`)}
+              key={fav._id}
+              event={fav.eventId}
+              onClick={() => router.push(`/events/${fav.eventId._id}`)}
+              remove={() => handleRemoveFavorites(fav.eventId._id)}
             />
           ))}
         </EventsWrapper>
