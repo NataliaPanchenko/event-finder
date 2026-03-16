@@ -54,7 +54,12 @@ export default function CartList({ cartItems }) {
       {cartItems?.map((item) => (
         <TicketCard key={item._id}>
           <ImageWrapper href={`/events/${item.eventId._id}`}>
-            <Image src={"/event-img.jpg"} alt={item.eventId?.title} fill />
+            {console.log("item", item)}
+            <Image
+              src={item.eventId.image ? item.eventId.image : "/event-img.jpg"}
+              alt={item.eventId?.title || "Event image"}
+              fill
+            />
           </ImageWrapper>
           <Info>
             <Category>{item.eventId.category?.name || "No category"}</Category>
