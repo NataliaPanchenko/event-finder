@@ -19,7 +19,11 @@ export default function EventItem({ event, onClick }) {
     <Card onClick={onClick}>
       <Content>
         <ImageWrapper>
-          <Image src={"/event-img.jpg"} alt={event.title} fill />
+          <Image
+            src={event.image ? event.image : "/event-img.jpg"}
+            alt={event.title}
+            fill
+          />
           <CategoryBadge>{event.category?.name}</CategoryBadge>
         </ImageWrapper>
         <Title>{event.title}</Title>
@@ -62,7 +66,7 @@ const Card = styled.div`
 const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 150px;
+  height: 180px;
   overflow: hidden;
   img {
     object-fit: cover;

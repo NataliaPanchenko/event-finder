@@ -73,7 +73,7 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 30px;
+  padding: 10px 30px 0 30px;
 `;
 
 const CartWrapper = styled.div`
