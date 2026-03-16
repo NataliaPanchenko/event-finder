@@ -14,10 +14,9 @@ export default function CartPage() {
   const [clearCartMessage, setClearCartMessage] = useState("");
   const [confirmClear, setConfirmClear] = useState(false);
 
-  const quantityItems = cartItems?.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
+  const quantityItems = Array.isArray(cartItems)
+    ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
+    : 0;
 
   async function clearCart() {
     const response = await fetch("/api/cart", {
