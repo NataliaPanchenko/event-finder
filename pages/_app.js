@@ -26,22 +26,24 @@ export default function App({ Component, pageProps }) {
     <AppWrapper>
       <ContentWrapper>
         <GlobalStyle />
-        <StyledTitel href="/">
-          🎫 <GradientWord>Event</GradientWord>{" "}
-          <GraphiteWord>Finder</GraphiteWord>
-        </StyledTitel>
-        <CartWrapper>
-          <StyledIcon href="/favorites">
-            <Heart size="25" />
-            {favoritesCount > 0 && (
-              <FavoritesBadge>{favoritesCount}</FavoritesBadge>
-            )}
-          </StyledIcon>
-          <StyledIcon href="/cart">
-            <ShoppingBag size="25" />
-            {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
-          </StyledIcon>
-        </CartWrapper>
+        <Header>
+          <StyledTitel href="/">
+            🎫 <GradientWord>Event</GradientWord>{" "}
+            <GraphiteWord>Finder</GraphiteWord>
+          </StyledTitel>
+          <CartWrapper>
+            <StyledIcon href="/favorites">
+              <Heart size="25" />
+              {favoritesCount > 0 && (
+                <FavoritesBadge>{favoritesCount}</FavoritesBadge>
+              )}
+            </StyledIcon>
+            <StyledIcon href="/cart">
+              <ShoppingBag size="25" />
+              {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
+            </StyledIcon>
+          </CartWrapper>
+        </Header>
         <Component
           {...pageProps}
           events={events}
@@ -67,8 +69,14 @@ const ContentWrapper = styled.div`
   position: relative;
 `;
 
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+`;
+
 const CartWrapper = styled.div`
-  position: absolute;
   top: 35px;
   right: 30px;
   cursor: pointer;
@@ -87,7 +95,6 @@ const StyledTitel = styled(Link)`
   font-weight: 700;
   display: flex;
   gap: 6px;
-  margin: 20px 0 0 10px;
   font-size: 32px;
   transition: transform 0.3s ease;
   &:hover {
