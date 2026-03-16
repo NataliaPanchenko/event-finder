@@ -1,10 +1,12 @@
 import EventsList from "@/components/EventsList/EventsList";
 import styled from "styled-components";
+import Error from "@/components/Error";
+import Loading from "@/components/Loading";
 
 export default function HomePage({ events, error, isLoading }) {
-  if (isLoading) return <h2>Loading...</h2>;
+  if (isLoading) return <Loading />;
   if (error) {
-    return <h2>Error</h2>;
+    return <Error />;
   }
 
   return (

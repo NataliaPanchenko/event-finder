@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import EventItem from "./EventItem/EventItem";
 import { useRouter } from "next/router";
+import Error from "../Error";
 
 export default function EventsList({ events, isLoading, error }) {
   const router = useRouter();
   if (isLoading) return <h2>Loading...</h2>;
   if (error) {
-    return <h2>Error</h2>;
+    return <Error />;
   }
 
   if (!Array.isArray(events) || events.length === 0) {
