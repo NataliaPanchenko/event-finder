@@ -17,44 +17,10 @@ export default function App({ Component, pageProps }) {
 
   const { data: cartItems } = useSWR("/api/cart", fetcher);
 
-<<<<<<< HEAD
-  const cartCount =
-    cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0;
-  const favoritesCount = favorites?.length;
-
-  return (
-    <>
-      <GlobalStyle />
-      <StyledHeader>
-        <StyledTitel href="/">
-          🎫 <GradientWord>Event</GradientWord>{" "}
-          <GraphiteWord>Finder</GraphiteWord>
-        </StyledTitel>
-        <IconsWrapper>
-          <StyledIcon href="/favorites">
-            <Heart size="25" />
-            {favoritesCount > 0 && (
-              <FavoritesBadge>{favoritesCount}</FavoritesBadge>
-            )}
-          </StyledIcon>
-          <StyledIcon href="/cart">
-            <ShoppingBag size="25" />
-            {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
-          </StyledIcon>
-        </IconsWrapper>
-      </StyledHeader>
-      <Component
-        {...pageProps}
-        events={events}
-        isLoading={isLoading}
-        error={error}
-        favorites={favorites}
-        setFavorites={setFavorites}
-      />
-=======
   const cartCount = Array.isArray(cartItems)
     ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
     : 0;
+  const favoritesCount = favorites?.length;
 
   return (
     <AppWrapper>
@@ -77,19 +43,11 @@ export default function App({ Component, pageProps }) {
           error={error}
         />
       </ContentWrapper>
->>>>>>> main
       <Footer />
     </AppWrapper>
   );
 }
 
-<<<<<<< HEAD
-const StyledHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  margin: 15px;
-=======
 const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -114,7 +72,6 @@ const CartWrapper = styled.div`
     transform: translateY(-2px);
     color: var(--black-color);
   }
->>>>>>> main
 `;
 
 const StyledTitel = styled(Link)`
