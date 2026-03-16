@@ -62,6 +62,10 @@ const AppWrapper = styled.div`
 const ContentWrapper = styled.div`
   flex: 1;
   position: relative;
+  const quantityItems = Array.isArray(cartItems)
+  ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
+  : 0;
+
 `;
 
 const Header = styled.div`
