@@ -7,7 +7,6 @@ import { mutate } from "swr";
 import getEventById from "@/services/eventService";
 import { useState } from "react";
 import { Heart } from "lucide-react";
-import { Category } from "@/components/CartList/CartList";
 
 export default function EventPage({ event, favorites, setFavorites }) {
   const [addMessage, setAddMessage] = useState("");
@@ -52,7 +51,7 @@ export default function EventPage({ event, favorites, setFavorites }) {
         <FavoriteIcon
           size="40"
           onClick={() => handleFavorites(event._id)}
-          $active={favorites.includes(event._id)}
+          $active={favorites?.includes(event._id)}
           fill={favorites.includes(event._id) ? "white" : "none"}
         />
         <Title>{event.title}</Title>
@@ -230,3 +229,15 @@ const AddButton = styled.button`
     background-color: rgb(4, 151, 255);
   }
 `;
+
+const Category = styled.p`
+  display: block;
+  width: fit-content;
+  background-color: rgba(129, 177, 255, 0.7);
+  border-radius: 5px;
+  font-size: 0.95rem;
+  padding: 5px;
+  color: rgb(26, 7, 123);
+  margin: 0;
+`;
+

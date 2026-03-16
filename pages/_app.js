@@ -26,21 +26,29 @@ export default function App({ Component, pageProps }) {
     <AppWrapper>
       <ContentWrapper>
         <GlobalStyle />
-        <StyledTitel>
+        <StyledTitel href="/">
           🎫 <GradientWord>Event</GradientWord>{" "}
           <GraphiteWord>Finder</GraphiteWord>
         </StyledTitel>
         <CartWrapper>
-          <StyledLink href="/cart">
+          <StyledIcon href="/favorites">
+            <Heart size="25" />
+            {favoritesCount > 0 && (
+              <FavoritesBadge>{favoritesCount}</FavoritesBadge>
+            )}
+          </StyledIcon>
+          <StyledIcon href="/cart">
             <ShoppingBag size="25" />
             {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
-          </StyledLink>
+          </StyledIcon>
         </CartWrapper>
         <Component
           {...pageProps}
           events={events}
           isLoading={isLoading}
           error={error}
+          favorites={favorites}
+          setFavorites={setFavorites}
         />
       </ContentWrapper>
       <Footer />
@@ -79,6 +87,7 @@ const StyledTitel = styled(Link)`
   font-weight: 700;
   display: flex;
   gap: 6px;
+  margin: 20px 0 0 10px;
   font-size: 32px;
   transition: transform 0.3s ease;
   &:hover {

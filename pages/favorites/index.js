@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import EventItem from "@/components/EventsList/EventItem/EventItem";
-import { EmptyCart, StyledLink } from "@/components/CartList/CartList";
 import { useRouter } from "next/router";
+import NoElements from "@/components/NoElements";
+import { Heart } from "lucide-react";
 
 export default function Favorites({ events, favorites }) {
   const router = useRouter();
@@ -12,10 +13,11 @@ export default function Favorites({ events, favorites }) {
 
   if (!favorites || favorites.length === 0)
     return (
-      <EmptyCart>
-        <p>Your wishlist is empty 💔</p>
-        <StyledLink href="/">Browse events</StyledLink>
-      </EmptyCart>
+      <NoElements
+        titel="Your wishlist is empty"
+        description="Add some events to your wishlist to get started"
+        icon={<Heart size="30" />}
+      />
     );
 
   return (
@@ -31,13 +33,15 @@ export default function Favorites({ events, favorites }) {
         {console.log("events", events)}
         {console.log("favorites", favorites)}
         {console.log("favoriteEvents", favoriteEvents)}
-        {favoriteEvents.map((event) => (
-          <EventItem
-            key={event._id}
-            event={event}
-            onClick={() => router.push(`/events/${event._id}`)}
-          />
-        ))}
+        <EventsWrapper>
+          {favoriteEvents?.map((event) => (
+            <EventItem
+              key={event._id}
+              event={event}
+              onClick={() => router.push(`/events/${event._id}`)}
+            />
+          ))}
+        </EventsWrapper>
       </Container>
     </>
   );
@@ -67,4 +71,8 @@ const Title = styled.h2`
 const TitleBlock = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const EventsWrapper = styled.div`
+  margin: 10px;
 `;
