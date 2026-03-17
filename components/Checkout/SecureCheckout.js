@@ -45,7 +45,6 @@ export default function SecureCheckout({ cartItems }) {
         email: values["email"],
       },
     };
-    console.log("order", order);
 
     try {
       const response = await fetch("/api/orders", {
