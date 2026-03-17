@@ -3,10 +3,12 @@ import Link from "next/link";
 import { ArrowRight, Linkedin } from "lucide-react";
 
 export default function OrderSummary({ cartItems }) {
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.eventId?.price * item.quantity,
-    0
-  );
+  const subtotal = Array.isArray(cartItems)
+    ? cartItems.reduce(
+        (sum, item) => sum + item.eventId?.price * item.quantity,
+        0
+      )
+    : 0;
   const serviceFee = +(subtotal * 0.03).toFixed(2);
   const total = subtotal + serviceFee;
 

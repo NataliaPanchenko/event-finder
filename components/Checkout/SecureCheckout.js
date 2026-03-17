@@ -13,12 +13,21 @@ import {
 
 export default function SecureCheckout({ cartItems }) {
   const [payment, setPayment] = useState("card");
-  const subtotal = cartItems.reduce(
+
+  const subtotal = (cartItems || []).reduce(
     (sum, item) => sum + item.eventId?.price * item.quantity,
     0
   );
   const serviceFee = +(subtotal * 0.03).toFixed(2);
   const total = subtotal + serviceFee;
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const values = Object.fromEntries(data.entries());
+    console.log(values);
+    event.target.reset();
+  }
 
   const options = [
     {
@@ -66,74 +75,99 @@ export default function SecureCheckout({ cartItems }) {
         </SecuredWrapper>
       </Header>
 
-      <SectionTitle>
-        <UserIcon size="20" />
-        <SectionTitleText>Contact Information</SectionTitleText>
-      </SectionTitle>
+      <form onSubmit={handleSubmit}>
+        <SectionTitle>
+          <UserIcon size="20" />
+          <SectionTitleText>Contact Information</SectionTitleText>
+        </SectionTitle>
 
-      <Grid>
-        <InputTitle>First Name *</InputTitle>
-        <Input placeholder="John" />
-      </Grid>
+        <Grid>
+          <InputTitle name="first-name">First Name *</InputTitle>
+          <Input
+            placeholder="John"
+            id="first-name"
+            name="first-name"
+            type="text"
+            required
+          />
+        </Grid>
 
-      <Grid>
-        <InputTitle>Last Name *</InputTitle>
-        <Input placeholder="Doe" />
-      </Grid>
+        <Grid>
+          <InputTitle name="last-name">Last Name *</InputTitle>
+          <Input
+            placeholder="Doe"
+            name="last-name"
+            id="last-name"
+            type="text"
+            required
+          />
+        </Grid>
 
-      <Grid>
-        <InputWrapper>
-          <Mail size="15" />
-          <InputTitle>Email Adress *</InputTitle>
-        </InputWrapper>
-        <Input placeholder="john.doe@example.com" />
-      </Grid>
+        <Grid>
+          <InputWrapper>
+            <Mail size="15" />
+            <InputTitle name="email">Email Adress *</InputTitle>
+          </InputWrapper>
+          <Input
+            placeholder="john.doe@example.com"
+            name="email"
+            id="email"
+            type="email"
+            required
+          />
+        </Grid>
 
-      <Grid>
-        <InputWrapper>
-          <Phone size="15" />
-          <InputTitle>Phone Number *</InputTitle>
-        </InputWrapper>
-        <Input placeholder="+1 (555) 123-4567" />
-      </Grid>
+        <Grid>
+          <InputWrapper>
+            <Phone size="15" />
+            <InputTitle name="phone">Phone Number *</InputTitle>
+          </InputWrapper>
+          <Input
+            placeholder="+1 (555) 123-4567"
+            name="phone"
+            id="phone"
+            required
+          />
+        </Grid>
 
-      <Divider />
+        <Divider />
 
-      <SectionTitle>
-        <WalletIcon size="20" />
-        <SectionTitleText>Payment Method</SectionTitleText>
-      </SectionTitle>
+        <SectionTitle>
+          <WalletIcon size="20" />
+          <SectionTitleText>Payment Method</SectionTitleText>
+        </SectionTitle>
 
-      <Grid>
-        {options.map((option) => {
-          const IconComponent = option.icon;
-          return (
-            <Card
-              key={option.id}
-              active={payment === option.id}
-              onClick={() => setPayment(option.id)}
-            >
-              <IconPayment style={{ background: option.gradient }}>
-                <IconComponent size="25" />
-              </IconPayment>
-              <div>
-                <CardTitle>{option.title}</CardTitle>
-                <CardSub>{option.sub}</CardSub>
-              </div>
-            </Card>
-          );
-        })}
-      </Grid>
+        <Grid>
+          {options.map((option) => {
+            const IconComponent = option.icon;
+            return (
+              <Card
+                key={option.id}
+                active={payment === option.id}
+                onClick={() => setPayment(option.id)}
+              >
+                <IconPayment style={{ background: option.gradient }}>
+                  <IconComponent size="25" />
+                </IconPayment>
+                <div>
+                  <CardTitle>{option.title}</CardTitle>
+                  <CardSub>{option.sub}</CardSub>
+                </div>
+              </Card>
+            );
+          })}
+        </Grid>
 
-      <SecurityText>
-        <ShieldIcon size="15" /> All payments are secured with industry-standard
-        encryption
-      </SecurityText>
+        <SecurityText>
+          <ShieldIcon size="15" /> All payments are secured with
+          industry-standard encryption
+        </SecurityText>
 
-      <PayButton>
-        <PayIcon size="20" />
-        <PayText>Complete Payment - €{total}</PayText>
-      </PayButton>
+        <PayButton type="submit">
+          <PayIcon size="20" />
+          <PayText>Complete Payment - €{total}</PayText>
+        </PayButton>
+      </form>
 
       <Terms>
         By completing this purchase, you agree to our Terms of Service and
@@ -229,7 +263,7 @@ const InputWrapper = styled.div`
   gap: 5px;
 `;
 
-const InputTitle = styled.p`
+const InputTitle = styled.label`
   margin: 0;
   font-size: 14px;
   font-weight: 500;
