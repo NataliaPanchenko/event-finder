@@ -117,6 +117,7 @@ export default function SecureCheckout({ cartItems }) {
 
       <form onSubmit={handleSubmit}>
         <SectionTitle>
+          <input type="hidden" name="paymentMethod" value={payment} />
           <UserIcon size="20" />
           <SectionTitleText>Contact Information</SectionTitleText>
         </SectionTitle>
@@ -183,6 +184,7 @@ export default function SecureCheckout({ cartItems }) {
             return (
               <Card
                 key={option.id}
+                type="button"
                 active={payment === option.id}
                 onClick={() => setPayment(option.id)}
               >
