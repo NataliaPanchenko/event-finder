@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function OrderSummary({ cartItems }) {
   const subtotal = cartItems.reduce(
@@ -25,7 +26,9 @@ export default function OrderSummary({ cartItems }) {
         <span>Total</span>
         <span>€{total.toFixed(2)}</span>
       </TotalRow>
-      {/* <CheckoutButton>Proceed to Checkout →</CheckoutButton> */}
+      <CheckoutButton>
+        Proceed to Checkout <ArrowRight size={18} />
+      </CheckoutButton>
       <Continue href="/">Continue Shopping</Continue>
     </SummaryCard>
   );
@@ -58,14 +61,20 @@ const Divider = styled.hr`
 `;
 
 const CheckoutButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   width: 100%;
   margin-top: 20px;
   background: #2563eb;
   color: white;
   border: none;
-  padding: 14px;
+  padding: 16px 14px;
   border-radius: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: #f8fbff;
   cursor: pointer;
   transition: 0.2s;
   &:hover {
@@ -80,6 +89,7 @@ const Continue = styled(Link)`
   color: #2563eb;
   text-decoration: none;
   cursor: pointer;
+  font-size: 0.92rem;
   font-weight: 600;
   &:hover {
     text-decoration: underline;
