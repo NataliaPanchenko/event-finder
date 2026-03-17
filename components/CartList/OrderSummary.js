@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Linkedin } from "lucide-react";
 
 export default function OrderSummary({ cartItems }) {
   const subtotal = cartItems.reduce(
@@ -26,7 +26,7 @@ export default function OrderSummary({ cartItems }) {
         <span>Total</span>
         <span>€{total.toFixed(2)}</span>
       </TotalRow>
-      <CheckoutButton>
+      <CheckoutButton href="/checkout">
         Proceed to Checkout <ArrowRight size={18} />
       </CheckoutButton>
       <Continue href="/">Continue Shopping</Continue>
@@ -60,7 +60,7 @@ const Divider = styled.hr`
   margin: 16px 0;
 `;
 
-const CheckoutButton = styled.button`
+const CheckoutButton = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,6 +75,7 @@ const CheckoutButton = styled.button`
   font-weight: 600;
   font-size: 0.92rem;
   color: #f8fbff;
+  text-decoration: none;
   cursor: pointer;
   transition: 0.2s;
   &:hover {
