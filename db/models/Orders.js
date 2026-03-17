@@ -19,6 +19,11 @@ const ordersSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    customer: {
+      firstName: { type: String },
+      lastName: { type: String },
+      email: { type: String },
+    },
     paymentMethod: {
       type: String,
       required: true,
@@ -28,7 +33,7 @@ const ordersSchema = new mongoose.Schema(
       default: Date.now,
     },
   },
-  { collection: "orders" }
+  { collection: "orders", timestamps: true }
 );
 
 export default mongoose.models.Orders || mongoose.model("Orders", ordersSchema);

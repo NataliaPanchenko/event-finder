@@ -27,13 +27,43 @@ export default function SecureCheckout({ cartItems }) {
   const serviceFee = +(subtotal * 0.03).toFixed(2);
   const total = subtotal + serviceFee;
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
     const values = Object.fromEntries(data.entries());
-    console.log(values);
-    setCheckoutMessage(true);
-    event.target.reset();
+
+    const order = {
+      items: cartItems.map((item) => ({
+        eventId: item.eventId._id,
+        quantity: item.quantity,
+      })),
+      total,
+      paymentMethod: payment,
+      customer: {
+        firstName: values["first-name"],
+        lastName: values["last-name"],
+        email: values["email"],
+      },
+    };
+    console.log("order", order);
+
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(order),
+      });
+
+      if (!response.ok) throw new Error("Failed to create order");
+
+      setCheckoutMessage(true);
+      event.target.reset();
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
+    }
   }
 
   async function clearCart() {
@@ -44,7 +74,7 @@ export default function SecureCheckout({ cartItems }) {
     if (response.ok) {
       mutate("/api/cart");
     } else {
-      alert("Error clearing cart 🗑😥");
+      alert("Error clearing cart");
     }
   }
 

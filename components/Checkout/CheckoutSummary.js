@@ -79,6 +79,7 @@ const Item = styled.div`
   padding: 16px;
   border-radius: 14px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin-bottom: 16px;
   font-size: 14px;
