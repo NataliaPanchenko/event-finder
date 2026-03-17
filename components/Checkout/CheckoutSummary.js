@@ -10,9 +10,11 @@ export default function CheckoutSummary({ cartItems }) {
       <Item>
         <ItemWrapper>
           <ItemTitle>Modern Art Exhibition</ItemTitle>
-          <ItemSub>1 × $25.00</ItemSub>
+          <ItemSubWrapper>
+            <ItemSub>1 × $25.00</ItemSub>
+            <ItemSubPrice>$25.00</ItemSubPrice>
+          </ItemSubWrapper>
         </ItemWrapper>
-        <b>$25.00</b>
       </Item>
       <Row>
         <Subtotal>Subtotal</Subtotal>
@@ -68,10 +70,34 @@ const Item = styled.div`
   font-size: 14px;
 `;
 
-const ItemWrapper = styled.div``;
+const ItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const ItemSubWrapper = styled.div`
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ItemSub = styled.p`
+  font-size: 13px;
+  color: #777;
+`;
+
+const ItemSubPrice = styled.p`
+  font-size: 13px;
+  color: black;
+  font-weight: 600;
+`;
 
 const ItemTitle = styled.p`
   font-weight: 500;
+  margin: 0;
 `;
 
 const Subtotal = styled.div`
@@ -81,11 +107,6 @@ const Subtotal = styled.div`
 const Price = styled.div`
   font-size: 16px;
   font-weight: 600;
-`;
-
-const ItemSub = styled.p`
-  font-size: 13px;
-  color: #777;
 `;
 
 const Row = styled.div`
