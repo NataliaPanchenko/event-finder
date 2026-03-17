@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   Lock,
@@ -13,6 +13,7 @@ import {
 
 export default function SecureCheckout({ cartItems }) {
   const [payment, setPayment] = useState("card");
+  const [checkoutMessage, setCheckoutMessage] = useState(false);
 
   const subtotal = (cartItems || []).reduce(
     (sum, item) => sum + item.eventId?.price * item.quantity,
@@ -26,8 +27,17 @@ export default function SecureCheckout({ cartItems }) {
     const data = new FormData(event.target);
     const values = Object.fromEntries(data.entries());
     console.log(values);
+    setCheckoutMessage(true);
     event.target.reset();
   }
+
+  useEffect(() => {
+    if (checkoutMessage) {
+      const timer = setTimeout(() => {
+        setCheckoutMessage(false);
+      }, 5000);
+    }
+  }, [checkoutMessage]);
 
   const options = [
     {
@@ -74,6 +84,10 @@ export default function SecureCheckout({ cartItems }) {
           </Subtitle>
         </SecuredWrapper>
       </Header>
+
+      {checkoutMessage && (
+        <CheckoutMessage>Successfully ordered!</CheckoutMessage>
+      )}
 
       <form onSubmit={handleSubmit}>
         <SectionTitle>
@@ -376,3 +390,5 @@ const Terms = styled.p`
   text-align: center;
   padding: 0 10px;
 `;
+
+const CheckoutMessage = styled.div``;
