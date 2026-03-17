@@ -27,7 +27,7 @@ const Loader = styled.div`
   border-radius: 20px;
 
   background:
-    repeating-linear-gradient(135deg, #f03355 0 10px, #ffa516 0 20px) 0 / 0%
+    repeating-linear-gradient(135deg, #b23cfb 0 10px, #fb39ee 0 20px) 0 / 0%
       no-repeat,
     repeating-linear-gradient(135deg, #ddd 0 10px, #eee 0 20px) 0 / 100%;
 

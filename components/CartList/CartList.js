@@ -152,7 +152,7 @@ const Quantity = styled.p`
   margin: 0;
   font-size: 14px;
   color: #777;
-  padding: 0 8px;
+  padding: 0 14px;
 `;
 
 const Price = styled.div`
