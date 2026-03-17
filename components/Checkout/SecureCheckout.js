@@ -11,8 +11,14 @@ import {
   Wallet,
 } from "lucide-react";
 
-export default function SecureCheckout() {
+export default function SecureCheckout({ cartItems }) {
   const [payment, setPayment] = useState("card");
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + item.eventId?.price * item.quantity,
+    0
+  );
+  const serviceFee = +(subtotal * 0.03).toFixed(2);
+  const total = subtotal + serviceFee;
 
   const options = [
     {
@@ -99,20 +105,20 @@ export default function SecureCheckout() {
       </SectionTitle>
 
       <Grid>
-        {options.map((opt) => {
-          const IconComponent = opt.icon;
+        {options.map((option) => {
+          const IconComponent = option.icon;
           return (
             <Card
-              key={opt.id}
-              active={payment === opt.id}
-              onClick={() => setPayment(opt.id)}
+              key={option.id}
+              active={payment === option.id}
+              onClick={() => setPayment(option.id)}
             >
-              <IconPayment style={{ background: opt.gradient }}>
+              <IconPayment style={{ background: option.gradient }}>
                 <IconComponent size="25" />
               </IconPayment>
               <div>
-                <CardTitle>{opt.title}</CardTitle>
-                <CardSub>{opt.sub}</CardSub>
+                <CardTitle>{option.title}</CardTitle>
+                <CardSub>{option.sub}</CardSub>
               </div>
             </Card>
           );
@@ -126,7 +132,7 @@ export default function SecureCheckout() {
 
       <PayButton>
         <PayIcon size="20" />
-        <PayText>Complete Payment - $26.25</PayText>
+        <PayText>Complete Payment - €{total}</PayText>
       </PayButton>
 
       <Terms>

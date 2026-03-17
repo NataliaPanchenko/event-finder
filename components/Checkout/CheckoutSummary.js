@@ -3,32 +3,44 @@ import { CircleCheck } from "lucide-react";
 
 export default function CheckoutSummary({ cartItems }) {
   if (!cartItems) return <Wrapper>Loading...</Wrapper>;
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + item.eventId?.price * item.quantity,
+    0
+  );
+  const serviceFee = +(subtotal * 0.03).toFixed(2);
+  const total = subtotal + serviceFee;
+
   return (
     <Wrapper>
       <Title>Order Summary</Title>
 
       <Item>
-        <ItemWrapper>
-          <ItemTitle>Modern Art Exhibition</ItemTitle>
-          <ItemSubWrapper>
-            <ItemSub>1 × $25.00</ItemSub>
-            <ItemSubPrice>$25.00</ItemSubPrice>
-          </ItemSubWrapper>
-        </ItemWrapper>
+        {cartItems.map((item) => (
+          <ItemWrapper key={item._id}>
+            {console.log(item)}
+            <ItemTitle>{item.eventId.title}</ItemTitle>
+            <ItemSubWrapper>
+              <ItemSub>
+                {item.quantity} × €{item.eventId.price}
+              </ItemSub>
+              <ItemSubPrice>€{item.quantity * item.eventId.price}</ItemSubPrice>
+            </ItemSubWrapper>
+          </ItemWrapper>
+        ))}
       </Item>
       <Row>
         <Subtotal>Subtotal</Subtotal>
-        <Price>$25.00</Price>
+        <Price>€{subtotal}</Price>
       </Row>
       <Row>
         <Subtotal>Service Fee (3%)</Subtotal>
-        <Price>$1.25</Price>
+        <Price>€{serviceFee}</Price>
       </Row>
 
       <Divider />
       <Total>
         <TotalText>Total</TotalText>
-        <TotalPrice>$26.25</TotalPrice>
+        <TotalPrice>€{total}</TotalPrice>
       </Total>
 
       <Benefits>

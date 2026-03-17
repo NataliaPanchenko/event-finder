@@ -17,7 +17,7 @@ export default function CheckoutPage() {
       </BackButton>
       <Grid>
         <Left>
-          <SecureCheckout />
+          <SecureCheckout cartItems={cartItems} />
         </Left>
         <Right>
           <CheckoutSummary cartItems={cartItems} />

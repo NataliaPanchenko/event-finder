@@ -7,7 +7,7 @@ export default function OrderSummary({ cartItems }) {
     (sum, item) => sum + item.eventId?.price * item.quantity,
     0
   );
-  const serviceFee = subtotal * 0.03;
+  const serviceFee = +(subtotal * 0.03).toFixed(2);
   const total = subtotal + serviceFee;
 
   return (
