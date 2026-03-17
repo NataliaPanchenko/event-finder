@@ -2,13 +2,23 @@ import SecureCheckout from "@/components/Checkout/SecureCheckout";
 import CheckoutSummary from "@/components/Checkout/CheckoutSummary";
 import styled from "styled-components";
 import useSWR from "swr";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import NoElements from "@/components/NoElements";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function CheckoutPage() {
-  const { data: cartItems, error, isLoading } = useSWR("/api/cart", fetcher);
+  const { data: cartItems } = useSWR("/api/cart", fetcher);
+  if (!cartItems || cartItems.length === 0)
+    return (
+      <NoElements
+        titel="Your cart is empty"
+        description="Add some events to your cart to get started"
+        icon={<ShoppingCart size="30" />}
+      />
+    );
+
   return (
     <Container>
       <BackButton href="/cart">
