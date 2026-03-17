@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import {
   Lock,
@@ -9,11 +10,14 @@ import {
   CreditCard,
   Smartphone,
   Wallet,
+  CheckCircle2,
 } from "lucide-react";
 
 export default function SecureCheckout({ cartItems }) {
   const [payment, setPayment] = useState("card");
   const [checkoutMessage, setCheckoutMessage] = useState(false);
+
+  const router = useRouter();
 
   const subtotal = (cartItems || []).reduce(
     (sum, item) => sum + item.eventId?.price * item.quantity,
@@ -35,7 +39,9 @@ export default function SecureCheckout({ cartItems }) {
     if (checkoutMessage) {
       const timer = setTimeout(() => {
         setCheckoutMessage(false);
-      }, 5000);
+        router.push("/");
+      }, 2000);
+      return () => clearTimeout(timer);
     }
   }, [checkoutMessage]);
 
@@ -86,7 +92,27 @@ export default function SecureCheckout({ cartItems }) {
       </Header>
 
       {checkoutMessage && (
-        <CheckoutMessage>Successfully ordered!</CheckoutMessage>
+        <Overlay>
+          <CheckoutMessage>
+            <SuccessIcon>
+              <CheckCircle2 size="25" />
+            </SuccessIcon>
+            <SuccessTitle>Payment Successful!</SuccessTitle>
+            <SuccessText>Your tickets have been confirmed</SuccessText>
+            <SuccessSubText>
+              Check your email for confirmation details
+            </SuccessSubText>
+
+            <SummaryBox>
+              <SummaryTotal>
+                Order Total: <p>€{total.toFixed(2)}</p>
+              </SummaryTotal>
+              <SummaryTickets>Tickets: {cartItems.length}</SummaryTickets>
+            </SummaryBox>
+
+            <RedirectText>Redirecting you to home page...</RedirectText>
+          </CheckoutMessage>
+        </Overlay>
       )}
 
       <form onSubmit={handleSubmit}>
@@ -391,4 +417,97 @@ const Terms = styled.p`
   padding: 0 10px;
 `;
 
-const CheckoutMessage = styled.div``;
+const Overlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+`;
+
+const CheckoutMessage = styled.div`
+  background: #f3f4f6;
+  padding: 40px;
+  border-radius: 24px;
+  text-align: center;
+  width: 360px;
+  animation: fadeIn 0.3s ease;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+`;
+
+const SuccessIcon = styled.div`
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #16a34a;
+  color: white;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+`;
+
+const SuccessTitle = styled.h2`
+  color: #16a34a;
+  margin-bottom: 10px;
+`;
+
+const SuccessText = styled.p`
+  margin: 0;
+  color: #444;
+`;
+
+const SuccessSubText = styled.p`
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 20px;
+`;
+
+const SummaryBox = styled.div`
+  background: #d1fae5;
+  border-radius: 14px;
+  padding: 15px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  border: 1px solid #6ba86e;
+`;
+
+const SummaryTotal = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  color: #135416;
+  font-weight: 500;
+  p {
+    font-weight: 300;
+  }
+  margin: 0;
+`;
+
+const SummaryTickets = styled.p`
+  font-size: 14px;
+  color: #135416;
+  margin: 0;
+  font-weight: 300;
+`;
+
+const RedirectText = styled.p`
+  font-size: 13px;
+  color: #777;
+`;
