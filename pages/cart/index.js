@@ -38,28 +38,31 @@ export default function CartPage() {
 
   return (
     <Container>
-      <Header>
-        {clearCartMessage && <Message>{clearCartMessage}</Message>}
-        <TitleBlock>
-          <Title>Shopping Cart</Title>
-          <CartInfo>
-            {quantityItems}
-            {quantityItems === 1 ? ` item` : ` items`} in your cart
-          </CartInfo>
-        </TitleBlock>
-        {confirmClear && (
-          <ConfirmBox>
-            <p>Delele all tickets?</p>
-            <ConfirmButtons>
-              <button onClick={clearCart}>Yes</button>
-              <button onClick={() => setConfirmClear(false)}>Cancel</button>
-            </ConfirmButtons>
-          </ConfirmBox>
-        )}
-        {quantityItems !== 0 && (
-          <Clear onClick={() => setConfirmClear(true)}>Clear Cart</Clear>
-        )}
-      </Header>
+      {cartItems.length !== 0 && (
+        <Header>
+          {clearCartMessage && <Message>{clearCartMessage}</Message>}
+          <TitleBlock>
+            <Title>Shopping Cart</Title>
+            <CartInfo>
+              {quantityItems}
+              {quantityItems === 1 ? ` item` : ` items`} in your cart
+            </CartInfo>
+          </TitleBlock>
+          {confirmClear && (
+            <ConfirmBox>
+              <p>Delele all tickets?</p>
+              <ConfirmButtons>
+                <button onClick={clearCart}>Yes</button>
+                <button onClick={() => setConfirmClear(false)}>Cancel</button>
+              </ConfirmButtons>
+            </ConfirmBox>
+          )}
+          {quantityItems !== 0 && (
+            <Clear onClick={() => setConfirmClear(true)}>Clear Cart</Clear>
+          )}
+        </Header>
+      )}
+
       <CartLayout>
         <CartList cartItems={cartItems} />
         {quantityItems !== 0 && <OrderSummary cartItems={cartItems} />}
