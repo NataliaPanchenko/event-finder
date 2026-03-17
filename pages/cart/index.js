@@ -74,7 +74,7 @@ export default function CartPage() {
 const Container = styled.div`
   padding: 20px;
   max-width: 1000px;
-  margin: 20px;
+  margin: 0 auto;
   @media (max-width: 600px) {
     padding: 20px 10px;
   }

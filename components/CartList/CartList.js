@@ -50,6 +50,7 @@ export default function CartList({ cartItems }) {
 
   return (
     <Wrapper>
+      <BackLink href="/">← Back to events</BackLink>
       {deleteMessage && <Message>{deleteMessage}</Message>}
       {cartItems?.map((item) => (
         <TicketCard key={item._id}>
@@ -103,7 +104,6 @@ export default function CartList({ cartItems }) {
           )}
         </TicketCard>
       ))}
-      <BackLink href="/">← Back to events</BackLink>
     </Wrapper>
   );
 }
