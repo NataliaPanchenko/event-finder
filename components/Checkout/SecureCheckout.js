@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { mutate } from "swr";
 import {
   Lock,
   Shield,
@@ -35,12 +36,25 @@ export default function SecureCheckout({ cartItems }) {
     event.target.reset();
   }
 
+  async function clearCart() {
+    const response = await fetch("/api/cart", {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      mutate("/api/cart");
+    } else {
+      alert("Error clearing cart 🗑😥");
+    }
+  }
+
   useEffect(() => {
     if (checkoutMessage) {
-      const timer = setTimeout(() => {
+      const timer = setTimeout(async () => {
         setCheckoutMessage(false);
+        await clearCart();
         router.push("/");
-      }, 2000);
+      }, 2500);
       return () => clearTimeout(timer);
     }
   }, [checkoutMessage]);
@@ -460,6 +474,18 @@ const SuccessIcon = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px;
+  animation: float 2s ease-in-out infinite;
+  @keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
 `;
 
 const SuccessTitle = styled.h2`
@@ -506,10 +532,11 @@ const SummaryTickets = styled.p`
   font-size: 14px;
   color: #135416;
   margin: 0;
-  font-weight: 300;
+  font-weight: 400;
 `;
 
 const RedirectText = styled.p`
   font-size: 13px;
   color: #777;
+  font-weight: 400;
 `;
