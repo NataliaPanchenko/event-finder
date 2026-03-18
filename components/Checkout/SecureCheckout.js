@@ -46,6 +46,7 @@ export default function SecureCheckout({ cartItems }) {
         firstName: values["first-name"],
         lastName: values["last-name"],
         email: values["email"],
+        phone: values["phone"],
       },
     };
 
