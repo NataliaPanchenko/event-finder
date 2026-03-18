@@ -22,26 +22,28 @@ export default function CheckoutSummary({ cartItems }) {
             <ItemTitle>{item.eventId.title}</ItemTitle>
             <ItemSubWrapper>
               <ItemSub>
-                {item.quantity} × €{item.eventId.price}
+                {item.quantity} × € {item.eventId.price.toFixed(2)}
               </ItemSub>
-              <ItemSubPrice>€{item.quantity * item.eventId.price}</ItemSubPrice>
+              <ItemSubPrice>
+                € {(item.quantity * item.eventId.price).toFixed(2)}
+              </ItemSubPrice>
             </ItemSubWrapper>
           </ItemWrapper>
         ))}
       </Item>
       <Row>
         <Subtotal>Subtotal</Subtotal>
-        <Price>€{subtotal}</Price>
+        <Price>€{subtotal.toFixed(2)}</Price>
       </Row>
       <Row>
         <Subtotal>Service Fee (3%)</Subtotal>
-        <Price>€{serviceFee}</Price>
+        <Price>€ {serviceFee.toFixed(2)}</Price>
       </Row>
 
       <Divider />
       <Total>
         <TotalText>Total</TotalText>
-        <TotalPrice>€{total}</TotalPrice>
+        <TotalPrice>€ {total.toFixed(2)}</TotalPrice>
       </Total>
 
       <Benefits>

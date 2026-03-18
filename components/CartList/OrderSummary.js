@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { ArrowRight, Linkedin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function OrderSummary({ cartItems }) {
   const subtotal = Array.isArray(cartItems)

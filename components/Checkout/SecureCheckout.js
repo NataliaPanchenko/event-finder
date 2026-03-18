@@ -261,7 +261,7 @@ export default function SecureCheckout({ cartItems }) {
                 <Spinner /> Processing...
               </>
             ) : (
-              `Complete Payment - €${total}`
+              `Complete Payment - € ${total.toFixed(2)}`
             )}
           </PayText>
         </PayButton>
