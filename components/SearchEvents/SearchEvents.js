@@ -1,7 +1,13 @@
 import { SearchIcon } from "lucide-react";
 import styled from "styled-components";
 
-export default function SearchEvents({ search, setSearch }) {
+export default function SearchEvents({
+  search,
+  setSearch,
+  categories,
+  selectedCategory,
+  setSelectedCategory,
+}) {
   return (
     <Wrapper>
       <InputWrapper>
@@ -15,17 +21,17 @@ export default function SearchEvents({ search, setSearch }) {
       </InputWrapper>
       <FilterSection>
         <FilterTitle>Category</FilterTitle>
-        {/* <CategoryWrapper>
-          {categories.map((cat) => (
+        <CategoryWrapper>
+          {categories?.map((category) => (
             <CategoryButton
-              key={cat}
-              active={selectedCategory === cat}
-              onClick={() => setSelectedCategory(cat)}
+              key={category._id}
+              active={selectedCategory === category.name}
+              onClick={() => setSelectedCategory(category.name)}
             >
-              {cat}
+              {category.name}
             </CategoryButton>
           ))}
-        </CategoryWrapper> */}
+        </CategoryWrapper>
       </FilterSection>
 
       <FilterSection>

@@ -5,8 +5,9 @@ import Loading from "@/components/Loading";
 import SearchEvents from "@/components/SearchEvents/SearchEvents";
 import { useState, useMemo } from "react";
 
-export default function HomePage({ events, error, isLoading }) {
+export default function HomePage({ events, error, isLoading, categories }) {
   const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const filteredEvents = useMemo(() => {
     if (!Array.isArray(events)) return [];
@@ -28,7 +29,13 @@ export default function HomePage({ events, error, isLoading }) {
   return (
     <Wrapper>
       <Sidebar>
-        <SearchEvents search={search} setSearch={setSearch} />
+        <SearchEvents
+          search={search}
+          setSearch={setSearch}
+          categories={categories}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
       </Sidebar>
       <MainContent>
         <EventsList events={filteredEvents} />

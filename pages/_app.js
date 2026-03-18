@@ -12,6 +12,7 @@ export default function App({ Component, pageProps }) {
   const { data: events, error, isLoading } = useSWR("/api/events", fetcher);
   const { data: cartItems } = useSWR("/api/cart", fetcher);
   const { data: favorites } = useSWR("/api/favorites", fetcher);
+  const { data: categories } = useSWR("/api/categories", fetcher);
 
   const cartCount = Array.isArray(cartItems)
     ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
@@ -46,6 +47,7 @@ export default function App({ Component, pageProps }) {
           isLoading={isLoading}
           error={error}
           favorites={favorites}
+          categories={categories}
         />
       </ContentWrapper>
       <Footer />
@@ -62,10 +64,6 @@ const AppWrapper = styled.div`
 const ContentWrapper = styled.div`
   flex: 1;
   position: relative;
-  const quantityItems = Array.isArray(cartItems)
-  ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
-  : 0;
-
 `;
 
 const Header = styled.div`
