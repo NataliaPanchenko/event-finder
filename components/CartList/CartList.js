@@ -15,7 +15,7 @@ export default function CartList({ cartItems }) {
   if (!cartItems || cartItems.length === 0)
     return (
       <NoElements
-        titel="Your cart is empty"
+        title="Your cart is empty"
         description="Add some events to your cart to get started"
         icon={<ShoppingCart size="30" />}
       />

@@ -7,7 +7,21 @@ export default function SearchEvents({
   categories,
   selectedCategory,
   setSelectedCategory,
+  selectedPrice,
+  setSelectedPrice,
 }) {
+  const priceRanges = [
+    "All prices",
+    "Free - €25",
+    "€25 - €75",
+    "€75 - €150",
+    "€150+",
+  ];
+  const handleCategoryButtons = () => {
+    if (selectedCategory) {
+      setSelectedCategory(null);
+    }
+  };
   return (
     <Wrapper>
       <InputWrapper>
@@ -19,6 +33,7 @@ export default function SearchEvents({
           onChange={(event) => setSearch(event.target.value)}
         />
       </InputWrapper>
+
       <FilterSection>
         <FilterTitle>Category</FilterTitle>
         <CategoryWrapper>
@@ -26,7 +41,11 @@ export default function SearchEvents({
             <CategoryButton
               key={category._id}
               active={selectedCategory === category._id}
-              onClick={() => setSelectedCategory(category._id)}
+              onClick={() =>
+                setSelectedCategory(
+                  selectedCategory === category._id ? null : category._id
+                )
+              }
             >
               {category.name}
             </CategoryButton>
@@ -36,16 +55,16 @@ export default function SearchEvents({
 
       <FilterSection>
         <FilterTitle>Price Range</FilterTitle>
-        {/* <PriceSelect
+        <PriceSelect
           value={selectedPrice}
-          onChange={(e) => setSelectedPrice(e.target.value)}
+          onChange={(event) => setSelectedPrice(event.target.value)}
         >
           {priceRanges.map((price) => (
             <option key={price} value={price}>
               {price}
             </option>
           ))}
-        </PriceSelect> */}
+        </PriceSelect>
       </FilterSection>
     </Wrapper>
   );
@@ -56,7 +75,7 @@ const Wrapper = styled.div`
   background: #fff;
   padding: 20px;
   border-radius: 16px;
-  width: 250px;
+  width: 90%;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 `;
 
@@ -79,7 +98,7 @@ const SearchInput = styled.input`
   border-radius: 12px;
   border: 1px solid #e5e7eb;
   background: #f9fafb;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   outline: none;
   font-size: 14px;
   &:focus {
@@ -104,8 +123,8 @@ const CategoryWrapper = styled.div`
 `;
 
 const CategoryButton = styled.button`
-  padding: 6px 12px;
-  border-radius: 12px;
+  padding: 8px 12px;
+  border-radius: 10px;
   border: none;
   background: ${({ active }) => (active ? "#3872ff" : "#f1f3f5")};
   color: ${({ active }) => (active ? "#fff" : "#333")};
@@ -125,7 +144,6 @@ const PriceSelect = styled.select`
   background: #f9fafb;
   font-size: 14px;
   outline: none;
-
   &:focus {
     border-color: #4b4cfa;
   }

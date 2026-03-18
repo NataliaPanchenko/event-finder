@@ -4,10 +4,12 @@ import Error from "@/components/Error";
 import Loading from "@/components/Loading";
 import SearchEvents from "@/components/SearchEvents/SearchEvents";
 import { useState, useMemo } from "react";
+import NoElements from "@/components/NoElements";
 
 export default function HomePage({ events, error, isLoading, categories }) {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedPrice, setSelectedPrice] = useState(null);
 
   const filteredEvents = useMemo(() => {
     if (!Array.isArray(events)) return [];
@@ -20,12 +22,22 @@ export default function HomePage({ events, error, isLoading, categories }) {
       const searchCategory =
         !selectedCategory || event.category._id === selectedCategory;
 
-      console.log("selected category", selectedCategory);
-      console.log("event.category._id", event.category._id);
+      const searchPrice =
+        !selectedPrice || selectedPrice === "All prices"
+          ? true
+          : selectedPrice === "Free - €25"
+            ? event.price >= 0 && event.price <= 25
+            : selectedPrice === "€25 - €75"
+              ? event.price > 25 && event.price <= 75
+              : selectedPrice === "€75 - €150"
+                ? event.price > 75 && event.price <= 150
+                : selectedPrice === "€150+"
+                  ? event.price > 150
+                  : true;
 
-      return searchText && searchCategory;
+      return searchText && searchCategory && searchPrice;
     });
-  }, [events, search, selectedCategory]);
+  }, [events, search, selectedCategory, selectedPrice]);
 
   if (isLoading) return <Loading />;
   if (error) {
@@ -45,6 +57,8 @@ export default function HomePage({ events, error, isLoading, categories }) {
           categories={categories}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
+          selectedPrice={selectedPrice}
+          setSelectedPrice={setSelectedPrice}
         />
       </Sidebar>
       <MainContent>

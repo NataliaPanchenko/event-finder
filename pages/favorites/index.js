@@ -16,7 +16,7 @@ export default function Favorites({ events, favorites }) {
   if (!favorites || favorites.length === 0)
     return (
       <NoElements
-        titel="Your wishlist is empty"
+        title="Your wishlist is empty"
         description="Add some events to your wishlist to get started"
         icon={<Heart size="30" />}
       />
