@@ -17,6 +17,7 @@ import {
 export default function SecureCheckout({ cartItems }) {
   const [payment, setPayment] = useState("card");
   const [checkoutMessage, setCheckoutMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -29,6 +30,8 @@ export default function SecureCheckout({ cartItems }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
+
     const data = new FormData(event.target);
     const values = Object.fromEntries(data.entries());
 
@@ -62,6 +65,8 @@ export default function SecureCheckout({ cartItems }) {
     } catch (error) {
       console.error(error);
       alert("Something went wrong");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -248,9 +253,17 @@ export default function SecureCheckout({ cartItems }) {
           industry-standard encryption
         </SecurityText>
 
-        <PayButton type="submit">
+        <PayButton type="submit" disabled={loading}>
           <PayIcon size="20" />
-          <PayText>Complete Payment - €{total}</PayText>
+          <PayText>
+            {loading ? (
+              <>
+                <Spinner /> Processing...
+              </>
+            ) : (
+              `Complete Payment - €${total}`
+            )}
+          </PayText>
         </PayButton>
       </form>
 
@@ -433,6 +446,10 @@ const PayButton = styled.button`
   &:hover {
     opacity: 0.9;
   }
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `;
 
 const PayIcon = styled(Lock)`
@@ -559,7 +576,7 @@ const SummaryTotal = styled.div`
 
 const SummaryTickets = styled.p`
   font-size: 14px;
-  color: #135416;
+  color: #165319;
   margin: 0;
   font-weight: 400;
 `;
@@ -568,4 +585,19 @@ const RedirectText = styled.p`
   font-size: 13px;
   color: #777;
   font-weight: 400;
+`;
+
+const Spinner = styled.div`
+  display: inline;
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 `;
