@@ -10,7 +10,10 @@ export default async function handler(request, response) {
       const items = await Favorites.find()
         .populate({
           path: "eventId",
-          populate: { path: "category", model: "Category" },
+          populate: [
+            { path: "category", model: "Category" },
+            { path: "location", model: "Location" },
+          ],
         })
         .lean();
       return response.status(200).json(items);
