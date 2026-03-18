@@ -19,7 +19,6 @@ export default function CheckoutSummary({ cartItems }) {
       <Item>
         {cartItems.map((item) => (
           <ItemWrapper key={item._id}>
-            {console.log(item)}
             <ItemTitle>{item.eventId.title}</ItemTitle>
             <ItemSubWrapper>
               <ItemSub>

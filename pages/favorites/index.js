@@ -32,7 +32,6 @@ export default function Favorites({ favorites }) {
             {favorites.length === 1 ? ` event` : ` events`}
           </TitleBlock>
         </Header>
-        {console.log("favorites", favorites)}
         <EventsWrapper>
           {favorites?.map((fav) => (
             <EventItem
