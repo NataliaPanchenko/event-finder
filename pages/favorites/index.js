@@ -5,7 +5,7 @@ import NoElements from "@/components/NoElements";
 import { Heart } from "lucide-react";
 import { mutate } from "swr";
 
-export default function Favorites({ events, favorites }) {
+export default function Favorites({ favorites }) {
   const handleRemoveFavorites = async (id) => {
     await fetch(`/api/favorites/${id}`, { method: "DELETE" });
     mutate("/api/favorites");

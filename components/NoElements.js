@@ -14,11 +14,12 @@ export default function NoElements({ icon, title, description }) {
 
 const EmptyCart = styled.div`
   display: flex;
-  margin-top: 50px;
+  margin-top: 80px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  width: 100%;
 `;
 
 const IconWrapper = styled.div`
