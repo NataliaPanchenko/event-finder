@@ -50,11 +50,11 @@ export default function CartList({ cartItems }) {
 
   return (
     <Wrapper>
+      <BackLink href="/">← Back to events</BackLink>
       {deleteMessage && <Message>{deleteMessage}</Message>}
       {cartItems?.map((item) => (
         <TicketCard key={item._id}>
           <ImageWrapper href={`/events/${item.eventId._id}`}>
-            {console.log("item", item)}
             <Image
               src={item.eventId.image ? item.eventId.image : "/event-img.jpg"}
               alt={item.eventId?.title || "Event image"}
@@ -103,7 +103,6 @@ export default function CartList({ cartItems }) {
           )}
         </TicketCard>
       ))}
-      <BackLink href="/">← Back to events</BackLink>
     </Wrapper>
   );
 }
@@ -119,21 +118,29 @@ const TicketCard = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 22px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   transition: transform 0.15s ease;
+  overflow: hidden;
+  padding-right: 110px;
   &:hover {
     transform: translateY(-2px);
+  }
+  @media (max-width: 600px) {
+    padding-right: 10px;
   }
 `;
 
 const Info = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: start;
   gap: 4px;
   margin: 0;
+  padding: 10px;
 `;
 
 const Title = styled.h4`
@@ -260,8 +267,8 @@ const CartItemControls = styled.div`
 
 const ImageWrapper = styled(Link)`
   position: relative;
-  width: 180px;
-  height: 140px;
+  width: 170px;
+  height: 250px;
   flex-shrink: 0;
   overflow: hidden;
   border-radius: 12px 0 0 12px;

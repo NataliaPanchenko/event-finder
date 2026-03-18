@@ -99,7 +99,7 @@ export default function EventPage({ event, favorites }) {
           <Available>Available: {event.availableTickets}</Available>
         </Tickets>
         <AddButton onClick={() => handleAddToCart(event.title)}>
-          🎫 Add to cart
+          Add to cart
         </AddButton>
         <BackLink href="/">← Back to Events</BackLink>
       </Card>
@@ -218,7 +218,7 @@ const CloseButton = styled.button`
 
 const Title = styled.h1`
   font-size: 2rem;
-  margin-bottom: 10px;
+  margin: 10px auto 20px auto;
   color: #222;
 `;
 
@@ -281,7 +281,7 @@ const BackLink = styled(Link)`
 `;
 
 const AddButton = styled.button`
-  width: 150px;
+  width: 100%;
   padding: 12px 0;
   background-color: #0070f3;
   color: white;
@@ -289,7 +289,7 @@ const AddButton = styled.button`
   font-weight: 500;
   border-radius: 8px;
   cursor: pointer;
-  margin-bottom: 15px;
+  margin: 0 auto 15px auto;
   display: flex;
   align-items: center;
   justify-content: center;
