@@ -25,8 +25,8 @@ export default function SearchEvents({
           {categories?.map((category) => (
             <CategoryButton
               key={category._id}
-              active={selectedCategory === category.name}
-              onClick={() => setSelectedCategory(category.name)}
+              active={selectedCategory === category._id}
+              onClick={() => setSelectedCategory(category._id)}
             >
               {category.name}
             </CategoryButton>

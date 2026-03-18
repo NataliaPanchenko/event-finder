@@ -12,10 +12,20 @@ export default function HomePage({ events, error, isLoading, categories }) {
   const filteredEvents = useMemo(() => {
     if (!Array.isArray(events)) return [];
 
-    return events.filter((event) =>
-      event?.title.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [events, search]);
+    return events.filter((event) => {
+      const searchText = (event.title || "")
+        .toLowerCase()
+        .includes(search.toLowerCase());
+
+      const searchCategory =
+        !selectedCategory || event.category._id === selectedCategory;
+
+      console.log("selected category", selectedCategory);
+      console.log("event.category._id", event.category._id);
+
+      return searchText && searchCategory;
+    });
+  }, [events, search, selectedCategory]);
 
   if (isLoading) return <Loading />;
   if (error) {
