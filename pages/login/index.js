@@ -25,19 +25,28 @@ export default function Login() {
         {session ? (
           <>
             <Message>Signed in as {session.user.email}</Message>
-            <Button onClick={() => signOut()}>Выйти</Button>
+            <Button onClick={() => signOut()}>Sign out</Button>
           </>
         ) : (
           <>
-            <Message>Not signed in</Message>
-            <Button onClick={() => signIn()}>Sign in</Button>
+            <Message>Choose a login method</Message>
+
+            <ButtonsWrapper>
+              <Button onClick={() => signIn("google")}>
+                Continue with Google
+              </Button>
+
+              <SecondaryButton onClick={() => signIn("github")}>
+                Continue with GitHub
+              </SecondaryButton>
+            </ButtonsWrapper>
           </>
         )}
 
         <SecureBlock>
           <SecureTextWrapper>
             <SecureTitle>
-              <Shield size={17} />
+              &nbsp; <Shield size={17} />
               &nbsp;Secure Login
             </SecureTitle>
             <SecureDescription>
@@ -102,7 +111,30 @@ const Button = styled.button`
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  }
+`;
 
+const ButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const SecondaryButton = styled.button`
+  background: #24292e;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
