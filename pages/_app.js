@@ -28,16 +28,20 @@ export default function App({ Component, pageProps }) {
             <GraphiteWord>Finder</GraphiteWord>
           </StyledTitel>
           <CartWrapper>
-            <StyledIcon href="/favorites">
-              <Heart size="25" />
-              {favoritesCount > 0 && (
-                <FavoritesBadge>{favoritesCount}</FavoritesBadge>
-              )}
-            </StyledIcon>
-            <StyledIcon href="/cart">
-              <ShoppingBag size="25" />
-              {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
-            </StyledIcon>
+            <IconWrapper>
+              <StyledIcon href="/favorites">
+                <Heart size="25" />
+                {favoritesCount > 0 && (
+                  <FavoritesBadge>{favoritesCount}</FavoritesBadge>
+                )}
+              </StyledIcon>
+            </IconWrapper>
+            <IconWrapper>
+              <StyledIcon href="/cart">
+                <ShoppingBag size="25" />
+                {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
+              </StyledIcon>
+            </IconWrapper>
           </CartWrapper>
         </Header>
         <Component
@@ -62,10 +66,6 @@ const AppWrapper = styled.div`
 const ContentWrapper = styled.div`
   flex: 1;
   position: relative;
-  const quantityItems = Array.isArray(cartItems)
-  ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
-  : 0;
-
 `;
 
 const Header = styled.div`
@@ -80,13 +80,10 @@ const CartWrapper = styled.div`
   right: 30px;
   cursor: pointer;
   color: var(--title-color);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-  &:hover {
-    transform: translateY(-2px);
-    color: var(--black-color);
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
 `;
 
 const StyledTitel = styled(Link)`
@@ -101,10 +98,17 @@ const StyledTitel = styled(Link)`
   }
 `;
 
-const IconsWrapper = styled.div`
+const IconWrapper = styled.div`
   cursor: pointer;
   color: var(--title-color);
-  margin: 10px 15px 0 0;
+  margin: 10px 0 0 0;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+    color: var(--black-color);
+  }
 `;
 
 const GradientWord = styled.span`
@@ -121,14 +125,7 @@ const GraphiteWord = styled.span`
 const StyledIcon = styled(Link)`
   position: relative;
   text-decoration: none;
-  margin-left: 20px;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-  &:hover {
-    transform: scale(1.01);
-    color: var(--black-color);
-  }
+  margin: 0;
 `;
 
 const CartBadge = styled.div`
