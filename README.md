@@ -22,7 +22,6 @@ Users can browse events, search for interesting activities, view event details, 
 - Interactive map to display event locations
 - QR code ticket generation
 - Google Calendar integration
-- Payment integration for ticket booking
 
 ### Tech Stack
 
