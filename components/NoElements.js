@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Link from "next/link";
 
-export default function NoElements({ icon, titel, description }) {
+export default function NoElements({ icon, title, description }) {
   return (
     <EmptyCart>
       <IconWrapper>{icon}</IconWrapper>
-      <Title>{titel}</Title>
+      <Title>{title}</Title>
       <Description>{description}</Description>
       <ButtonLink href="/">Browse Events</ButtonLink>
     </EmptyCart>

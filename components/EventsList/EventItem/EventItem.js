@@ -44,7 +44,7 @@ export default function EventItem({ event, onClick }) {
 }
 
 const Card = styled.div`
-  width: 500px;
+  width: 100%;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

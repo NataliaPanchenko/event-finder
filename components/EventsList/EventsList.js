@@ -30,8 +30,10 @@ export default function EventsList({ events, isLoading, error }) {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  justify-content: center;
-  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+  width: 100%;
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
 `;
