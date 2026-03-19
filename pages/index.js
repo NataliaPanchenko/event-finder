@@ -4,7 +4,6 @@ import Error from "@/components/Error";
 import Loading from "@/components/Loading";
 import SearchEvents from "@/components/SearchEvents/SearchEvents";
 import { useState, useMemo } from "react";
-import NoElements from "@/components/NoElements";
 
 export default function HomePage({ events, error, isLoading, categories }) {
   const [search, setSearch] = useState("");
@@ -22,18 +21,22 @@ export default function HomePage({ events, error, isLoading, categories }) {
       const searchCategory =
         !selectedCategory || event.category._id === selectedCategory;
 
-      const searchPrice =
-        !selectedPrice || selectedPrice === "All prices"
-          ? true
-          : selectedPrice === "Free - €25"
-            ? event.price >= 0 && event.price <= 25
-            : selectedPrice === "€25 - €75"
-              ? event.price > 25 && event.price <= 75
-              : selectedPrice === "€75 - €150"
-                ? event.price > 75 && event.price <= 150
-                : selectedPrice === "€150+"
-                  ? event.price > 150
-                  : true;
+      const getPriceMatch = (price, selectedPrice) => {
+        switch (selectedPrice) {
+          case "Free - €25":
+            return price >= 0 && price <= 25;
+          case "€25 - €75":
+            return price > 25 && price <= 75;
+          case "€75 - €150":
+            return price > 75 && price <= 150;
+          case "€150+":
+            return price > 150;
+          default:
+            return true;
+        }
+      };
+
+      const searchPrice = getPriceMatch(event.price, selectedPrice);
 
       return searchText && searchCategory && searchPrice;
     });
@@ -43,10 +46,6 @@ export default function HomePage({ events, error, isLoading, categories }) {
   if (error) {
     return <Error />;
   }
-
-  console.log(events[0]);
-  console.log(search);
-  console.log(filteredEvents);
 
   return (
     <Wrapper>
