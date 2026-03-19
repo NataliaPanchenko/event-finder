@@ -17,11 +17,6 @@ export default function SearchEvents({
     "€75 - €150",
     "€150+",
   ];
-  const handleCategoryButtons = () => {
-    if (selectedCategory) {
-      setSelectedCategory(null);
-    }
-  };
   return (
     <Wrapper>
       <InputWrapper>
