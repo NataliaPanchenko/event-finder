@@ -1,0 +1,138 @@
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import styled from "styled-components";
+import { Shield } from "lucide-react";
+
+export default function Login() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
+
+  return (
+    <PageWrapper>
+      <LoginBox>
+        <Title>
+          🎫 <GradientWord>Event</GradientWord>{" "}
+          <GraphiteWord>Finder</GraphiteWord>
+        </Title>
+
+        {session ? (
+          <>
+            <Message>Signed in as {session.user.email}</Message>
+            <Button onClick={() => signOut()}>Выйти</Button>
+          </>
+        ) : (
+          <>
+            <Message>Not signed in</Message>
+            <Button onClick={() => signIn()}>Sign in</Button>
+          </>
+        )}
+
+        <SecureBlock>
+          <SecureTextWrapper>
+            <SecureTitle>
+              <Shield size={17} />
+              &nbsp;Secure Login
+            </SecureTitle>
+            <SecureDescription>
+              Your credentials are protected with end-to-end encryption
+            </SecureDescription>
+          </SecureTextWrapper>
+        </SecureBlock>
+      </LoginBox>
+    </PageWrapper>
+  );
+}
+
+const PageWrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f7f7f7;
+`;
+
+const LoginBox = styled.div`
+  background: #fff;
+  padding: 40px 50px;
+  border-radius: 16px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+`;
+
+const Title = styled.h1`
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 30px;
+`;
+
+const GradientWord = styled.span`
+  background: linear-gradient(90deg, #b23cfb, #d147ff, #fb39ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
+const GraphiteWord = styled.span`
+  color: #3a3a3a;
+`;
+
+const Message = styled.p`
+  font-size: 16px;
+  margin-bottom: 25px;
+  color: #3a3a3a;
+`;
+
+const Button = styled.button`
+  background: linear-gradient(90deg, #b23cfb, #d147ff, #fb39ee);
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  }
+`;
+
+const SecureBlock = styled.div`
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f5f7ff;
+  padding: 16px 18px;
+  border-radius: 16px;
+  border: 1px solid #dbe3ff;
+  color: #1d4ed8;
+`;
+
+const SecureTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+const SecureTitle = styled.div`
+  font-weight: 600;
+  font-size: 15px;
+`;
+
+const SecureDescription = styled.div`
+  font-size: 13px;
+  color: #3b82f6;
+`;
