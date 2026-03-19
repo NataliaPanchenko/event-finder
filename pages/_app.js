@@ -1,3 +1,4 @@
+import { SessionProvider } from "next-auth/react";
 import GlobalStyle from "../styles";
 import useSWR from "swr";
 import styled from "styled-components";
@@ -5,10 +6,14 @@ import { ShoppingBag } from "lucide-react";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { Heart } from "lucide-react";
+import Login from "@/components/Login/Login";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   const { data: events, error, isLoading } = useSWR("/api/events", fetcher);
   const { data: cartItems } = useSWR("/api/cart", fetcher);
   const { data: favorites } = useSWR("/api/favorites", fetcher);
@@ -20,42 +25,47 @@ export default function App({ Component, pageProps }) {
   const favoritesCount = favorites?.length;
 
   return (
-    <AppWrapper>
-      <ContentWrapper>
-        <GlobalStyle />
-        <Header>
-          <StyledTitel href="/">
-            🎫 <GradientWord>Event</GradientWord>{" "}
-            <GraphiteWord>Finder</GraphiteWord>
-          </StyledTitel>
-          <CartWrapper>
-            <IconWrapper>
-              <StyledIcon href="/favorites">
-                <Heart size="25" />
-                {favoritesCount > 0 && (
-                  <FavoritesBadge>{favoritesCount}</FavoritesBadge>
-                )}
-              </StyledIcon>
-            </IconWrapper>
-            <IconWrapper>
-              <StyledIcon href="/cart">
-                <ShoppingBag size="25" />
-                {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
-              </StyledIcon>
-            </IconWrapper>
-          </CartWrapper>
-        </Header>
-        <Component
-          {...pageProps}
-          events={events}
-          isLoading={isLoading}
-          error={error}
-          favorites={favorites}
-          categories={categories}
-        />
-      </ContentWrapper>
-      <Footer />
-    </AppWrapper>
+    <SessionProvider session={session}>
+      <AppWrapper>
+        <ContentWrapper>
+          <GlobalStyle />
+          <Login />
+          <Header>
+            <StyledTitel href="/">
+              🎫 <GradientWord>Event</GradientWord>{" "}
+              <GraphiteWord>Finder</GraphiteWord>
+            </StyledTitel>
+
+            <CartWrapper>
+              <IconWrapper>
+                <StyledIcon href="/favorites">
+                  <Heart size="25" />
+                  {favoritesCount > 0 && (
+                    <FavoritesBadge>{favoritesCount}</FavoritesBadge>
+                  )}
+                </StyledIcon>
+              </IconWrapper>
+              <IconWrapper>
+                <StyledIcon href="/cart">
+                  <ShoppingBag size="25" />
+                  {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
+                </StyledIcon>
+              </IconWrapper>
+            </CartWrapper>
+          </Header>
+
+          <Component
+            {...pageProps}
+            events={events}
+            isLoading={isLoading}
+            error={error}
+            favorites={favorites}
+            categories={categories}
+          />
+        </ContentWrapper>
+        <Footer />
+      </AppWrapper>
+    </SessionProvider>
   );
 }
 
