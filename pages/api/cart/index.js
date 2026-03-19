@@ -1,8 +1,13 @@
 import dbConnect from "@/db/connect";
 import Cart from "@/db/models/Cart";
 import Event from "@/db/models/Events";
+import requireAuth from "@/lib/auth";
 
 export default async function handler(request, response) {
+  const session = await requireAuth(request, response);
+
+  if (!session) return;
+
   await dbConnect();
 
   if (request.method === "GET") {

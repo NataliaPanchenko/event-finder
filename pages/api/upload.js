@@ -1,6 +1,11 @@
 import cloudinary from "@/lib/cloudinary";
+import requireAuth from "@/lib/auth";
 
 export default async function handler(request, response) {
+  const session = await requireAuth(request, response);
+
+  if (!session) return;
+
   if (request.method !== "POST") {
     return response.status(405).json({ message: "Method not allowed" });
   }
