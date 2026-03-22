@@ -302,7 +302,7 @@ const Icon = styled.div`
   width: 48px;
   height: 48px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #4c54fc, #8b2afa);
+  background-color: #2563eb;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -341,7 +341,7 @@ const SectionTitleText = styled.p`
 `;
 
 const UserIcon = styled(User)`
-  color: #8b2afa;
+  color: #2563eb;
 `;
 
 const WalletIcon = styled(Wallet)`
@@ -374,9 +374,8 @@ const Input = styled.input`
   border: 1px solid #e5e7eb;
   background: #f9fafb;
   outline: none;
-
   &:focus {
-    border-color: #a855f7;
+    border-color: #2563eb;
   }
 `;
 
@@ -394,7 +393,7 @@ const Card = styled.button`
   justify-content: flex-start;
   padding: 16px;
   border-radius: 14px;
-  border: 2px solid ${({ active }) => (active ? "#a855f7" : "#e5e7eb")};
+  border: 2px solid ${({ active }) => (active ? "#2563eb" : "#e5e7eb")};
   background: ${({ active }) => (active ? "#faf5ff" : "#fff")};
   text-align: left;
   cursor: pointer;
@@ -442,7 +441,7 @@ const PayButton = styled.button`
   font-size: 16px;
   font-weight: 600;
   color: white;
-  background: linear-gradient(90deg, #2679ff, #fc1a8b);
+  background-color: #2563eb;
   cursor: pointer;
   &:hover {
     opacity: 0.9;

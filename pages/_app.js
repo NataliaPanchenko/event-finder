@@ -1,10 +1,9 @@
 import GlobalStyle from "../styles";
 import useSWR from "swr";
 import styled from "styled-components";
-import { ShoppingBag } from "lucide-react";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { Heart } from "lucide-react";
+import { Heart, TicketsIcon, ShoppingBag } from "lucide-react";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -25,13 +24,16 @@ export default function App({ Component, pageProps }) {
         <GlobalStyle />
         <Header>
           <StyledTitel href="/">
-            🎫 <GradientWord>Event</GradientWord>{" "}
+            <TicketWrapper>
+              <StyledTicketsIcon size="15" />
+            </TicketWrapper>
+            <GradientWord>Event</GradientWord>{" "}
             <GraphiteWord>Finder</GraphiteWord>
           </StyledTitel>
           <CartWrapper>
             <IconWrapper>
               <StyledIcon href="/favorites">
-                <Heart size="25" />
+                <Heart size="25" color="black" />
                 {favoritesCount > 0 && (
                   <FavoritesBadge>{favoritesCount}</FavoritesBadge>
                 )}
@@ -39,7 +41,7 @@ export default function App({ Component, pageProps }) {
             </IconWrapper>
             <IconWrapper>
               <StyledIcon href="/cart">
-                <ShoppingBag size="25" />
+                <ShoppingBag size="25" color="black" />
                 {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
               </StyledIcon>
             </IconWrapper>
@@ -114,10 +116,7 @@ const IconWrapper = styled.div`
 `;
 
 const GradientWord = styled.span`
-  background: linear-gradient(90deg, #b23cfb, #d147ff, #fb39ee);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #2563eb;
 `;
 
 const GraphiteWord = styled.span`
@@ -160,4 +159,21 @@ const FavoritesBadge = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const TicketWrapper = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: #2563eb;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledTicketsIcon = styled(TicketsIcon)`
+  width: 30px;
+  height: 30px;
+  color: white;
 `;
