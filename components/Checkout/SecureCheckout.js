@@ -28,6 +28,11 @@ export default function SecureCheckout({ cartItems }) {
   const serviceFee = +(subtotal * 0.03).toFixed(2);
   const total = subtotal + serviceFee;
 
+  const totalTickets = (cartItems || []).reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
+
   async function handleSubmit(event) {
     event.preventDefault();
     setLoading(true);
@@ -156,7 +161,7 @@ export default function SecureCheckout({ cartItems }) {
               <SummaryTotal>
                 Order Total: <p>€{total.toFixed(2)}</p>
               </SummaryTotal>
-              <SummaryTickets>Tickets: {cartItems.length}</SummaryTickets>
+              <SummaryTickets>Tickets: {totalTickets}</SummaryTickets>
             </SummaryBox>
 
             <RedirectText>Redirecting you to home page...</RedirectText>
