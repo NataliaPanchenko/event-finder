@@ -249,11 +249,6 @@ export default function SecureCheckout({ cartItems }) {
           })}
         </Grid>
 
-        <SecurityText>
-          <ShieldIcon size="15" /> All payments are secured with
-          industry-standard encryption
-        </SecurityText>
-
         <PayButton type="submit" disabled={loading}>
           <PayIcon size="20" />
           <PayText>

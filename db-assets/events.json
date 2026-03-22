@@ -1,0 +1,131 @@
+[{
+    "_id": {
+      "$oid": "69affaafe7b7e45874fe4899"
+    },
+    "category": "68230fbc0a5e71225b7b9fc5",
+    "title": "Cold Waves Live Concert",
+    "description": "An energetic live concert featuring popular alternative rock bands with a full stage show and immersive lighting.",
+    "date": "2026-06-15T19:30:00Z",
+    "price": 45,
+    "availableTickets": 320,
+    "location": "69aff990e7b7e45874fe4890",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670573/cold_waves_itbqco.png"
+  },
+  {
+    "_id": {
+      "$oid": "69affaafe7b7e45874fe489a"
+    },
+    "category": "073b1b1003dca07cf97582a6",
+    "title": "Modern Art Exhibition Opening",
+    "description": "Discover contemporary artworks from emerging European artists at the opening night of the gallery exhibition.",
+    "date": "2026-05-12T17:00:00Z",
+    "price": 12,
+    "availableTickets": 150,
+    "location": "69aff987e7b7e45874fe488f",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670574/modern_art_ecxbsq.png"
+  },
+  {
+    "_id": {
+      "$oid": "69affaafe7b7e45874fe489b"
+    },
+    "category": "a5e3c065bc6b2368e853c05c",
+    "title": "Berlin Techno Night",
+    "description": "A night of electronic music with well-known DJs performing techno and house sets until sunrise.",
+    "date": "2026-07-03T22:00:00Z",
+    "price": 25,
+    "availableTickets": 500,
+    "location": "69b1725be7b7e45874fe48be",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670575/berlin_techno_axdteb.png"
+  },
+  {
+    "_id": {
+      "$oid": "69affaafe7b7e45874fe489c"
+    },
+    "category": "dc26b18e5c7e80718e105ef5",
+    "title": "The Phantom of the Opera",
+    "description": "A spectacular theatre performance of the famous musical with a live orchestra and dramatic stage production.",
+    "date": "2026-08-21T18:30:00Z",
+    "price": 60,
+    "availableTickets": 210,
+    "location": "69aff9aae7b7e45874fe4893",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670575/phantom_of_the_opera_n2fvnk.png"
+  },
+  {
+    "_id": {
+      "$oid": "69affaafe7b7e45874fe489d"
+    },
+    "category": "dee4580400fb9baa2a36010a",
+    "title": "International Basketball Match",
+    "description": "Watch an exciting basketball match between two top European teams in a high-energy arena atmosphere.",
+    "date": "2026-04-30T20:00:00Z",
+    "price": 35,
+    "availableTickets": 850,
+    "location": "69aff950e7b7e45874fe4888",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670574/basketball_match_dllorj.png"
+  },
+  {
+    "_id": {
+      "$oid": "69affaafe7b7e45874fe489e"
+    },
+    "category": "b2e8781c51f40e1ecf3d150c",
+    "title": "Stand-Up Comedy Night",
+    "description": "A hilarious evening with three well-known stand-up comedians performing their newest material.",
+    "date": "2026-05-18T19:00:00Z",
+    "price": 20,
+    "availableTickets": 180,
+    "location": "69aff9b5e7b7e45874fe4895",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670573/stand_up_gqzxrt.png"
+  },
+  {
+    "_id": {
+      "$oid": "69affaafe7b7e45874fe489f"
+    },
+    "category": "8e99ad25c0007879077f15c8",
+    "title": "Summer City Festival",
+    "description": "A full-day outdoor festival with live music, street food, art installations, and entertainment for everyone.",
+    "date": "2026-07-20T12:00:00Z",
+    "price": 15,
+    "availableTickets": 20,
+    "location": "69aff977e7b7e45874fe488d",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670574/summer_city_festival_aj5o9m.png"
+  },
+  {
+    "_id": {
+      "$oid": "69affaafe7b7e45874fe48a0"
+    },
+    "category": "69aff603e7b7e45874fe486e",
+    "title": "Street Food & Craft Beer Festival",
+    "description": "Taste food from international street kitchens and enjoy craft beer from local breweries.",
+    "date": "2026-06-10T13:00:00Z",
+    "price": 10,
+    "availableTickets": 700,
+    "location": "69aff966e7b7e45874fe488b",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670574/street_food_tthol0.png"
+  },
+  {
+    "_id": {
+      "$oid": "69affaafe7b7e45874fe48a1"
+    },
+    "category": "69aff623e7b7e45874fe486f",
+    "title": "Family Fun Park Day",
+    "description": "A fun event for families with games, kids shows, creative workshops, and interactive attractions.",
+    "date": "2026-05-25T10:00:00Z",
+    "price": 8,
+    "availableTickets": 400,
+    "location": "69aff93de7b7e45874fe4885",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670573/family_fun_x3nbdx.png"
+  },
+  {
+    "_id": {
+      "$oid": "69affaafe7b7e45874fe48a2"
+    },
+    "category": "69aff635e7b7e45874fe4870",
+    "title": "Photography Masterclass",
+    "description": "Learn professional photography techniques from an experienced photographer in a hands-on workshop.",
+    "date": "2026-06-05T14:00:00Z",
+    "price": 50,
+    "availableTickets": 40,
+    "location": "69aff9a1e7b7e45874fe4892",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670575/photography_masterclass_pltxk6.png"
+  }
+]

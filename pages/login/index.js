@@ -2,7 +2,8 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { Shield } from "lucide-react";
+import { Shield, Github } from "lucide-react";
+import Image from "next/image";
 
 export default function Login() {
   const { data: session, status } = useSession();
@@ -33,11 +34,18 @@ export default function Login() {
 
             <ButtonsWrapper>
               <Button onClick={() => signIn("google")}>
-                Continue with Google
+                <Image
+                  width="20"
+                  height="20"
+                  src="/google.png"
+                  alt="Google icon"
+                />
+                <ButtonText>Continue with Google</ButtonText>
               </Button>
 
               <SecondaryButton onClick={() => signIn("github")}>
-                Continue with GitHub
+                <Github size="20" />
+                <ButtonText>Continue with GitHub</ButtonText>
               </SecondaryButton>
             </ButtonsWrapper>
           </>
@@ -46,7 +54,7 @@ export default function Login() {
         <SecureBlock>
           <SecureTextWrapper>
             <SecureTitle>
-              &nbsp; <Shield size={17} />
+              &nbsp; <Shield size={15} />
               &nbsp;Secure Login
             </SecureTitle>
             <SecureDescription>
@@ -102,6 +110,11 @@ const Message = styled.p`
 const Button = styled.button`
   background: linear-gradient(90deg, #b23cfb, #d147ff, #fb39ee);
   color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
   font-weight: 600;
   font-size: 16px;
   border: none;
@@ -126,6 +139,11 @@ const ButtonsWrapper = styled.div`
 const SecondaryButton = styled.button`
   background: #24292e;
   color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
   font-weight: 600;
   font-size: 16px;
   border: none;
@@ -139,6 +157,10 @@ const SecondaryButton = styled.button`
     transform: translateY(-2px);
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
   }
+`;
+
+const ButtonText = styled.p`
+  margin: 0;
 `;
 
 const SecureBlock = styled.div`
@@ -156,7 +178,7 @@ const SecureBlock = styled.div`
 const SecureTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 `;
 
 const SecureTitle = styled.div`

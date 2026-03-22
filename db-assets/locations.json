@@ -1,0 +1,127 @@
+[{
+    "_id": {
+      "$oid": "69aff7f9e7b7e45874fe4883"
+    },
+    "name": "Augsburg"
+  },
+  {
+    "_id": {
+      "$oid": "69aff935e7b7e45874fe4884"
+    },
+    "name": "Bielefeld"
+  },
+  {
+    "_id": {
+      "$oid": "69aff93de7b7e45874fe4885"
+    },
+    "name": "Bonn"
+  },
+  {
+    "_id": {
+      "$oid": "69aff942e7b7e45874fe4886"
+    },
+    "name": "Bochum"
+  },
+  {
+    "_id": {
+      "$oid": "69aff949e7b7e45874fe4887"
+    },
+    "name": "Bremen"
+  },
+  {
+    "_id": {
+      "$oid": "69aff950e7b7e45874fe4888"
+    },
+    "name": "Cologne"
+  },
+  {
+    "_id": {
+      "$oid": "69aff956e7b7e45874fe4889"
+    },
+    "name": "Dortmund"
+  },
+  {
+    "_id": {
+      "$oid": "69aff95fe7b7e45874fe488a"
+    },
+    "name": "Dresden"
+  },
+  {
+    "_id": {
+      "$oid": "69aff966e7b7e45874fe488b"
+    },
+    "name": "Düsseldorf"
+  },
+  {
+    "_id": {
+      "$oid": "69aff96fe7b7e45874fe488c"
+    },
+    "name": "Essen"
+  },
+  {
+    "_id": {
+      "$oid": "69aff977e7b7e45874fe488d"
+    },
+    "name": "Frankfurt"
+  },
+  {
+    "_id": {
+      "$oid": "69aff980e7b7e45874fe488e"
+    },
+    "name": "Freiburg"
+  },
+  {
+    "_id": {
+      "$oid": "69aff987e7b7e45874fe488f"
+    },
+    "name": "Hamburg"
+  },
+  {
+    "_id": {
+      "$oid": "69aff990e7b7e45874fe4890"
+    },
+    "name": "Hannover"
+  },
+  {
+    "_id": {
+      "$oid": "69aff99ae7b7e45874fe4891"
+    },
+    "name": "Heidelberg"
+  },
+  {
+    "_id": {
+      "$oid": "69aff9a1e7b7e45874fe4892"
+    },
+    "name": "Leipzig"
+  },
+  {
+    "_id": {
+      "$oid": "69aff9aae7b7e45874fe4893"
+    },
+    "name": "München"
+  },
+  {
+    "_id": {
+      "$oid": "69aff9b0e7b7e45874fe4894"
+    },
+    "name": "Nürnberg"
+  },
+  {
+    "_id": {
+      "$oid": "69aff9b5e7b7e45874fe4895"
+    },
+    "name": "Stuttgart"
+  },
+  {
+    "_id": {
+      "$oid": "69aff9bde7b7e45874fe4896"
+    },
+    "name": "Würzburg"
+  },
+  {
+    "_id": {
+      "$oid": "69b1725be7b7e45874fe48be"
+    },
+    "name": "Berlin"
+  }
+]
