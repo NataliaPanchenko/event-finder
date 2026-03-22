@@ -16,9 +16,10 @@ export default function Footer() {
 
 const StyledFooter = styled.footer`
   width: 100%;
-  background: linear-gradient(90deg, #b23cfb, #d147ff, #fb39ee);
+  background: linear-gradient(90deg, #5b5b5b, #6e6e6e, #7f7f7f);
+  opacity: 0.8;
   color: #fff;
-  padding: 20px 15px;
+  padding: 15px 15px;
   text-align: center;
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
 `;

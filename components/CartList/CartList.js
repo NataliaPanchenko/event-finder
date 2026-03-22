@@ -277,9 +277,6 @@ const ImageWrapper = styled(Link)`
   img {
     object-fit: cover;
   }
-  &:hover {
-    transform: scale(1.05);
-  }
   @media (max-width: 600px) {
     margin-right: 10px;
   }
