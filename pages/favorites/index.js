@@ -5,7 +5,7 @@ import NoElements from "@/components/NoElements";
 import { Heart } from "lucide-react";
 import { mutate } from "swr";
 
-export default function Favorites({ events, favorites }) {
+export default function Favorites({ favorites }) {
   const handleRemoveFavorites = async (id) => {
     await fetch(`/api/favorites/${id}`, { method: "DELETE" });
     mutate("/api/favorites");
@@ -16,7 +16,7 @@ export default function Favorites({ events, favorites }) {
   if (!favorites || favorites.length === 0)
     return (
       <NoElements
-        titel="Your wishlist is empty"
+        title="Your wishlist is empty"
         description="Add some events to your wishlist to get started"
         icon={<Heart size="30" />}
       />
@@ -74,5 +74,8 @@ const TitleBlock = styled.div`
 `;
 
 const EventsWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
   margin: 10px;
 `;

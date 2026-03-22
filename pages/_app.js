@@ -1,10 +1,9 @@
 import GlobalStyle from "../styles";
 import useSWR from "swr";
 import styled from "styled-components";
-import { ShoppingBag } from "lucide-react";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { Heart } from "lucide-react";
+import { Heart, TicketsIcon, ShoppingBag } from "lucide-react";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -12,6 +11,7 @@ export default function App({ Component, pageProps }) {
   const { data: events, error, isLoading } = useSWR("/api/events", fetcher);
   const { data: cartItems } = useSWR("/api/cart", fetcher);
   const { data: favorites } = useSWR("/api/favorites", fetcher);
+  const { data: categories } = useSWR("/api/categories", fetcher);
 
   const cartCount = Array.isArray(cartItems)
     ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
@@ -24,20 +24,27 @@ export default function App({ Component, pageProps }) {
         <GlobalStyle />
         <Header>
           <StyledTitel href="/">
-            🎫 <GradientWord>Event</GradientWord>{" "}
+            <TicketWrapper>
+              <StyledTicketsIcon size="15" />
+            </TicketWrapper>
+            <GradientWord>Event</GradientWord>{" "}
             <GraphiteWord>Finder</GraphiteWord>
           </StyledTitel>
           <CartWrapper>
-            <StyledIcon href="/favorites">
-              <Heart size="25" />
-              {favoritesCount > 0 && (
-                <FavoritesBadge>{favoritesCount}</FavoritesBadge>
-              )}
-            </StyledIcon>
-            <StyledIcon href="/cart">
-              <ShoppingBag size="25" />
-              {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
-            </StyledIcon>
+            <IconWrapper>
+              <StyledIcon href="/favorites">
+                <Heart size="25" color="black" />
+                {favoritesCount > 0 && (
+                  <FavoritesBadge>{favoritesCount}</FavoritesBadge>
+                )}
+              </StyledIcon>
+            </IconWrapper>
+            <IconWrapper>
+              <StyledIcon href="/cart">
+                <ShoppingBag size="25" color="black" />
+                {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
+              </StyledIcon>
+            </IconWrapper>
           </CartWrapper>
         </Header>
         <Component
@@ -46,6 +53,7 @@ export default function App({ Component, pageProps }) {
           isLoading={isLoading}
           error={error}
           favorites={favorites}
+          categories={categories}
         />
       </ContentWrapper>
       <Footer />
@@ -62,10 +70,6 @@ const AppWrapper = styled.div`
 const ContentWrapper = styled.div`
   flex: 1;
   position: relative;
-  const quantityItems = Array.isArray(cartItems)
-  ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
-  : 0;
-
 `;
 
 const Header = styled.div`
@@ -80,13 +84,10 @@ const CartWrapper = styled.div`
   right: 30px;
   cursor: pointer;
   color: var(--title-color);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-  &:hover {
-    transform: translateY(-2px);
-    color: var(--black-color);
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
 `;
 
 const StyledTitel = styled(Link)`
@@ -101,17 +102,21 @@ const StyledTitel = styled(Link)`
   }
 `;
 
-const IconsWrapper = styled.div`
+const IconWrapper = styled.div`
   cursor: pointer;
   color: var(--title-color);
-  margin: 10px 15px 0 0;
+  margin: 10px 0 0 0;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+    color: var(--black-color);
+  }
 `;
 
 const GradientWord = styled.span`
-  background: linear-gradient(90deg, #b23cfb, #d147ff, #fb39ee);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #2563eb;
 `;
 
 const GraphiteWord = styled.span`
@@ -121,14 +126,7 @@ const GraphiteWord = styled.span`
 const StyledIcon = styled(Link)`
   position: relative;
   text-decoration: none;
-  margin-left: 20px;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-  &:hover {
-    transform: scale(1.01);
-    color: var(--black-color);
-  }
+  margin: 0;
 `;
 
 const CartBadge = styled.div`
@@ -161,4 +159,21 @@ const FavoritesBadge = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const TicketWrapper = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: #2563eb;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledTicketsIcon = styled(TicketsIcon)`
+  width: 30px;
+  height: 30px;
+  color: white;
 `;

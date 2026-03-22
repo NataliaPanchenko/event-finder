@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Link from "next/link";
 
-export default function NoElements({ icon, titel, description }) {
+export default function NoElements({ icon, title, description }) {
   return (
     <EmptyCart>
       <IconWrapper>{icon}</IconWrapper>
-      <Title>{titel}</Title>
+      <Title>{title}</Title>
       <Description>{description}</Description>
       <ButtonLink href="/">Browse Events</ButtonLink>
     </EmptyCart>
@@ -14,11 +14,12 @@ export default function NoElements({ icon, titel, description }) {
 
 const EmptyCart = styled.div`
   display: flex;
-  margin-top: 50px;
+  margin-top: 80px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  width: 100%;
 `;
 
 const IconWrapper = styled.div`
