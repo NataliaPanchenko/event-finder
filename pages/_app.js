@@ -24,7 +24,7 @@ export default function App({
   const cartCount = Array.isArray(cartItems)
     ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
     : 0;
-  const favoritesCount = favorites?.length;
+  const favoritesCount = Array.isArray(favorites) ? favorites.length : 0;
 
   const isProtected = protectedPaths.includes(router.pathname);
 

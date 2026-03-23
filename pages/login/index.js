@@ -33,14 +33,14 @@ export default function Login() {
             <Message>Choose a login method</Message>
 
             <ButtonsWrapper>
-              <Button onClick={() => signIn("google")}>
+              <Button onClick={() => signIn(undefined, { callbackUrl: "/" })}>
                 <Image
                   width="20"
                   height="20"
                   src="/google.png"
                   alt="Google icon"
                 />
-                <ButtonText>Continue with Google</ButtonText>
+                <ButtonText>Login</ButtonText>
               </Button>
 
               <SecondaryButton onClick={() => signIn("github")}>
