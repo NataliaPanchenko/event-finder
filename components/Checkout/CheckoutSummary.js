@@ -152,9 +152,7 @@ const TotalText = styled.p`
 `;
 
 const TotalPrice = styled.span`
-  background: linear-gradient(135deg, #4c54fc, #8b2afa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #2563eb;
   font-weight: 700;
 `;
 

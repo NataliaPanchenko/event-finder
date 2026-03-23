@@ -74,5 +74,8 @@ const TitleBlock = styled.div`
 `;
 
 const EventsWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
   margin: 10px;
 `;

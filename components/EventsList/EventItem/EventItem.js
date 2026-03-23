@@ -45,11 +45,12 @@ export default function EventItem({ event, onClick }) {
 
 const Card = styled.div`
   width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  margin: 12px;
   cursor: pointer;
   transition:
     transform 0.2s ease,
@@ -57,9 +58,6 @@ const Card = styled.div`
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  }
-  @media (max-width: 600px) {
-    width: 400px;
   }
 `;
 
