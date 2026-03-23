@@ -23,7 +23,7 @@ export const authOptions = {
           async authorize(credentials) {
             if (
               credentials.username === "fisch" &&
-              credentials.password === "fisch"
+              credentials.password === "fisch123!@# "
             ) {
               return {
                 id: "a1b2c3d4",

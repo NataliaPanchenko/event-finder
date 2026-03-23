@@ -1,22 +1,19 @@
 import dbConnect from "@/db/connect";
 import Favorites from "@/db/models/Favorites";
 import Event from "@/db/models/Events";
+import requireAuth from "@/lib/auth";
 import { getSessionOrPreview } from "@/lib/preview-session";
 
-export default async function handler(req, res) {
-  const session = await getSessionOrPreview(req, res);
+export default async function handler(request, response) {
+  const session = await getSessionOrPreview(request, response);
 
-  if (!session) return res.status(401).json({ error: "Unauthorized" });
+  if (!session) return;
 
   await dbConnect();
-  const { id } = req.query;
 
-  try {
-    if (req.method === "GET") {
-      const query =
-        session.id === "preview-user" ? {} : { userId: session.user?.id };
-
-      const items = await Favorites.find(query)
+  if (request.method === "GET") {
+    try {
+      const items = await Favorites.find()
         .populate({
           path: "eventId",
           populate: [
@@ -25,43 +22,29 @@ export default async function handler(req, res) {
           ],
         })
         .lean();
-
-      return res.status(200).json(items);
+      return response.status(200).json(items);
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ status: "Error", message: error.message });
     }
-
-    if (req.method === "POST") {
-      const { eventId } = req.body;
-      const event = await Event.findById(eventId);
-      if (!event) return res.status(404).json({ message: "Event not found" });
-
-      const query =
-        session.id === "preview-user"
-          ? { eventId }
-          : { eventId, userId: session.user.id };
-      const existingFavorite = await Favorites.findOne(query);
-      if (existingFavorite) return res.status(200).json(existingFavorite);
-
-      const newFavData =
-        session.id === "preview-user"
-          ? { eventId }
-          : { eventId, userId: session.user.id };
-      const newFavorite = await Favorites.create(newFavData);
-      return res.status(201).json(newFavorite);
-    }
-
-    if (req.method === "DELETE") {
-      const query =
-        session.id === "preview-user"
-          ? { eventId: id }
-          : { eventId: id, userId: session.user.id };
-      const deleted = await Favorites.findOneAndDelete(query);
-      if (!deleted)
-        return res.status(404).json({ error: "Favorite not found" });
-      return res.status(200).json({ status: `Favorite ${id} deleted.` });
-    }
-
-    return res.status(405).json({ message: "Method not allowed" });
-  } catch (error) {
-    return res.status(500).json({ status: "Error", message: error.message });
   }
+
+  if (request.method === "POST") {
+    const { eventId } = request.body;
+
+    const event = await Event.findById(eventId);
+    if (!event)
+      return response.status(404).json({ message: "Event not found" });
+
+    const existingFavorite = await Favorites.findOne({ eventId });
+    if (existingFavorite) {
+      return response.status(200).json(existingFavorite);
+    }
+
+    const newFavorite = await Favorites.create({ eventId });
+    return response.status(201).json(newFavorite);
+  }
+
+  return response.status(405).json({ message: "Method not allowed" });
 }
