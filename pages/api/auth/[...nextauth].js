@@ -8,7 +8,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const isPreview = process.env.VERCEL_ENV === "preview";
 
 export const authOptions = {
-  adapter: isPreview ? undefined : MongoDBAdapter(clientPromise),
+  adapter: MongoDBAdapter(clientPromise),
 
   providers: isPreview
     ? [
