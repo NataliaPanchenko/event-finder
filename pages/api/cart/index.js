@@ -2,9 +2,10 @@ import dbConnect from "@/db/connect";
 import Cart from "@/db/models/Cart";
 import Event from "@/db/models/Events";
 import requireAuth from "@/lib/auth";
+import { getSessionOrPreview } from "@/lib/preview-session";
 
 export default async function handler(request, response) {
-  const session = await requireAuth(request, response);
+  const session = await getSessionOrPreview(request, response);
 
   if (!session) return;
 

@@ -3,9 +3,10 @@ import Event from "@/db/models/Events";
 import Category from "@/db/models/Categories";
 import Location from "@/db/models/Locations";
 import requireAuth from "@/lib/auth";
+import { getSessionOrPreview } from "@/lib/preview-session";
 
 export default async function handler(request, response) {
-  const session = await requireAuth(request, response);
+  const session = await getSessionOrPreview(request, response);
 
   if (!session) return;
 
