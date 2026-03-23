@@ -29,9 +29,9 @@ const ordersSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
     },
   },
   { collection: "orders", timestamps: true }

@@ -2,11 +2,15 @@ import dbConnect from "@/db/connect";
 import Orders from "@/db/models/Orders";
 import Event from "@/db/models/Events";
 import requireAuth from "@/lib/auth";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(request, response) {
   const session = await requireAuth(request, response);
 
   if (!session) return;
+
+  const userId = session.user.id;
 
   await dbConnect();
 
@@ -41,6 +45,7 @@ export default async function handler(request, response) {
       }
 
       const order = await Orders.create({
+        userId,
         items,
         total,
         customer,
