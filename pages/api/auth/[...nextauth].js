@@ -1,19 +1,17 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/lib/db";
-
-const isPreview = process.env.VERCEL_ENV === "preview";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
 
-  providers: isPreview
-    ? [
-        CredentialsProvider({
-          name: "Credentials",
+  providers: [
+    process.env.VERCEL_ENV === "preview"
+      ? CredentialsProvider({
+          name: "credentials",
           credentials: {
             username: {
               label: "Username",
@@ -23,57 +21,43 @@ export const authOptions = {
             password: { label: "Password", type: "password" },
           },
           async authorize(credentials) {
-            const client = await clientPromise;
-            const db = client.db();
-            const users = db.collection("users");
-
-            // ищем пользователя в базе
-            let user = await users.findOne({ email: "test@example.com" });
-
-            // если нет — создаём dummy пользователя
-            if (!user) {
-              const result = await users.insertOne({
-                name: "Neuer Fisch",
-                email: "test@example.com",
-                username: credentials.username,
-                createdAt: new Date(),
-              });
-              user = {
-                _id: result.insertedId,
+            if (
+              credentials.username === "fisch" &&
+              credentials.password === "fisch"
+            ) {
+              return {
+                id: "a1b2c3d4",
                 name: "Neuer Fisch",
                 email: "test@example.com",
               };
             }
-
-            return {
-              id: user._id.toString(),
-              name: user.name,
-              email: user.email,
-            };
+            return null;
           },
-        }),
-      ]
-    : [
-        GoogleProvider({
+        })
+      : GoogleProvider({
           clientId: process.env.GOOGLE_CLIENT_ID,
           clientSecret: process.env.GOOGLE_CLIENT_SECRET,
           allowDangerousEmailAccountLinking: true,
         }),
-        GithubProvider({
-          clientId: process.env.GITHUB_ID,
-          clientSecret: process.env.GITHUB_SECRET,
-          allowDangerousEmailAccountLinking: true,
-        }),
-      ],
+    GithubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+      allowDangerousEmailAccountLinking: true,
+    }),
+  ],
 
   callbacks: {
     async session({ session, user }) {
-      if (session.user) session.user.id = user.id;
+      if (session.user) {
+        session.user.id = user.id;
+      }
       return session;
     },
+    async signIn({ user, account, profile }) {
+      console.log("PROFILE:", profile);
+      return true;
+    },
   },
-
-  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default NextAuth(authOptions);
