@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import Loading from "../Loading";
-import { LogOut } from "lucide-react";
+import { LogOut, Mail, Package, User2 } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { useState } from "react";
 
 export default function Profile({ user, orders }) {
+  const [activeTab, setActiveTab] = useState("profile");
+
   if (!user) {
     return <Loading />;
   }
@@ -44,7 +47,10 @@ export default function Profile({ user, orders }) {
         <AvatarBlock>
           <Avatar src={user.image} />
           <Name>{user.name}</Name>
-          <Email>{user.email}</Email>
+          <Email>
+            <Mail size="15" color="grey" />
+            {user.email}
+          </Email>
         </AvatarBlock>
 
         <Stats>
@@ -63,8 +69,22 @@ export default function Profile({ user, orders }) {
         </Stats>
 
         <Menu>
-          <MenuItem active>Profile Info</MenuItem>
-          <MenuItem>My Orders</MenuItem>
+          <MenuItem
+            active={activeTab === "profile"}
+            onClick={() => setActiveTab("profile")}
+          >
+            {" "}
+            <User2 size="20" />
+            Profile Info
+          </MenuItem>
+          <MenuItem
+            active={activeTab === "orders"}
+            onClick={() => setActiveTab("orders")}
+          >
+            {" "}
+            <Package size="20" />
+            My Orders
+          </MenuItem>
           <LogoutText onClick={() => signOut()}>
             <LogOut size="15" color="red" />
             Logout
@@ -73,34 +93,92 @@ export default function Profile({ user, orders }) {
       </Sidebar>
 
       <Content>
-        <Header>
-          <Title>Profile Information</Title>
-        </Header>
+        {activeTab === "profile" && (
+          <>
+            <Header>
+              <Title>Profile Information</Title>
+            </Header>
 
-        <Section>
-          <SectionTitle>Personal Information</SectionTitle>
+            <Section>
+              <SectionTitle>Personal Information</SectionTitle>
 
-          <Row>
-            <Field>
-              <Label>First Name</Label>
-              <Value>{firstName}</Value>
-            </Field>
+              <Row>
+                <Field>
+                  <Label>First Name</Label>
+                  <Value>{firstName}</Value>
+                </Field>
 
-            <Field>
-              <Label>Last Name</Label>
-              <Value>{lastName}</Value>
-            </Field>
-          </Row>
-        </Section>
+                <Field>
+                  <Label>Last Name</Label>
+                  <Value>{lastName}</Value>
+                </Field>
+              </Row>
+            </Section>
 
-        <Section>
-          <SectionTitle>Contact Information</SectionTitle>
+            <Section>
+              <SectionTitle>Contact Information</SectionTitle>
 
-          <Field>
-            <Label>Email Address</Label>
-            <Value>{user.email}</Value>
-          </Field>
-        </Section>
+              <Field>
+                <Label>
+                  <Mail size="12" color="grey" /> &nbsp; Email Address
+                </Label>
+                <Value>{user.email}</Value>
+              </Field>
+            </Section>
+          </>
+        )}
+
+        {activeTab === "orders" && (
+          <Section>
+            <SectionTitle>My Orders</SectionTitle>
+            {orders && orders.length > 0 ? (
+              orders.map((order) => {
+                const totalTickets = order.items.reduce(
+                  (sum, item) => sum + item.quantity,
+                  0
+                );
+
+                return (
+                  <OrderCard key={order._id}>
+                    <OrderHeader>
+                      <div>
+                        <OrderNumber>Order #{order._id.slice(-3)}</OrderNumber>
+                        <OrderDate>
+                          {new Date(order.createdAt).toLocaleDateString()}
+                        </OrderDate>
+                      </div>
+                      <OrderStatus>Confirmed</OrderStatus>
+                    </OrderHeader>
+
+                    {order.items.map((item) => (
+                      <TicketRow key={item.eventId._id}>
+                        <TicketInfo>
+                          <TicketTitle>{item.eventId.title}</TicketTitle>
+                          <TicketDetails>
+                            📅{" "}
+                            {new Date(item.eventId.date).toLocaleDateString()} •{" "}
+                            {item.eventId.location?.name}
+                          </TicketDetails>
+                        </TicketInfo>
+                        <TicketQuantityPrice>
+                          Qty: {item.quantity} • €
+                          {item.eventId.price * item.quantity}
+                        </TicketQuantityPrice>
+                      </TicketRow>
+                    ))}
+
+                    <OrderFooter>
+                      <div>{totalTickets} tickets</div>
+                      <div>Total: €{order.total}</div>
+                    </OrderFooter>
+                  </OrderCard>
+                );
+              })
+            ) : (
+              <p>No orders found.</p>
+            )}
+          </Section>
+        )}
       </Content>
     </Wrapper>
   );
@@ -156,6 +234,10 @@ const Name = styled.h2`
 const Email = styled.p`
   color: gray;
   font-size: 14px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
   @media (max-width: 480px) {
     font-size: 12px;
   }
@@ -205,6 +287,10 @@ const MenuItem = styled.div`
     props.active ? "linear-gradient(90deg, #4f46e5, #9333ea)" : "#f3f4f6"};
   color: ${(props) => (props.active ? "white" : "black")};
   cursor: pointer;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: flex-start;
 `;
 
 const LogoutText = styled.div`
@@ -279,4 +365,73 @@ const Label = styled.div`
 const Value = styled.div`
   margin-top: 5px;
   font-weight: 500;
+`;
+
+const OrderCard = styled.div`
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+`;
+
+const OrderHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+
+const OrderNumber = styled.div`
+  font-weight: 600;
+  font-size: 16px;
+`;
+
+const OrderDate = styled.div`
+  font-size: 12px;
+  color: gray;
+`;
+
+const OrderStatus = styled.div`
+  background: #d1fae5;
+  color: #065f46;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 12px;
+`;
+
+const TicketRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+`;
+
+const TicketInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TicketTitle = styled.div`
+  font-weight: 500;
+`;
+
+const TicketDetails = styled.div`
+  font-size: 12px;
+  color: gray;
+`;
+
+const TicketQuantityPrice = styled.div`
+  text-align: right;
+  font-weight: 500;
+`;
+
+const OrderFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  font-weight: 600;
+  font-size: 14px;
 `;

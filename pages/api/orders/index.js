@@ -18,9 +18,13 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     try {
-      const orders = await Orders.find({ "customer.email": userEmail }).sort({
-        createdAt: -1,
-      });
+      const orders = await Orders.find({ "customer.email": userEmail })
+        .sort({ createdAt: -1 })
+        .populate({
+          path: "items.eventId",
+          populate: [{ path: "location" }, { path: "category" }],
+        });
+
       console.log("ORDERS FOR:", userEmail, orders);
       response.status(200).json(orders);
     } catch (error) {
