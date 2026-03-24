@@ -36,7 +36,6 @@ export default function Profile({ user }) {
       <Content>
         <Header>
           <Title>Profile Information</Title>
-          <EditButton>Edit</EditButton>
         </Header>
 
         <Section>
@@ -60,17 +59,7 @@ export default function Profile({ user }) {
 
           <Field>
             <Label>Email Address</Label>
-            <Value>john.doe@example.com</Value>
-          </Field>
-
-          <Field>
-            <Label>Phone Number</Label>
-            <Value>+1 (555) 123-4567</Value>
-          </Field>
-
-          <Field>
-            <Label>Location</Label>
-            <Value>San Francisco, CA</Value>
+            <Value>{user.email}</Value>
           </Field>
         </Section>
       </Content>
@@ -208,14 +197,6 @@ const Header = styled.div`
 `;
 
 const Title = styled.h2``;
-
-const EditButton = styled.button`
-  padding: 8px 16px;
-  border-radius: 10px;
-  border: none;
-  background: #f3f4f6;
-  cursor: pointer;
-`;
 
 const Section = styled.div`
   margin-top: 30px;

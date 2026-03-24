@@ -61,6 +61,7 @@ export default function SecureCheckout({ cartItems }) {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(order),
       });
 

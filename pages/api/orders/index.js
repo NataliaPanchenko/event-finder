@@ -2,20 +2,26 @@ import dbConnect from "@/db/connect";
 import Orders from "@/db/models/Orders";
 import Event from "@/db/models/Events";
 import requireAuth from "@/lib/auth";
+import mongoose from "mongoose";
 
 export default async function handler(request, response) {
   const session = await requireAuth(request, response);
+  console.log(session);
 
-  if (!session) return;
+  if (!session) {
+    return response.status(401).json({ error: "Not authenticated" });
+  }
 
-  const userId = session.user.id;
+  const userEmail = session.user.email;
 
   await dbConnect();
 
   if (request.method === "GET") {
     try {
-      const orders = await Orders.find({ userId }).sort({ createdAt: -1 });
-
+      const orders = await Orders.find({ "customer.email": userEmail }).sort({
+        createdAt: -1,
+      });
+      console.log("ORDERS FOR:", userEmail, orders);
       response.status(200).json(orders);
     } catch (error) {
       console.error("FETCH ORDERS ERROR:", error);
@@ -28,7 +34,7 @@ export default async function handler(request, response) {
       const { items, customer, paymentMethod } = request.body;
 
       if (!Array.isArray(items) || items.length === 0) {
-        return response.status(400).json({ error: "No items" });
+        return response.status(400).json({ error: "No items in order" });
       }
       let total = 0;
       const eventsToUpdate = [];
@@ -54,10 +60,9 @@ export default async function handler(request, response) {
       }
 
       const order = await Orders.create({
-        userId,
         items,
         total,
-        customer,
+        customer: { ...customer, email: userEmail },
         paymentMethod,
       });
 

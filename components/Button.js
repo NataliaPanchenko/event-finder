@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { User2 } from "lucide-react";
 
-export default function Button({ text }) {
+export default function Button({ text, onClick }) {
   return (
-    <StyledButton>
+    <StyledButton onClick={onClick}>
       <User2 size="15" />
       {text}
     </StyledButton>
@@ -20,4 +20,5 @@ const StyledButton = styled.button`
   gap: 3px;
   border: none;
   border-radius: 10px;
+  cursor: pointer;
 `;

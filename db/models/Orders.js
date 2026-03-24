@@ -29,10 +29,6 @@ const ordersSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
   },
   { collection: "orders", timestamps: true }
 );
