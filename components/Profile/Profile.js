@@ -1,7 +1,41 @@
 import styled from "styled-components";
+import Loading from "../Loading";
 
-export default function Profile({ user }) {
+export default function Profile({ user, orders }) {
+  if (!user) {
+    return <Loading />;
+  }
+
   console.log("user", user);
+
+  const userName = (user.name || "").split(" ");
+  const firstName = userName[0] || "";
+  const lastName = userName.slice(1).join(" ");
+
+  console.log("first name", firstName);
+  console.log("last name", lastName);
+
+  const ticketsCount = Array.isArray(orders)
+    ? orders.reduce((sum, order) => {
+        const orderTickets = order.items?.reduce(
+          (sum, item) => sum + (item.quantity || 0),
+          0
+        );
+        return sum + orderTickets;
+      }, 0)
+    : 0;
+
+  console.log("ticketsCount", ticketsCount);
+
+  const ordersCount = Array.isArray(orders) ? orders.length : 0;
+  console.log("countsOrders", ordersCount);
+
+  const ticketsPrice = Array.isArray(orders)
+    ? orders.reduce((sum, order) => sum + (order.total || 0), 0)
+    : 0;
+
+  console.log("ticketsPrice", ticketsPrice);
+
   return (
     <Wrapper>
       <Sidebar>
@@ -13,15 +47,15 @@ export default function Profile({ user }) {
 
         <Stats>
           <StatBox>
-            <StatNumber>4</StatNumber>
+            <StatNumber>{ordersCount}</StatNumber>
             <StatLabel>Orders</StatLabel>
           </StatBox>
           <StatBox>
-            <StatNumber>8</StatNumber>
+            <StatNumber>{ticketsCount}</StatNumber>
             <StatLabel>Tickets</StatLabel>
           </StatBox>
           <StatBox>
-            <StatNumber>$403.5</StatNumber>
+            <StatNumber>€{ticketsPrice}</StatNumber>
             <StatLabel>Spent</StatLabel>
           </StatBox>
         </Stats>
@@ -44,12 +78,12 @@ export default function Profile({ user }) {
           <Row>
             <Field>
               <Label>First Name</Label>
-              <Value>John</Value>
+              <Value>{firstName}</Value>
             </Field>
 
             <Field>
               <Label>Last Name</Label>
-              <Value>Doe</Value>
+              <Value>{lastName}</Value>
             </Field>
           </Row>
         </Section>

@@ -42,6 +42,7 @@ export default function App({
               favorites={favorites}
               categories={categories}
               user={user}
+              orders={orders}
             />
           </ContentWrapper>
         </ProtectedRoute>
