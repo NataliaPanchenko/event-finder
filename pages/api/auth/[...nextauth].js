@@ -53,12 +53,6 @@ export const authOptions = {
             allowDangerousEmailAccountLinking: true,
           }),
         ],
-  callbacks: {
-    async session({ session, token, user }) {
-      console.log(session, token, user);
-      return session;
-    },
-  },
 };
 
 export default NextAuth(authOptions);

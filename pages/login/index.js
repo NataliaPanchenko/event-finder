@@ -6,14 +6,7 @@ import { Shield, Github } from "lucide-react";
 import Image from "next/image";
 
 export default function Login() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/");
-    }
-  }, [status, router]);
+  const { data: session } = useSession();
 
   const isPreview = process.env.NEXT_PUBLIC_VERCEL_ENV === "preview";
 
@@ -42,11 +35,13 @@ export default function Login() {
               </ButtonsWrapper>
             ) : (
               <ButtonsWrapper>
-                <Button onClick={() => signIn("google")}>
+                <Button onClick={() => signIn("google", { callbackUrl: "/" })}>
                   <ButtonText>Continue with Google</ButtonText>
                 </Button>
 
-                <SecondaryButton onClick={() => signIn("github")}>
+                <SecondaryButton
+                  onClick={() => signIn("github", { callbackUrl: "/" })}
+                >
                   <Github size="20" />
                   <ButtonText>Continue with GitHub</ButtonText>
                 </SecondaryButton>
