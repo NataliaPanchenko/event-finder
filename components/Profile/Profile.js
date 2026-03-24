@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Loading from "../Loading";
+import { LogOut } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 export default function Profile({ user, orders }) {
   if (!user) {
@@ -63,7 +65,10 @@ export default function Profile({ user, orders }) {
         <Menu>
           <MenuItem active>Profile Info</MenuItem>
           <MenuItem>My Orders</MenuItem>
-          <Logout>Logout</Logout>
+          <LogoutText onClick={() => signOut()}>
+            <LogOut size="15" color="red" />
+            Logout
+          </LogoutText>
         </Menu>
       </Sidebar>
 
@@ -197,15 +202,22 @@ const MenuItem = styled.div`
   border-radius: 10px;
   margin-bottom: 10px;
   background: ${(props) =>
-    props.active ? "linear-gradient(90deg,#4f46e5,#9333ea)" : "#f3f4f6"};
+    props.active ? "linear-gradient(90deg, #4f46e5, #9333ea)" : "#f3f4f6"};
   color: ${(props) => (props.active ? "white" : "black")};
   cursor: pointer;
 `;
 
-const Logout = styled.div`
-  margin-top: 10px;
+const LogoutText = styled.div`
+  margin: 40px 0 0 10px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 3px;
+  align-items: center;
   color: red;
   cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const Content = styled.div`
