@@ -32,7 +32,7 @@ export default function Login() {
           </>
         ) : (
           <>
-            <Message>Choose a login method</Message>
+            <Message>{isPreview ? "Preview" : "Choose a login method"}</Message>
 
             {isPreview ? (
               <ButtonsWrapper>
