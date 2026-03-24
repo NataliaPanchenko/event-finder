@@ -8,8 +8,12 @@ import CredentialsProvider from "next-auth/providers/credentials";
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
 
+  session: {
+    strategy: "jwt",
+  },
+
   providers:
-    process.env.VERCEL_ENV === "preview"
+    process.env.NEXT_PUBLIC_VERCEL_ENV === "preview"
       ? [
           CredentialsProvider({
             name: "credentials",
@@ -25,7 +29,7 @@ export const authOptions = {
               console.log(credentials);
               if (
                 credentials.username === "fisch" &&
-                credentials.password === "fisch123!@#"
+                credentials.password === "fisch"
               ) {
                 return {
                   id: "a1b2c3d4",
