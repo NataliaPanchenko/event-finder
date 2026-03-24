@@ -3,15 +3,8 @@ import Event from "@/db/models/Events.js";
 import Category from "@/db/models/Categories";
 import Location from "@/db/models/Locations";
 import requireAuth from "@/lib/auth";
-import { getSessionOrPreview } from "@/lib/preview-session";
 
 export default async function handler(request, response) {
-  const session = await getSessionOrPreview(request, response);
-
-  if (!session) {
-    return response.status(401).json({ message: "Unauthorized" });
-  }
-
   await dbConnect();
 
   if (request.method === "GET") {
