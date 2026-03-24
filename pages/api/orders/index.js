@@ -2,8 +2,6 @@ import dbConnect from "@/db/connect";
 import Orders from "@/db/models/Orders";
 import Event from "@/db/models/Events";
 import requireAuth from "@/lib/auth";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(request, response) {
   const session = await requireAuth(request, response);
@@ -13,6 +11,17 @@ export default async function handler(request, response) {
   const userId = session.user.id;
 
   await dbConnect();
+
+  if (request.method === "GET") {
+    try {
+      const orders = await Orders.find({ userId }).sort({ createdAt: -1 });
+
+      response.status(200).json(orders);
+    } catch (error) {
+      console.error("FETCH ORDERS ERROR:", error);
+      response.status(500).json({ error: "Server error" });
+    }
+  }
 
   if (request.method === "POST") {
     try {

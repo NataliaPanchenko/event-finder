@@ -2,6 +2,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { Heart, ShoppingBag, User } from "lucide-react";
 import Link from "next/link";
 import styled from "styled-components";
+import Button from "./Button";
 
 export default function HeaderContent({ favoritesCount, cartCount }) {
   const { data: session } = useSession();
@@ -35,9 +36,9 @@ export default function HeaderContent({ favoritesCount, cartCount }) {
         </IconWrapper>
 
         {session ? (
-          <button onClick={() => signOut()}>Sign out</button>
+          <Button text="Sign out" onClick={() => signOut()} />
         ) : (
-          <button onClick={() => signIn()}>Sign in</button>
+          <Button text="Sign in" onClick={() => signIn()} />
         )}
       </CartWrapper>
     </Header>
