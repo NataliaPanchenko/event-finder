@@ -1,5 +1,5 @@
 import { useSession, signIn, signOut } from "next-auth/react";
-import { Heart, ShoppingBag } from "lucide-react";
+import { Heart, ShoppingBag, User } from "lucide-react";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -26,6 +26,11 @@ export default function HeaderContent({ favoritesCount, cartCount }) {
           <StyledIcon href="/cart">
             <ShoppingBag size="25" />
             {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
+          </StyledIcon>
+        </IconWrapper>
+        <IconWrapper>
+          <StyledIcon href="/profile">
+            <User size="25" />
           </StyledIcon>
         </IconWrapper>
 
