@@ -36,6 +36,12 @@ export default function Login() {
             ) : (
               <ButtonsWrapper>
                 <Button onClick={() => signIn("google", { callbackUrl: "/" })}>
+                  <Image
+                    src="/google.png"
+                    alt="google icon"
+                    width={20}
+                    height={20}
+                  />
                   <ButtonText>Continue with Google</ButtonText>
                 </Button>
 

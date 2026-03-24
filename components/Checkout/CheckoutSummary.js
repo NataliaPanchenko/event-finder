@@ -9,7 +9,7 @@ export default function CheckoutSummary({ cartItems }) {
         0
       )
     : 0;
-  const serviceFee = +(subtotal * 0.03).toFixed(2);
+  const serviceFee = +(subtotal * 0.001).toFixed(2);
   const total = subtotal + serviceFee;
 
   return (
@@ -36,7 +36,7 @@ export default function CheckoutSummary({ cartItems }) {
         <Price>€{subtotal.toFixed(2)}</Price>
       </Row>
       <Row>
-        <Subtotal>Service Fee (3%)</Subtotal>
+        <Subtotal>Service Fee (0.1%)</Subtotal>
         <Price>€ {serviceFee.toFixed(2)}</Price>
       </Row>
 

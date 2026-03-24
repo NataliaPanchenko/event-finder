@@ -25,7 +25,7 @@ export default function SecureCheckout({ cartItems }) {
     (sum, item) => sum + item.eventId?.price * item.quantity,
     0
   );
-  const serviceFee = +(subtotal * 0.03).toFixed(2);
+  const serviceFee = +(subtotal * 0.001).toFixed(2);
   const total = subtotal + serviceFee;
 
   const totalTickets = (cartItems || []).reduce(
@@ -97,7 +97,7 @@ export default function SecureCheckout({ cartItems }) {
       }, 2500);
       return () => clearTimeout(timer);
     }
-  }, [checkoutMessage]);
+  }, [checkoutMessage, router]);
 
   const options = [
     {
