@@ -6,14 +6,9 @@ import { Shield, Github } from "lucide-react";
 import Image from "next/image";
 
 export default function Login() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
+  const { data: session } = useSession();
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/");
-    }
-  }, [status, router]);
+  const isPreview = process.env.NEXT_PUBLIC_VERCEL_ENV === "preview";
 
   return (
     <PageWrapper>
@@ -30,24 +25,28 @@ export default function Login() {
           </>
         ) : (
           <>
-            <Message>Choose a login method</Message>
+            <Message>{isPreview ? "Preview" : "Choose a login method"}</Message>
 
-            <ButtonsWrapper>
-              <Button onClick={() => signIn(undefined, { callbackUrl: "/" })}>
-                <Image
-                  width="20"
-                  height="20"
-                  src="/google.png"
-                  alt="Google icon"
-                />
-                <ButtonText>Login</ButtonText>
-              </Button>
+            {isPreview ? (
+              <ButtonsWrapper>
+                <Button onClick={() => signIn(undefined, { callbackUrl: "/" })}>
+                  <ButtonText>Login</ButtonText>
+                </Button>
+              </ButtonsWrapper>
+            ) : (
+              <ButtonsWrapper>
+                <Button onClick={() => signIn("google", { callbackUrl: "/" })}>
+                  <ButtonText>Continue with Google</ButtonText>
+                </Button>
 
-              <SecondaryButton onClick={() => signIn("github")}>
-                <Github size="20" />
-                <ButtonText>Continue with GitHub</ButtonText>
-              </SecondaryButton>
-            </ButtonsWrapper>
+                <SecondaryButton
+                  onClick={() => signIn("github", { callbackUrl: "/" })}
+                >
+                  <Github size="20" />
+                  <ButtonText>Continue with GitHub</ButtonText>
+                </SecondaryButton>
+              </ButtonsWrapper>
+            )}
           </>
         )}
 

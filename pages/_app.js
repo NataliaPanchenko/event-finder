@@ -14,8 +14,6 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
-  const router = useRouter();
-
   const { data: events, error, isLoading } = useSWR("/api/events", fetcher);
   const { data: cartItems } = useSWR("/api/cart", fetcher);
   const { data: favorites } = useSWR("/api/favorites", fetcher);
@@ -26,30 +24,12 @@ export default function App({
     : 0;
   const favoritesCount = Array.isArray(favorites) ? favorites.length : 0;
 
-  const isProtected = protectedPaths.includes(router.pathname);
-
   return (
     <SessionProvider session={session}>
       <GlobalStyle />
       <AppWrapper>
-        {isProtected ? (
-          <ProtectedRoute>
-            <HeaderContent
-              favoritesCount={favoritesCount}
-              cartCount={cartCount}
-            />
-            <ContentWrapper>
-              <Component
-                {...pageProps}
-                events={events}
-                isLoading={isLoading}
-                error={error}
-                favorites={favorites}
-                categories={categories}
-              />
-            </ContentWrapper>
-          </ProtectedRoute>
-        ) : (
+        <HeaderContent favoritesCount={favoritesCount} cartCount={cartCount} />
+        <ProtectedRoute>
           <ContentWrapper>
             <Component
               {...pageProps}
@@ -60,7 +40,7 @@ export default function App({
               categories={categories}
             />
           </ContentWrapper>
-        )}
+        </ProtectedRoute>
         <Footer />
       </AppWrapper>
     </SessionProvider>

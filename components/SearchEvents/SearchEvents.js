@@ -32,19 +32,20 @@ export default function SearchEvents({
       <FilterSection>
         <FilterTitle>Category</FilterTitle>
         <CategoryWrapper>
-          {categories?.map((category) => (
-            <CategoryButton
-              key={category._id}
-              active={selectedCategory === category._id}
-              onClick={() =>
-                setSelectedCategory(
-                  selectedCategory === category._id ? null : category._id
-                )
-              }
-            >
-              {category.name}
-            </CategoryButton>
-          ))}
+          {Array.isArray(categories) &&
+            categories.map((category) => (
+              <CategoryButton
+                key={category._id}
+                active={selectedCategory === category._id}
+                onClick={() =>
+                  setSelectedCategory(
+                    selectedCategory === category._id ? null : category._id
+                  )
+                }
+              >
+                {category.name}
+              </CategoryButton>
+            ))}
         </CategoryWrapper>
       </FilterSection>
 
