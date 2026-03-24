@@ -25,6 +25,10 @@ const Loader = styled.div`
   width: 120px;
   height: 20px;
   border-radius: 20px;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   background:
     repeating-linear-gradient(135deg, #b23cfb 0 10px, #fb39ee 0 20px) 0 / 0%

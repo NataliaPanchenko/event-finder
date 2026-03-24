@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "68230fbc0a5e71225b7b9fc5"
+  },
+  "name": "Concerts"
+},
+{
+  "_id": {
+    "$oid": "073b1b1003dca07cf97582a6"
+  },
+  "name": "Culture"
+},
+{
+  "_id": {
+    "$oid": "a5e3c065bc6b2368e853c05c"
+  },
+  "name": "Music"
+},
+{
+  "_id": {
+    "$oid": "dc26b18e5c7e80718e105ef5"
+  },
+  "name": "Theatre & Musicals"
+},
+{
+  "_id": {
+    "$oid": "dee4580400fb9baa2a36010a"
+  },
+  "name": "Sports"
+},
+{
+  "_id": {
+    "$oid": "b2e8781c51f40e1ecf3d150c"
+  },
+  "name": "Comedy"
+},
+{
+  "_id": {
+    "$oid": "8e99ad25c0007879077f15c8"
+  },
+  "name": "Festivals"
+},
+{
+  "_id": {
+    "$oid": "69aff603e7b7e45874fe486e"
+  },
+  "name": "Food & Drink"
+},
+{
+  "_id": {
+    "$oid": "69aff623e7b7e45874fe486f"
+  },
+  "name": "Family & Kids"
+},
+{
+  "_id": {
+    "$oid": "69aff635e7b7e45874fe4870"
+  },
+  "name": "Workshops & Classes"
+}]
