@@ -40,7 +40,7 @@ export default async function handler(request, response) {
       if (!Array.isArray(items) || items.length === 0) {
         return response.status(400).json({ error: "No items in order" });
       }
-      let total = 0;
+      let subtotal = 0;
       const eventsToUpdate = [];
 
       for (const item of items) {
@@ -51,6 +51,7 @@ export default async function handler(request, response) {
         }
 
         const event = await Event.findById(item.eventId);
+
         if (!event) {
           return response.status(404).json({ error: "Event not found" });
         }
@@ -58,14 +59,19 @@ export default async function handler(request, response) {
         if (event.availableTickets < item.quantity) {
           return response.status(409).json({ error: "Not enough tickets" });
         }
-
-        total += event.price * item.quantity;
+        subtotal += event.price * item.quantity;
         eventsToUpdate.push({ event, quantity: item.quantity });
       }
+
+      const serviceFeeRate = 0.001;
+      const serviceFee = subtotal * serviceFeeRate;
+      const total = subtotal + serviceFee;
 
       const order = await Orders.create({
         items,
         total,
+        subtotal,
+        serviceFeeRate,
         customer: { ...customer, email: userEmail },
         paymentMethod,
       });

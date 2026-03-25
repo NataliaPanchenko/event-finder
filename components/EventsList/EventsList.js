@@ -77,8 +77,3 @@ const Title = styled.h2`
   font-size: 24px;
   margin-bottom: 8px;
 `;
-
-const Description = styled.p`
-  color: #6b7280;
-  margin-bottom: 24px;
-`;

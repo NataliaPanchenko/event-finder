@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Loading from "../Loading";
-import { LogOut, Mail, Package, User2 } from "lucide-react";
+import { LogOut, Mail, Package, User2, CircleQuestionMark } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 
@@ -40,6 +40,14 @@ export default function Profile({ user, orders }) {
     : 0;
 
   console.log("ticketsPrice", ticketsPrice);
+
+  const getDate = (date) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
 
   return (
     <Wrapper>
@@ -142,10 +150,8 @@ export default function Profile({ user, orders }) {
                   <OrderCard key={order._id}>
                     <OrderHeader>
                       <div>
-                        <OrderNumber>Order #{order._id.slice(-3)}</OrderNumber>
-                        <OrderDate>
-                          {new Date(order.createdAt).toLocaleDateString()}
-                        </OrderDate>
+                        <OrderNumber>Order #{order._id.slice(-4)}</OrderNumber>
+                        <OrderDate>{getDate(order.createdAt)}</OrderDate>
                       </div>
                       <OrderStatus>Confirmed</OrderStatus>
                     </OrderHeader>
@@ -155,13 +161,12 @@ export default function Profile({ user, orders }) {
                         <TicketInfo>
                           <TicketTitle>{item.eventId.title}</TicketTitle>
                           <TicketDetails>
-                            📅{" "}
-                            {new Date(item.eventId.date).toLocaleDateString()} •{" "}
+                            📅 {getDate(item.eventId.date)} •{" "}
                             {item.eventId.location?.name}
                           </TicketDetails>
                         </TicketInfo>
                         <TicketQuantityPrice>
-                          Qty: {item.quantity} • €
+                          {item.quantity} × €
                           {item.eventId.price * item.quantity}
                         </TicketQuantityPrice>
                       </TicketRow>
@@ -175,7 +180,12 @@ export default function Profile({ user, orders }) {
                 );
               })
             ) : (
-              <p>No orders found.</p>
+              <EmptyCart>
+                <IconWrapper>
+                  <CircleQuestionMark size="30" />
+                </IconWrapper>
+                <NoOrdersTitle>No orders found</NoOrdersTitle>
+              </EmptyCart>
             )}
           </Section>
         )}
@@ -434,4 +444,35 @@ const OrderFooter = styled.div`
   padding-top: 10px;
   font-weight: 600;
   font-size: 14px;
+`;
+
+const EmptyCart = styled.div`
+  display: flex;
+  margin-top: 80px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+`;
+
+const IconWrapper = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #f2f3f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  svg {
+    width: 36px;
+    height: 36px;
+    color: #9aa0a6;
+  }
+`;
+
+const NoOrdersTitle = styled.h2`
+  font-size: 24px;
+  margin-bottom: 8px;
 `;

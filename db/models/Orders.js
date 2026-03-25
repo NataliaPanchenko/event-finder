@@ -19,6 +19,14 @@ const ordersSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    subtotal: {
+      type: Number,
+      required: true,
+    },
+    serviceFee: {
+      type: Number,
+      default: 0.001,
+    },
     customer: {
       firstName: { type: String },
       lastName: { type: String },
