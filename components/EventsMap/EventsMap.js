@@ -3,6 +3,8 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
+import { Tooltip } from "react-leaflet";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -29,6 +31,8 @@ function FlyToUser({ location }) {
 export default function EventsMap({ events }) {
   const [userLocation, setUserLocation] = useState(null);
   const center = [52.52, 13.405];
+
+  const router = useRouter();
 
   const userIcon = new L.Icon({
     iconUrl: "https://cdn-icons-png.flaticon.com/512/64/64113.png",
@@ -86,13 +90,32 @@ export default function EventsMap({ events }) {
 
         {userLocation && (
           <Marker position={userLocation} icon={userIcon}>
-            <Popup>You are here 📍</Popup>
+            <Tooltip
+              direction="top"
+              offset={[0, -10]}
+              opacity={0.9}
+              permanent={false}
+            >
+              You are here 📍
+            </Tooltip>
           </Marker>
         )}
 
         {validEvents.map((event) => (
-          <Marker key={event._id} position={[event.lat, event.lng]}>
+          <Marker
+            key={event._id}
+            position={[event.lat, event.lng]}
+            eventHandlers={{ click: () => router.push(`/events/${event._id}`) }}
+          >
             <Popup>{event.title}</Popup>
+            <Tooltip
+              direction="top"
+              offset={[0, -10]}
+              opacity={0.9}
+              permanent={false}
+            >
+              {event.title}
+            </Tooltip>
           </Marker>
         ))}
       </MapContainer>
