@@ -184,7 +184,9 @@ export default function Profile({ user, orders }) {
                     ))}
 
                     <OrderFooter>
-                      <div>{totalTickets} tickets</div>
+                      <div>
+                        {totalTickets} {totalTickets > 1 ? "tickets" : "ticket"}
+                      </div>
 
                       <PriceBlock>
                         <PriceRow>
