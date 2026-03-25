@@ -6,7 +6,6 @@ import mongoose from "mongoose";
 
 export default async function handler(request, response) {
   const session = await requireAuth(request, response);
-  console.log(session);
 
   if (!session) {
     return response.status(401).json({ error: "Not authenticated" });
@@ -25,11 +24,9 @@ export default async function handler(request, response) {
           populate: [{ path: "location" }, { path: "category" }],
         });
 
-      console.log("ORDERS FOR:", userEmail, orders);
-      response.status(200).json(orders);
+      return response.status(200).json(orders);
     } catch (error) {
-      console.error("FETCH ORDERS ERROR:", error);
-      response.status(500).json({ error: "Server error" });
+      return response.status(500).json({ error: "Server error" });
     }
   }
 
@@ -81,12 +78,11 @@ export default async function handler(request, response) {
         await event.save();
       }
 
-      response.status(201).json(order);
+      return response.status(201).json(order);
     } catch (error) {
-      console.error("ORDER ERROR:", error);
-      response.status(500).json({ error: "Server error" });
+      return response.status(500).json({ error: "Server error" });
     }
-  } else {
-    response.status(405).json({ message: "Method not allowed" });
   }
+  response.setHeader("Allow", ["GET", "POST"]);
+  return response.status(405).json({ message: "Method not allowed" });
 }

@@ -3,7 +3,7 @@ import Loading from "../Loading";
 import { LogOut, Mail, Package, User2, CircleQuestionMark } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
-import NoOrders from "../NoOrders";
+import NoResults from "../NoResults";
 
 export default function Profile({ user, orders }) {
   const [activeTab, setActiveTab] = useState("profile");
@@ -145,7 +145,7 @@ export default function Profile({ user, orders }) {
         {activeTab === "orders" && (
           <Section>
             <SectionTitle>My Orders</SectionTitle>
-            {orders && orders.length > 0 ? (
+            {orders?.length > 0 ? (
               orders.map((order) => {
                 const totalTickets = order.items.reduce(
                   (sum, item) => sum + item.quantity,
@@ -211,7 +211,7 @@ export default function Profile({ user, orders }) {
                 );
               })
             ) : (
-              <NoOrders text="No orders found" />
+              <NoResults text="No orders found" />
             )}
           </Section>
         )}

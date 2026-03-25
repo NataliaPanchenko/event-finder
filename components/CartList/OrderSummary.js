@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { serviceFeeValue } from "@/pages/_app";
 
 export default function OrderSummary({ cartItems }) {
   const subtotal = Array.isArray(cartItems)
@@ -9,7 +10,7 @@ export default function OrderSummary({ cartItems }) {
         0
       )
     : 0;
-  const serviceFee = +(subtotal * 0.005).toFixed(2);
+  const serviceFee = +(subtotal * serviceFeeValue).toFixed(2);
   const total = subtotal + serviceFee;
 
   return (

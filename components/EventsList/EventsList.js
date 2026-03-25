@@ -3,7 +3,7 @@ import EventItem from "./EventItem/EventItem";
 import { useRouter } from "next/router";
 import Error from "../Error";
 import Loading from "../Loading";
-import NoOrders from "../NoOrders";
+import NoResults from "../NoResults";
 import { CircleQuestionMark } from "lucide-react";
 
 export default function EventsList({ events, isLoading, error }) {
@@ -14,7 +14,7 @@ export default function EventsList({ events, isLoading, error }) {
   }
 
   if (!Array.isArray(events) || events.length === 0) {
-    return <NoOrders text="No events found" />;
+    return <NoResults text="No events found" />;
   }
 
   return (

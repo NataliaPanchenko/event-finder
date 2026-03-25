@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import HeaderContent from "@/components/HeaderContent";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
+export const serviceFeeValue = 0.005;
+
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function App({
@@ -19,8 +21,6 @@ export default function App({
   const { data: categories } = useSWR("/api/categories", fetcher);
   const { data: user } = useSWR("/api/user", fetcher);
   const { data: orders } = useSWR("/api/orders", fetcher);
-
-  console.log("orders", orders);
 
   const cartCount = Array.isArray(cartItems)
     ? cartItems.reduce((sum, item) => sum + item.quantity, 0)

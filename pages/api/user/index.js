@@ -17,12 +17,11 @@ export default async function handler(req, res) {
         emailVerified: session.user.emailVerified || null,
       };
 
-      res.status(200).json(user);
+      return res.status(200).json(user);
     } catch (error) {
-      console.error("USER FETCH ERROR:", error);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   } else {
-    res.status(405).json({ message: "Method not allowed" });
+    return res.status(405).json({ message: "Method not allowed" });
   }
 }

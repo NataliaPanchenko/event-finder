@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { CircleQuestionMark } from "lucide-react";
 
-export default function NoOrders({ text }) {
+export default function NoResults({ text = "Nothing here yet", children }) {
   return (
     <EmptyCart>
       <IconWrapper>
-        <CircleQuestionMark size="30" />
+        <CircleQuestionMark size={30} />
       </IconWrapper>
       <NoOrdersTitle>{text}</NoOrdersTitle>
+      {children}
     </EmptyCart>
   );
 }
