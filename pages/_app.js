@@ -21,7 +21,8 @@ export default function App({
   const { data: categories } = useSWR("/api/categories", fetcher);
   const { data: user } = useSWR("/api/user", fetcher);
   const { data: orders } = useSWR("/api/orders", fetcher);
-  const { data: locations } = useSWR("/api/locations", fetcher);
+
+  console.log(events);
 
   const cartCount = Array.isArray(cartItems)
     ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
@@ -44,7 +45,6 @@ export default function App({
               categories={categories}
               user={user}
               orders={orders}
-              locations={locations}
             />
           </ContentWrapper>
         </ProtectedRoute>

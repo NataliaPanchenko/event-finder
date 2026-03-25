@@ -5,6 +5,14 @@ const EventsMap = dynamic(() => import("@/components/EventsMap/EventsMap"), {
   ssr: false,
 });
 
-export default function Map() {
-  return <EventsMap />;
+export default function Map({ events }) {
+  return (
+    <Container>
+      <EventsMap events={events} />
+    </Container>
+  );
 }
+
+const Container = styled.div`
+  margin-top: 20px;
+`;
