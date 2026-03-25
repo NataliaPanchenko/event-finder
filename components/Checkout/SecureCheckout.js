@@ -25,7 +25,7 @@ export default function SecureCheckout({ cartItems }) {
     (sum, item) => sum + item.eventId?.price * item.quantity,
     0
   );
-  const serviceFee = +(subtotal * 0.001).toFixed(2);
+  const serviceFee = +(subtotal * 0.005).toFixed(2);
   const total = subtotal + serviceFee;
 
   const totalTickets = (cartItems || []).reduce(
@@ -74,6 +74,8 @@ export default function SecureCheckout({ cartItems }) {
       alert("Something went wrong");
     } finally {
       setLoading(false);
+      mutate("/api/orders");
+      mutate("/api/cart");
     }
   }
 

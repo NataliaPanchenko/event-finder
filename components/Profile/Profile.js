@@ -12,14 +12,9 @@ export default function Profile({ user, orders }) {
     return <Loading />;
   }
 
-  console.log("user", user);
-
   const userName = (user.name || "").split(" ");
   const firstName = userName[0] || "";
   const lastName = userName.slice(1).join(" ");
-
-  console.log("first name", firstName);
-  console.log("last name", lastName);
 
   const ticketsCount = Array.isArray(orders)
     ? orders.reduce((sum, order) => {
@@ -31,16 +26,11 @@ export default function Profile({ user, orders }) {
       }, 0)
     : 0;
 
-  console.log("ticketsCount", ticketsCount);
-
   const ordersCount = Array.isArray(orders) ? orders.length : 0;
-  console.log("countsOrders", ordersCount);
 
   const ticketsPrice = Array.isArray(orders)
     ? orders.reduce((sum, order) => sum + (order.total || 0), 0)
     : 0;
-
-  console.log("ticketsPrice", ticketsPrice);
 
   const getDate = (date) => {
     return new Date(date).toLocaleDateString("en-US", {
@@ -48,6 +38,21 @@ export default function Profile({ user, orders }) {
       month: "short",
       year: "numeric",
     });
+  };
+
+  const formatPaymentMethod = (method) => {
+    switch (method) {
+      case "card":
+        return "💳 Card";
+      case "apple":
+        return "🍏 Apple Pay";
+      case "google":
+        return "📱 Google Pay";
+      case "paypal":
+        return "🅿️ PayPal";
+      default:
+        return method || "—";
+    }
   };
 
   return (
@@ -154,7 +159,12 @@ export default function Profile({ user, orders }) {
                         <OrderNumber>Order #{order._id.slice(-4)}</OrderNumber>
                         <OrderDate>{getDate(order.createdAt)}</OrderDate>
                       </div>
-                      <OrderStatus>Confirmed</OrderStatus>
+                      <RightHeader>
+                        <PaymentMethod>
+                          {formatPaymentMethod(order.paymentMethod)}
+                        </PaymentMethod>
+                        <OrderStatus>Confirmed</OrderStatus>
+                      </RightHeader>
                     </OrderHeader>
 
                     {order.items.map((item) => (
@@ -185,13 +195,13 @@ export default function Profile({ user, orders }) {
                         {order.serviceFee !== undefined && (
                           <PriceRow small>
                             <span>Service fee</span>
-                            <span>€{order.serviceFee}</span>
+                            <span>0.5%</span>
                           </PriceRow>
                         )}
 
                         <TotalRow>
                           <span>Total</span>
-                          <span>€{order.total}</span>
+                          <span>€{order.total.toFixed(2)}</span>
                         </TotalRow>
                       </PriceBlock>
                     </OrderFooter>
@@ -481,4 +491,16 @@ const TotalRow = styled.div`
   gap: 20px;
   font-weight: bold;
   margin-top: 4px;
+`;
+
+const RightHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+`;
+
+const PaymentMethod = styled.div`
+  font-size: 12px;
+  color: gray;
 `;

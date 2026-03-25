@@ -63,7 +63,7 @@ export default async function handler(request, response) {
         eventsToUpdate.push({ event, quantity: item.quantity });
       }
 
-      const serviceFeeRate = 0.001;
+      const serviceFeeRate = 0.005;
       const serviceFee = subtotal * serviceFeeRate;
       const total = subtotal + serviceFee;
 

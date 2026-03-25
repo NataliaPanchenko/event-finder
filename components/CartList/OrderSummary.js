@@ -9,7 +9,7 @@ export default function OrderSummary({ cartItems }) {
         0
       )
     : 0;
-  const serviceFee = +(subtotal * 0.001).toFixed(2);
+  const serviceFee = +(subtotal * 0.005).toFixed(2);
   const total = subtotal + serviceFee;
 
   return (
@@ -20,7 +20,7 @@ export default function OrderSummary({ cartItems }) {
         <span>€{subtotal.toFixed(2)}</span>
       </Row>
       <Row>
-        <span>Service Fee (0.1%)</span>
+        <span>Service Fee (0.5%)</span>
         <span>€{serviceFee.toFixed(2)}</span>
       </Row>
       <Divider />
