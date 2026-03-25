@@ -22,8 +22,6 @@ export default function App({
   const { data: user } = useSWR("/api/user", fetcher);
   const { data: orders } = useSWR("/api/orders", fetcher);
 
-  console.log(events);
-
   const cartCount = Array.isArray(cartItems)
     ? cartItems.reduce((sum, item) => sum + item.quantity, 0)
     : 0;
