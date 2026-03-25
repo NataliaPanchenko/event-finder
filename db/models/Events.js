@@ -13,6 +13,8 @@ const eventSchema = new Schema({
   price: { type: Number, default: 0 },
   availableTickets: { type: Number, default: 0 },
   location: { type: Schema.Types.ObjectId, ref: "Location", required: true },
+  lat: { type: Number, required: true },
+  lng: { type: Number, required: true },
 });
 
 const Event =
