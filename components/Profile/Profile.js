@@ -69,15 +69,15 @@ export default function Profile({ user, orders }) {
 
         <Stats>
           <StatBox>
-            <StatNumber>{ordersCount}</StatNumber>
+            <StatNumber>{ordersCount.toFixed(2)}</StatNumber>
             <StatLabel>Orders</StatLabel>
           </StatBox>
           <StatBox>
-            <StatNumber>{ticketsCount}</StatNumber>
+            <StatNumber>{ticketsCount.toFixed(2)}</StatNumber>
             <StatLabel>Tickets</StatLabel>
           </StatBox>
           <StatBox>
-            <StatNumber>€{ticketsPrice}</StatNumber>
+            <StatNumber>€{ticketsPrice.toFixed(2)}</StatNumber>
             <StatLabel>Spent</StatLabel>
           </StatBox>
         </Stats>
