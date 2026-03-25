@@ -3,6 +3,7 @@ import Loading from "../Loading";
 import { LogOut, Mail, Package, User2, CircleQuestionMark } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
+import NoOrders from "../NoOrders";
 
 export default function Profile({ user, orders }) {
   const [activeTab, setActiveTab] = useState("profile");
@@ -174,18 +175,31 @@ export default function Profile({ user, orders }) {
 
                     <OrderFooter>
                       <div>{totalTickets} tickets</div>
-                      <div>Total: €{order.total}</div>
+
+                      <PriceBlock>
+                        <PriceRow>
+                          <span>Tickets</span>
+                          <span>€{order.subtotal ?? order.total}</span>
+                        </PriceRow>
+
+                        {order.serviceFee !== undefined && (
+                          <PriceRow small>
+                            <span>Service fee</span>
+                            <span>€{order.serviceFee}</span>
+                          </PriceRow>
+                        )}
+
+                        <TotalRow>
+                          <span>Total</span>
+                          <span>€{order.total}</span>
+                        </TotalRow>
+                      </PriceBlock>
                     </OrderFooter>
                   </OrderCard>
                 );
               })
             ) : (
-              <EmptyCart>
-                <IconWrapper>
-                  <CircleQuestionMark size="30" />
-                </IconWrapper>
-                <NoOrdersTitle>No orders found</NoOrdersTitle>
-              </EmptyCart>
+              <NoOrders text="No orders found" />
             )}
           </Section>
         )}
@@ -446,33 +460,25 @@ const OrderFooter = styled.div`
   font-size: 14px;
 `;
 
-const EmptyCart = styled.div`
+const PriceBlock = styled.div`
   display: flex;
-  margin-top: 80px;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
+  align-items: flex-end;
+  gap: 4px;
 `;
 
-const IconWrapper = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: #f2f3f5;
+const PriceRow = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
-  svg {
-    width: 36px;
-    height: 36px;
-    color: #9aa0a6;
-  }
+  justify-content: space-between;
+  gap: 20px;
+  font-size: ${(props) => (props.small ? "12px" : "14px")};
+  color: ${(props) => (props.small ? "gray" : "inherit")};
 `;
 
-const NoOrdersTitle = styled.h2`
-  font-size: 24px;
-  margin-bottom: 8px;
+const TotalRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-weight: bold;
+  margin-top: 4px;
 `;
