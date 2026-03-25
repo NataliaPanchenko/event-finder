@@ -63,8 +63,6 @@ export default function EventsMap({ events }) {
 
   return (
     <>
-      <Title>Event&apos;s location</Title>
-
       <FindMeButton
         onClick={getUserLocation}
         style={{
@@ -82,8 +80,8 @@ export default function EventsMap({ events }) {
         style={{ height: "500px", width: "100%" }}
       >
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+          attribution='&copy; <a href="https://www.carto.com/">CARTO</a>'
         />
 
         <FlyToUser location={userLocation} />
@@ -107,7 +105,6 @@ export default function EventsMap({ events }) {
             position={[event.lat, event.lng]}
             eventHandlers={{ click: () => router.push(`/events/${event._id}`) }}
           >
-            <Popup>{event.title}</Popup>
             <Tooltip
               direction="top"
               offset={[0, -10]}
@@ -124,21 +121,17 @@ export default function EventsMap({ events }) {
 }
 
 const FindMeButton = styled.button`
-  margin-left: 10px;
   border-radius: 20px;
   border: none;
   background-color: #4496cf;
   color: white;
-  padding: 8px 12px;
+  padding: 5px 10px;
   cursor: pointer;
   transition: 0.2s;
+  position: absolute;
+  right: 25px;
+  bottom: 25px;
   &:hover {
     background-color: #357ab8;
   }
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  margin: 10px;
-  text-align: center;
 `;
