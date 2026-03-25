@@ -1,7 +1,8 @@
-import { useSession, signIn, signOut } from "next-auth/react";
-import { Heart, ShoppingBag } from "lucide-react";
+import { useSession, signIn } from "next-auth/react";
+import { Heart, ShoppingBag, User } from "lucide-react";
 import Link from "next/link";
 import styled from "styled-components";
+import Button from "./Button";
 
 export default function HeaderContent({ favoritesCount, cartCount }) {
   const { data: session } = useSession();
@@ -28,12 +29,13 @@ export default function HeaderContent({ favoritesCount, cartCount }) {
             {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
           </StyledIcon>
         </IconWrapper>
+        <IconWrapper>
+          <StyledIcon href="/profile">
+            <User size="25" />
+          </StyledIcon>
+        </IconWrapper>
 
-        {session ? (
-          <button onClick={() => signOut()}>Sign out</button>
-        ) : (
-          <button onClick={() => signIn()}>Sign in</button>
-        )}
+        {session ? null : <Button text="Sign in" onClick={() => signIn()} />}
       </CartWrapper>
     </Header>
   );

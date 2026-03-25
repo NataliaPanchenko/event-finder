@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { CircleCheck } from "lucide-react";
+import { serviceFeeValue } from "@/pages/_app";
 
 export default function CheckoutSummary({ cartItems }) {
   if (!cartItems) return <Wrapper>Loading...</Wrapper>;
@@ -9,7 +10,7 @@ export default function CheckoutSummary({ cartItems }) {
         0
       )
     : 0;
-  const serviceFee = +(subtotal * 0.03).toFixed(2);
+  const serviceFee = +(subtotal * serviceFeeValue).toFixed(2);
   const total = subtotal + serviceFee;
 
   return (
@@ -36,7 +37,7 @@ export default function CheckoutSummary({ cartItems }) {
         <Price>€{subtotal.toFixed(2)}</Price>
       </Row>
       <Row>
-        <Subtotal>Service Fee (3%)</Subtotal>
+        <Subtotal>Service Fee (0.5%)</Subtotal>
         <Price>€ {serviceFee.toFixed(2)}</Price>
       </Row>
 

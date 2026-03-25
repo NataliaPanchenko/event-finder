@@ -25,7 +25,7 @@ export default function SecureCheckout({ cartItems }) {
     (sum, item) => sum + item.eventId?.price * item.quantity,
     0
   );
-  const serviceFee = +(subtotal * 0.03).toFixed(2);
+  const serviceFee = +(subtotal * 0.005).toFixed(2);
   const total = subtotal + serviceFee;
 
   const totalTickets = (cartItems || []).reduce(
@@ -61,6 +61,7 @@ export default function SecureCheckout({ cartItems }) {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(order),
       });
 
@@ -73,6 +74,8 @@ export default function SecureCheckout({ cartItems }) {
       alert("Something went wrong");
     } finally {
       setLoading(false);
+      mutate("/api/orders");
+      mutate("/api/cart");
     }
   }
 
@@ -97,7 +100,7 @@ export default function SecureCheckout({ cartItems }) {
       }, 2500);
       return () => clearTimeout(timer);
     }
-  }, [checkoutMessage]);
+  }, [checkoutMessage, router]);
 
   const options = [
     {

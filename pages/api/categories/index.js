@@ -12,9 +12,9 @@ export default async function handler(request, response) {
 
     const categories = await Category.find().sort({ name: 1 });
 
-    response.status(200).json(categories);
+    return response.status(200).json(categories);
   } catch (error) {
     console.error("Failed to fetch categories:", error);
-    response.status(500).json({ error: "Failed to fetch categories" });
+    return response.status(500).json({ error: "Failed to fetch categories" });
   }
 }
