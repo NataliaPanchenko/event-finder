@@ -5,13 +5,20 @@ import requireAuth from "@/lib/auth";
 export default async function handler(request, response) {
   const session = await requireAuth(request, response);
 
-  if (!session) return;
+  if (!session) {
+    return response.status(401).json({ error: "Not authenticated" });
+  }
+
+  const userEmail = session.user.email;
 
   await dbConnect();
   const { id } = request.query;
 
   if (request.method === "DELETE") {
-    const deleted = await Cart.findByIdAndDelete(id);
+    const deleted = await Cart.findOneAndDelete({
+      _id: id,
+      userEmail,
+    });
     if (!deleted) return response.status(404).json({ error: "Item not found" });
     return response.status(200).json({ status: `Cart item ${id} deleted.` });
   }

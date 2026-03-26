@@ -11,6 +11,10 @@ const cartSchema = new mongoose.Schema(
       type: Number,
       default: 1,
     },
+    userEmail: {
+      type: String,
+      required: true,
+    },
   },
   { collection: "cart" }
 );
