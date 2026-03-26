@@ -13,6 +13,8 @@ export default function Favorites({ favorites }) {
 
   const router = useRouter();
 
+  console.log("favorites", favorites);
+
   if (!favorites || favorites.length === 0)
     return (
       <NoElements

@@ -7,6 +7,10 @@ const favoritesSchema = new mongoose.Schema(
       ref: "Event",
       required: true,
     },
+    userEmail: {
+      type: String,
+      required: true,
+    },
   },
   { collection: "favorites" }
 );
