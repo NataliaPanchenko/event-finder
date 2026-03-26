@@ -1,17 +1,25 @@
 import dbConnect from "@/db/connect";
 import Favorites from "@/db/models/Favorites";
+import requireAuth from "@/lib/auth";
 
 export default async function handler(request, response) {
   const session = await requireAuth(request, response);
 
-  if (!session) return;
+  if (!session) {
+    return response.status(401).json({ error: "Not authenticated" });
+  }
+
+  const userEmail = session.user.email;
 
   await dbConnect();
   const { id } = request.query;
 
   if (request.method === "DELETE") {
     try {
-      const deleted = await Favorites.findOneAndDelete({ eventId: id });
+      const deleted = await Favorites.findOneAndDelete({
+        eventId: id,
+        userEmail,
+      });
 
       if (!deleted) {
         return response.status(404).json({ error: "Favorite not found" });

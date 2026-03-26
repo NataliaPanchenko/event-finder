@@ -6,13 +6,17 @@ import requireAuth from "@/lib/auth";
 export default async function handler(request, response) {
   const session = await requireAuth(request, response);
 
-  if (!session) return;
+  if (!session) {
+    return response.status(401).json({ error: "Not authenticated" });
+  }
+
+  const userEmail = session.user.email;
 
   await dbConnect();
 
   if (request.method === "GET") {
     try {
-      const items = await Favorites.find()
+      const items = await Favorites.find({ userEmail })
         .populate({
           path: "eventId",
           populate: [
@@ -36,12 +40,12 @@ export default async function handler(request, response) {
     if (!event)
       return response.status(404).json({ message: "Event not found" });
 
-    const existingFavorite = await Favorites.findOne({ eventId });
+    const existingFavorite = await Favorites.findOne({ eventId, userEmail });
     if (existingFavorite) {
       return response.status(200).json(existingFavorite);
     }
 
-    const newFavorite = await Favorites.create({ eventId });
+    const newFavorite = await Favorites.create({ eventId, userEmail });
     return response.status(201).json(newFavorite);
   }
 
