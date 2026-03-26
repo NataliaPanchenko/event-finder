@@ -6,13 +6,17 @@ import requireAuth from "@/lib/auth";
 export default async function handler(request, response) {
   const session = await requireAuth(request, response);
 
-  if (!session) return;
+  if (!session) {
+    return response.status(401).json({ error: "Not authenticated" });
+  }
+
+  const userEmail = session.user.email;
 
   await dbConnect();
 
   if (request.method === "GET") {
     try {
-      const items = await Cart.find()
+      const items = await Cart.find({ userEmail })
         .populate({
           path: "eventId",
           populate: { path: "category", model: "Category" },
@@ -34,7 +38,7 @@ export default async function handler(request, response) {
     if (quantity > event.availableTickets)
       return response.status(400).json({ message: "Not enough tickets" });
 
-    const existingItem = await Cart.findOne({ eventId });
+    const existingItem = await Cart.findOne({ eventId, userEmail });
     if (existingItem) {
       existingItem.quantity += quantity;
       await existingItem.save();
@@ -44,6 +48,7 @@ export default async function handler(request, response) {
     const newItem = await Cart.create({
       eventId,
       quantity,
+      userEmail,
     });
 
     return response.status(201).json(newItem);
