@@ -7,16 +7,28 @@ import getEventById from "@/services/eventService";
 import { useState } from "react";
 import { Heart } from "lucide-react";
 import { mutate } from "swr";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function EventPage({ event, favorites }) {
   const [addMessage, setAddMessage] = useState("");
   const [imageOpen, setImageOpen] = useState(false);
 
+  const { status } = useSession();
+  const router = useRouter();
+
   if (!event) return <h2>Event not found</h2>;
 
-  const isFavorite = favorites?.some((fav) => fav.eventId._id === event._id);
+  const isFavorite = Array.isArray(favorites)
+    ? favorites.some((fav) => fav.eventId._id === event._id)
+    : false;
 
   const handleFavorites = async () => {
+    if (status !== "authenticated") {
+      router.push("/login");
+      return;
+    }
+
     if (isFavorite) {
       await fetch(`/api/favorites/${event._id}`, { method: "DELETE" });
     } else {
@@ -30,6 +42,11 @@ export default function EventPage({ event, favorites }) {
   };
 
   async function handleAddToCart(title) {
+    if (status !== "authenticated") {
+      router.push("/login");
+      return;
+    }
+
     const item = {
       eventId: event._id,
       title: event.title,

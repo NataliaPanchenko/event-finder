@@ -5,7 +5,9 @@ import requireAuth from "@/lib/auth";
 export default async function handler(request, response) {
   const session = await requireAuth(request, response);
 
-  if (!session) return;
+  if (!session) {
+    return response.status(401).json({ error: "Not authenticated" });
+  }
 
   try {
     await dbConnect();
