@@ -15,13 +15,10 @@ Users can browse events, search for interesting activities, view event details, 
 - Add events to cart before booking
 - Reserve tickets for events
 - User authentication
-- Organizer role for creating and managing events
 
 ### Additional Features Inspiration
 
 - Interactive map to display event locations
-- QR code ticket generation
-- Google Calendar integration
 
 ### Tech Stack
 
