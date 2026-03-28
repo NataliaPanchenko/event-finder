@@ -1,9 +1,6 @@
-import { SearchIcon } from "lucide-react";
 import styled from "styled-components";
 
 export default function SearchEvents({
-  search,
-  setSearch,
   categories,
   selectedCategory,
   setSelectedCategory,
@@ -19,16 +16,6 @@ export default function SearchEvents({
   ];
   return (
     <Wrapper>
-      <InputWrapper>
-        <StyledIcon size={20} />
-        <SearchInput
-          placeholder="Search events..."
-          type="text"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-        />
-      </InputWrapper>
-
       <FilterSection>
         <FilterTitle>Category</FilterTitle>
         <CategoryWrapper>
@@ -73,33 +60,6 @@ const Wrapper = styled.div`
   border-radius: 16px;
   width: 90%;
   box-shadow: var(--box-shadow);
-`;
-
-const InputWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  margin-bottom: 10px;
-`;
-
-const StyledIcon = styled(SearchIcon)`
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  color: var(--icon-color);
-`;
-
-const SearchInput = styled.input`
-  width: 100%;
-  padding: 10px 12px 10px 35px;
-  border-radius: 12px;
-  border: var(--input-border);
-  background: var(--search-input-bg);
-  margin-bottom: 10px;
-  outline: none;
-  font-size: 14px;
-  &:focus {
-    border-color: var(--main-color);
-  }
 `;
 
 const FilterSection = styled.div`
