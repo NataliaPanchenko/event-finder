@@ -27,7 +27,7 @@ const IconWrapper = styled.div`
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: #f2f3f5;
+  background: var(--no-results-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +35,7 @@ const IconWrapper = styled.div`
   svg {
     width: 36px;
     height: 36px;
-    color: #9aa0a6;
+    color: var(--no-results);
   }
 `;
 

@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import Loading from "../Loading";
-import { LogOut, Mail, Package, User2, CircleQuestionMark } from "lucide-react";
+import {
+  LogOut,
+  Mail,
+  Package,
+  User2,
+  Calendar,
+  Clock,
+  CreditCard,
+  Apple,
+  Wallet,
+  SquareParking,
+} from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 import NoResults from "../NoResults";
@@ -43,13 +54,29 @@ export default function Profile({ user, orders }) {
   const formatPaymentMethod = (method) => {
     switch (method) {
       case "card":
-        return "💳 Card";
+        return (
+          <OrderDate>
+            <CreditCard size={15} /> Card
+          </OrderDate>
+        );
       case "apple":
-        return "🍏 Apple Pay";
+        return (
+          <OrderDate>
+            <Apple size={15} /> Apple Pay
+          </OrderDate>
+        );
       case "google":
-        return "📱 Google Pay";
+        return (
+          <OrderDate>
+            <Wallet size={15} /> Google Pay
+          </OrderDate>
+        );
       case "paypal":
-        return "🅿️ PayPal";
+        return (
+          <OrderDate>
+            <SquareParking size={15} /> PayPal
+          </OrderDate>
+        );
       default:
         return method || "—";
     }
@@ -110,7 +137,7 @@ export default function Profile({ user, orders }) {
         {activeTab === "profile" && (
           <>
             <Header>
-              <Title>Profile Information</Title>
+              <Title>Profile</Title>
             </Header>
 
             <Section>
@@ -157,7 +184,10 @@ export default function Profile({ user, orders }) {
                     <OrderHeader>
                       <div>
                         <OrderNumber>Order #{order._id.slice(-4)}</OrderNumber>
-                        <OrderDate>{getDate(order.createdAt)}</OrderDate>
+                        <OrderDate>
+                          <Clock size={15} />
+                          {getDate(order.createdAt)}
+                        </OrderDate>
                       </div>
                       <RightHeader>
                         <PaymentMethod>
@@ -172,8 +202,8 @@ export default function Profile({ user, orders }) {
                         <TicketInfo>
                           <TicketTitle>{item.eventId.title}</TicketTitle>
                           <TicketDetails>
-                            📅 {getDate(item.eventId.date)} •{" "}
-                            {item.eventId.location?.name}
+                            <Calendar size={15} /> {getDate(item.eventId.date)}{" "}
+                            • {item.eventId.location?.name}
                           </TicketDetails>
                         </TicketInfo>
                         <TicketQuantityPrice>
@@ -184,10 +214,6 @@ export default function Profile({ user, orders }) {
                     ))}
 
                     <OrderFooter>
-                      <div>
-                        {totalTickets} {totalTickets > 1 ? "tickets" : "ticket"}
-                      </div>
-
                       <PriceBlock>
                         <PriceRow>
                           <span>Tickets</span>
@@ -196,7 +222,9 @@ export default function Profile({ user, orders }) {
 
                         {order.serviceFee !== undefined && (
                           <PriceRow small>
-                            <span>Service fee</span>
+                            <span style={{ color: "var(--main-color)" }}>
+                              Service fee
+                            </span>
                             <span>0.5%</span>
                           </PriceRow>
                         )}
@@ -225,7 +253,7 @@ const Wrapper = styled.div`
   gap: 30px;
   padding: 40px;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
+  background: var(--search-input-bg);
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 20px;
@@ -237,7 +265,7 @@ const Sidebar = styled.div`
   background: white;
   border-radius: 20px;
   padding: 25px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--sidebar-shadow);
   @media (max-width: 768px) {
     width: 100%;
     margin-bottom: 20px;
@@ -291,7 +319,7 @@ const Stats = styled.div`
 
 const StatBox = styled.div`
   flex: 1;
-  background: #f3f4f6;
+  background: var(--search-input-bg);
   border-radius: 12px;
   text-align: center;
   padding: 10px;
@@ -304,7 +332,7 @@ const StatNumber = styled.div`
 
 const StatLabel = styled.div`
   font-size: 12px;
-  color: gray;
+  color: var(--gray-color);
 `;
 
 const Menu = styled.div`
@@ -319,26 +347,29 @@ const MenuItem = styled.div`
   padding: 12px;
   border-radius: 10px;
   margin-bottom: 10px;
-  background: ${(props) =>
-    props.active ? "linear-gradient(90deg, #4f46e5, #9333ea)" : "#f3f4f6"};
-  color: ${(props) => (props.active ? "white" : "black")};
+  background: ${(props) => (props.active ? "var(--main-color)" : "#f5f5f5")};
+  color: ${(props) =>
+    props.active ? "var(--white-color)" : "var(--category-button-color)"};
   cursor: pointer;
   display: flex;
-  gap: 5px;
+  gap: 8px;
   align-items: center;
-  justify-content: flex-start;
+  transition: all 0.2s ease;
+  &:hover {
+    background: ${(props) =>
+      props.active ? "var(--main-color)" : "var(--icon-background)"};
+  }
 `;
 
 const LogoutText = styled.div`
-  margin: 40px 0 0 10px;
+  margin: 30px 0 0 10px;
   display: flex;
-  justify-content: flex-start;
-  gap: 3px;
+  gap: 6px;
   align-items: center;
-  color: red;
+  color: var(--logout-text);
   cursor: pointer;
   &:hover {
-    text-decoration: underline;
+    color: red;
   }
 `;
 
@@ -347,7 +378,7 @@ const Content = styled.div`
   background: white;
   border-radius: 20px;
   padding: 30px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--sidebar-shadow);
   @media (max-width: 768px) {
     padding: 20px;
   }
@@ -364,7 +395,10 @@ const Header = styled.div`
   }
 `;
 
-const Title = styled.h2``;
+const Title = styled.h3`
+  margin-top: 20px;
+  font-size: 20px;
+`;
 
 const Section = styled.div`
   margin-top: 30px;
@@ -384,7 +418,7 @@ const Row = styled.div`
 
 const Field = styled.div`
   flex: 1;
-  background: #f9fafb;
+  background: var(--search-input-bg);
   padding: 15px;
   border-radius: 12px;
   margin-bottom: 15px;
@@ -395,7 +429,7 @@ const Field = styled.div`
 
 const Label = styled.div`
   font-size: 12px;
-  color: gray;
+  color: var(--gray-color);
 `;
 
 const Value = styled.div`
@@ -408,7 +442,7 @@ const OrderCard = styled.div`
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--subtitile-color);
 `;
 
 const OrderHeader = styled.div`
@@ -416,25 +450,33 @@ const OrderHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 `;
 
 const OrderNumber = styled.div`
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
 `;
 
 const OrderDate = styled.div`
   font-size: 12px;
-  color: gray;
+  color: var(--gray-color);
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;
 
 const OrderStatus = styled.div`
-  background: #d1fae5;
-  color: #065f46;
+  background: var(--order-status-bg);
+  color: var(--order-color);
   font-size: 12px;
   font-weight: 500;
-  padding: 2px 8px;
-  border-radius: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
 `;
 
 const TicketRow = styled.div`
@@ -442,7 +484,11 @@ const TicketRow = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   padding: 10px 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--delete-bg);
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 6px;
+  }
 `;
 
 const TicketInfo = styled.div`
@@ -451,17 +497,24 @@ const TicketInfo = styled.div`
 `;
 
 const TicketTitle = styled.div`
-  font-weight: 500;
+  font-weight: 600;
 `;
 
 const TicketDetails = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 12px;
-  color: gray;
+  color: var(--gray-color);
+  margin-top: 5px;
 `;
 
 const TicketQuantityPrice = styled.div`
   text-align: right;
   font-weight: 500;
+  @media (max-width: 600px) {
+    text-align: left;
+  }
 `;
 
 const OrderFooter = styled.div`
@@ -470,29 +523,44 @@ const OrderFooter = styled.div`
   padding-top: 10px;
   font-weight: 600;
   font-size: 14px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 
 const PriceBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 4px;
+  gap: 6px;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--delete-bg);
+  @media (max-width: 600px) {
+    align-items: flex-start;
+  }
 `;
 
 const PriceRow = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 30px;
   font-size: ${(props) => (props.small ? "12px" : "14px")};
-  color: ${(props) => (props.small ? "gray" : "inherit")};
+  color: ${(props) =>
+    props.small ? "var(--price-row-color)" : "var(--category-button-color)"};
+  width: 100%;
+  max-width: 200px;
 `;
 
 const TotalRow = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 20px;
-  font-weight: bold;
-  margin-top: 4px;
+  gap: 30px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--main-color);
+  width: 120px;
 `;
 
 const RightHeader = styled.div`
@@ -500,9 +568,12 @@ const RightHeader = styled.div`
   flex-direction: column;
   align-items: flex-end;
   gap: 5px;
+  @media (max-width: 600px) {
+    align-items: flex-start;
+  }
 `;
 
 const PaymentMethod = styled.div`
   font-size: 12px;
-  color: gray;
+  color: var(--gray-color);
 `;

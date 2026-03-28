@@ -26,8 +26,8 @@ export default function OrderSummary({ cartItems }) {
       </Row>
       <Divider />
       <TotalRow>
-        <span>Total</span>
-        <span>€{total.toFixed(2)}</span>
+        <span style={{ color: "var(--black-color)" }}>Total</span>
+        <span style={{ color: "var(--black-color)" }}>€{total.toFixed(2)}</span>
       </TotalRow>
       <CheckoutButton href="/checkout">
         Proceed to Checkout <ArrowRight size={18} />
@@ -38,18 +38,21 @@ export default function OrderSummary({ cartItems }) {
 }
 
 const SummaryCard = styled.div`
-  background: white;
+  background: var(--white-color);
   border-radius: 14px;
   padding: 24px;
   height: fit-content;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--subtitile-color);
+  @media (min-width: 1024px) {
+    margin-top: 65px;
+  }
 `;
 
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 12px 0;
-  color: #555;
+  color: var(--icon-color);
 `;
 
 const TotalRow = styled(Row)`
@@ -59,7 +62,7 @@ const TotalRow = styled(Row)`
 
 const Divider = styled.hr`
   border: none;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--search-bachground);
   margin: 16px 0;
 `;
 
@@ -70,19 +73,19 @@ const CheckoutButton = styled(Link)`
   gap: 8px;
   width: 100%;
   margin-top: 20px;
-  background: #2563eb;
-  color: white;
+  background: var(--main-color);
+  color: var(--white-color);
   border: none;
-  padding: 16px 14px;
+  padding: 10px 14px;
   border-radius: 12px;
   font-weight: 600;
   font-size: 0.92rem;
-  color: #f8fbff;
+  color: var(--icon-background);
   text-decoration: none;
   cursor: pointer;
   transition: 0.2s;
   &:hover {
-    background: #1d4ed8;
+    background: var(--main-hover-color);
   }
 `;
 
@@ -90,7 +93,7 @@ const Continue = styled(Link)`
   display: block;
   text-align: center;
   margin-top: 16px;
-  color: #2563eb;
+  color: var(--main-color);
   text-decoration: none;
   cursor: pointer;
   font-size: 0.92rem;

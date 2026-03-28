@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 60vh;
+  min-height: 80vh;
 `;
 
 const Loader = styled.div`
@@ -29,11 +29,6 @@ const Loader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background:
-    repeating-linear-gradient(135deg, #b23cfb 0 10px, #fb39ee 0 20px) 0 / 0%
-      no-repeat,
-    repeating-linear-gradient(135deg, #ddd 0 10px, #eee 0 20px) 0 / 100%;
-
+  background: var(--loading-background);
   animation: ${animate} 2s infinite;
 `;

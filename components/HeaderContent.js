@@ -1,5 +1,5 @@
 import { useSession, signIn } from "next-auth/react";
-import { Heart, ShoppingBag, User, MapPin } from "lucide-react";
+import { Heart, ShoppingBag, User, MapIcon } from "lucide-react";
 import Link from "next/link";
 import styled from "styled-components";
 import Button from "./Button";
@@ -10,130 +10,178 @@ export default function HeaderContent({ favoritesCount, cartCount }) {
   return (
     <Header>
       <StyledTitel href="/">
-        🎫 <GradientWord>Event</GradientWord>{" "}
-        <GraphiteWord>Finder</GraphiteWord>
+        <TitelWrapper>
+          <EventIcon>EF</EventIcon>
+          <GraphiteWord> Event Finder</GraphiteWord>
+        </TitelWrapper>
+        {session ? null : (
+          <ProfileButton>
+            <Button onClick={() => signIn()} />
+          </ProfileButton>
+        )}
       </StyledTitel>
 
       <CartWrapper>
-        <IconWrapper>
-          <StyledIcon href="/map">
-            <MapPin size={25} />
+        <IconWrapper href="/map">
+          <StyledIcon>
+            <MapIcon size={15} />
           </StyledIcon>
+          <Text>Map</Text>
         </IconWrapper>
-        <IconWrapper>
-          <StyledIcon href="/favorites">
-            <Heart size={25} />
-            {favoritesCount > 0 && (
-              <FavoritesBadge>{favoritesCount}</FavoritesBadge>
-            )}
+        <IconWrapper href="/favorites">
+          <StyledIcon>
+            <Heart size={15} />
           </StyledIcon>
+          <Text>Favorites</Text>
+          {favoritesCount > 0 && (
+            <FavoritesBadge>{favoritesCount}</FavoritesBadge>
+          )}
         </IconWrapper>
-        <IconWrapper>
-          <StyledIcon href="/cart">
-            <ShoppingBag size={25} />
-            {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
+        <IconWrapper href="/cart">
+          <StyledIcon>
+            <ShoppingBag size={15} />
           </StyledIcon>
+          <Text>Cart</Text>
+          {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
         </IconWrapper>
-        <IconWrapper>
-          <StyledIcon href="/profile">
-            <User size={25} />
+        <IconWrapper href="/profile">
+          <StyledIcon>
+            <User size={15} />
           </StyledIcon>
+          <Text>Profile</Text>
         </IconWrapper>
-
-        {session ? null : <Button text="Sign in" onClick={() => signIn()} />}
       </CartWrapper>
     </Header>
   );
 }
 
 const CartWrapper = styled.div`
-  top: 35px;
-  right: 30px;
-  cursor: pointer;
-  color: var(--title-color);
   display: flex;
-  flex-direction: row;
+  justify-content: center;
   align-items: center;
   gap: 15px;
+  @media (min-width: 769px) {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @media (max-width: 600px) {
+    margin-top: 10px;
+    position: static;
+    transform: none;
+  }
 `;
 
 const Header = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 30px 0 30px;
+  padding: 10px 30px;
+  background-color: var(--white-color);
+  box-shadow: var(--header-shadow);
+  @media (max-width: 768px) {
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const EventIcon = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  background: var(--hero-gradient);
+  color: var(--white-color);
+  padding: 5px;
+  font-size: 18px;
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TitelWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  gap: 5px;
 `;
 
 const StyledTitel = styled(Link)`
   text-decoration: none;
   font-weight: 700;
   display: flex;
+  align-items: center;
   gap: 6px;
-  font-size: 32px;
-  transition: transform 0.3s ease;
-  &:hover {
-    transform: scale(1.01);
+  font-size: 24px;
+  @media (max-width: 600px) {
+    font-size: 24px;
+    justify-content: space-between;
+    width: 100%;
+  }
+  @media (max-width: 400px) {
+    display: none;
   }
 `;
 
-const IconWrapper = styled.div`
+const IconWrapper = styled(Link)`
   cursor: pointer;
-  color: var(--title-color);
-  margin: 10px 0 0 0;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+  color: --black-color;
+  height: 30px;
+  padding: 2px 15px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
   &:hover {
-    transform: translateY(-2px);
-    color: var(--black-color);
+    background-color: var(--icon-background);
   }
-`;
-
-const GradientWord = styled.span`
-  background: linear-gradient(90deg, #b23cfb, #d147ff, #fb39ee);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 `;
 
 const GraphiteWord = styled.span`
-  color: #3a3a3a;
+  color: var(--main-color);
 `;
 
-const StyledIcon = styled(Link)`
+const StyledIcon = styled.div`
   position: relative;
   text-decoration: none;
-  margin: 0;
+  color: var(--main-color);
+`;
+
+const Text = styled.p`
+  font-size: 14px;
+  font-weight: 300px;
+  color: var(--main-color);
+  text-decoration: none;
 `;
 
 const CartBadge = styled.div`
   position: absolute;
-  top: -19px;
-  right: -12px;
-  background: #2563eb;
+  top: -6px;
+  right: 0;
   color: white;
   font-size: 12px;
   font-weight: 700;
-  width: 21px;
-  height: 21px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--main-color);
 `;
 
-const FavoritesBadge = styled.div`
+const FavoritesBadge = styled(CartBadge)`
+  background: var(--main-color);
+`;
+
+const ProfileButton = styled.div`
   position: absolute;
-  top: -19px;
-  right: -12px;
-  background: #ff4d4d;
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  width: 21px;
-  height: 21px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 10px;
+  right: 10px;
 `;

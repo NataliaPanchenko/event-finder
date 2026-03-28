@@ -14,11 +14,13 @@ export default function CartList({ cartItems }) {
 
   if (!cartItems || cartItems.length === 0)
     return (
-      <NoElements
-        title="Your cart is empty"
-        description="Add some events to your cart to get started"
-        icon={<ShoppingCart size="30" />}
-      />
+      <EmptyWrapper>
+        <NoElements
+          title="Your cart is empty"
+          description="Add some events to your cart to get started"
+          icon={<ShoppingCart size="30" />}
+        />
+      </EmptyWrapper>
     );
 
   async function handleDelete(id, title) {
@@ -62,10 +64,9 @@ export default function CartList({ cartItems }) {
             />
           </ImageWrapper>
           <Info>
-            <Category>{item.eventId.category?.name || "No category"}</Category>
             <Title>{item.eventId?.title}</Title>
             <DateRow>
-              📅 <span>{getDate(item.eventId?.date)}</span>
+              <span>{getDate(item.eventId?.date)}</span>
             </DateRow>
             <CartItemControls>
               <button
@@ -107,6 +108,19 @@ export default function CartList({ cartItems }) {
   );
 }
 
+const EmptyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 100%;
+  text-align: center;
+  @media (min-width: 1024px) {
+    margin-left: 170px;
+  }
+`;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -116,14 +130,13 @@ const Wrapper = styled.div`
 const TicketCard = styled.div`
   position: relative;
   display: flex;
-  justify-content: space-between;
+  gap: 16px;
   align-items: center;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--subtitile-color);
   transition: transform 0.15s ease;
   overflow: hidden;
-  padding-right: 110px;
   &:hover {
     transform: translateY(-2px);
   }
@@ -146,32 +159,39 @@ const Info = styled.div`
 const Title = styled.h4`
   margin: 0;
   font-size: 16px;
-  color: #222;
+  color: var(--date-color);
 `;
 
 const DateRow = styled.div`
   margin-top: 6px;
-  color: #777;
+  color: var(--date-row-color);
   font-size: 14px;
 `;
 
 const Quantity = styled.p`
   margin: 0;
   font-size: 14px;
-  color: #777;
+  color: var(--date-row-color);
   padding: 0 14px;
 `;
 
 const Price = styled.div`
   font-weight: 700;
   font-size: 18px;
-  color: #000000;
+  color: var(--black-color);
+  margin-left: auto;
+  margin-right: 15px;
+  font-weight: 700;
+  font-size: 18px;
+  @media (max-width: 600px) {
+    margin-right: 5px;
+  }
 `;
 
 const BackLink = styled(Link)`
   margin-top: 30px;
   text-decoration: none;
-  color: #555;
+  color: var(--icon-color);
   font-size: 14px;
   &:hover {
     text-decoration: underline;
@@ -197,7 +217,7 @@ const ConfirmBox = styled.div`
   background: white;
   padding: 12px 16px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--subtitile-color);
   z-index: 10;
   text-align: center;
 `;
@@ -212,11 +232,11 @@ const ConfirmButtons = styled.div`
     border: none;
     cursor: pointer;
     &:first-child {
-      background: #e74c3c;
-      color: white;
+      background: var(--delete-color);
+      color: var(--white-color);
     }
     &:last-child {
-      background: #bdc3c7;
+      background: var(--delete-bg);
       color: black;
     }
   }
@@ -227,7 +247,7 @@ const Message = styled.div`
   left: 50%;
   transform: translateX(-50%);
   top: 20px;
-  border: 1px solid #4caf50;
+  border: 1px solid var(--success-color);
   color: var(--text-color);
   background-color: white;
   padding: 10px 15px;
@@ -248,7 +268,7 @@ const CartItemControls = styled.div`
     width: 28px;
     height: 28px;
     border-radius: 6px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     background: white;
     cursor: pointer;
     font-size: 16px;
@@ -256,7 +276,7 @@ const CartItemControls = styled.div`
     align-items: center;
     justify-content: center;
     &:hover {
-      background: #f0f0f0;
+      background: var(--cart-controls-bg);
     }
   }
   span {
@@ -267,8 +287,8 @@ const CartItemControls = styled.div`
 
 const ImageWrapper = styled(Link)`
   position: relative;
-  width: 170px;
-  height: 250px;
+  width: 130px;
+  height: 150px;
   flex-shrink: 0;
   overflow: hidden;
   border-radius: 12px 0 0 12px;
@@ -280,16 +300,4 @@ const ImageWrapper = styled(Link)`
   @media (max-width: 600px) {
     margin-right: 10px;
   }
-`;
-
-const Category = styled.p`
-  display: block;
-  width: fit-content;
-  background-color: rgba(129, 177, 255, 0.7);
-  border-radius: 5px;
-  color: white;
-  font-size: 0.95rem;
-  padding: 5px;
-  color: rgb(26, 7, 123);
-  margin: 0;
 `;

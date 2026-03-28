@@ -6,8 +6,8 @@ export default function Footer() {
       <ContentWrapper>
         <p>© 2026 Event Finder. All rights reserved.</p>
         <Links>
-          <p href="/">Terms of Service</p>
-          <p href="/">Privacy Policy</p>
+          <p>Terms of Service</p>
+          <p>Privacy Policy</p>
         </Links>
       </ContentWrapper>
     </StyledFooter>
@@ -16,12 +16,12 @@ export default function Footer() {
 
 const StyledFooter = styled.footer`
   width: 100%;
-  background: linear-gradient(90deg, #5b5b5b, #6e6e6e, #7f7f7f);
+  background-color: var(--main-color);
   opacity: 0.8;
-  color: #fff;
+  color: var(--white-color);
   padding: 15px 15px;
   text-align: center;
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--footer-shadow);
 `;
 
 const ContentWrapper = styled.div`
@@ -30,7 +30,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-
+  color: var(--white-color);
   @media (min-width: 600px) {
     flex-direction: row;
     justify-content: space-between;
@@ -47,13 +47,9 @@ const Links = styled.div`
   gap: 15px;
   justify-content: center;
   a {
-    color: #fff;
     text-decoration: underline;
     font-size: 14px;
     transition: color 0.2s ease;
-    &:hover {
-      color: #ffea00;
-    }
   }
   p {
     text-decoration: underline;

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { Tooltip } from "react-leaflet";
+import { getDate } from "../EventsList/EventItem/EventItem";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -57,10 +58,6 @@ export default function EventsMap({ events }) {
     );
   };
 
-  useEffect(() => {
-    getUserLocation();
-  }, []);
-
   return (
     <>
       <FindMeButton
@@ -111,7 +108,12 @@ export default function EventsMap({ events }) {
               opacity={0.9}
               permanent={false}
             >
-              {event.title}
+              <b>{event.title}</b>
+              <br />
+              {event.location.name}
+              <br />
+              {getDate(event.date)}
+              <br />€{event.price}
             </Tooltip>
           </Marker>
         ))}
@@ -123,7 +125,7 @@ export default function EventsMap({ events }) {
 const FindMeButton = styled.button`
   border-radius: 20px;
   border: none;
-  background-color: #4496cf;
+  background-color: var(--main-color);
   color: white;
   padding: 5px 10px;
   cursor: pointer;
@@ -132,6 +134,6 @@ const FindMeButton = styled.button`
   right: 25px;
   bottom: 25px;
   &:hover {
-    background-color: #357ab8;
+    background-color: var(--main-hover-color);
   }
 `;

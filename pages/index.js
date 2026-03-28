@@ -4,6 +4,7 @@ import Error from "@/components/Error";
 import Loading from "@/components/Loading";
 import SearchEvents from "@/components/SearchEvents/SearchEvents";
 import { useState, useMemo } from "react";
+import HeroHeader from "@/components/HeroHeader";
 
 export default function HomePage({ events, error, isLoading, categories }) {
   const [search, setSearch] = useState("");
@@ -48,22 +49,25 @@ export default function HomePage({ events, error, isLoading, categories }) {
   }
 
   return (
-    <Wrapper>
-      <Sidebar>
-        <SearchEvents
-          search={search}
-          setSearch={setSearch}
-          categories={categories}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          selectedPrice={selectedPrice}
-          setSelectedPrice={setSelectedPrice}
-        />
-      </Sidebar>
-      <MainContent>
-        <EventsList events={filteredEvents} />
-      </MainContent>
-    </Wrapper>
+    <>
+      <HeroHeader />
+      <Wrapper>
+        <Sidebar>
+          <SearchEvents
+            search={search}
+            setSearch={setSearch}
+            categories={categories}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            selectedPrice={selectedPrice}
+            setSelectedPrice={setSelectedPrice}
+          />
+        </Sidebar>
+        <MainContent>
+          <EventsList events={filteredEvents} />
+        </MainContent>
+      </Wrapper>
+    </>
   );
 }
 

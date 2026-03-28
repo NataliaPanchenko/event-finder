@@ -1,7 +1,6 @@
 import Image from "next/image";
-import { MapPin } from "lucide-react";
+import { MapPin, Calendar } from "lucide-react";
 import styled from "styled-components";
-import { Calendar } from "lucide-react";
 
 export function getDate(date) {
   const eventDate = new Date(date).toLocaleDateString("en-GB", {
@@ -26,18 +25,20 @@ export default function EventItem({ event, onClick }) {
           />
           <CategoryBadge>{event.category?.name}</CategoryBadge>
         </ImageWrapper>
-        <Title>{event.title}</Title>
-        <DateText>
-          <Calendar size="12" /> {getDate(event.date)}
-        </DateText>
-        <Location>
-          <MapPin size="12" />
-          {event.location?.name || "Unknown location"}
-        </Location>
-        <CardFooter>
-          <Price>€{event.price}</Price>
-          <DetailsButton>View Details</DetailsButton>
-        </CardFooter>
+        <TextContent>
+          <Title>{event.title}</Title>
+          <DateText>
+            <Calendar size={16} /> <Text>{getDate(event.date)}</Text>
+          </DateText>
+          <Location>
+            <MapPin size={16} />{" "}
+            <Text> {event.location?.name || "Unknown location"}</Text>
+          </Location>
+          <CardFooter>
+            <Price>€{event.price}</Price>
+            <DetailsButton>View Details</DetailsButton>
+          </CardFooter>
+        </TextContent>
       </Content>
     </Card>
   );
@@ -46,18 +47,20 @@ export default function EventItem({ event, onClick }) {
 const Card = styled.div`
   width: 100%;
   max-width: 350px;
+  height: 400px;
   margin: 0 auto;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  box-shadow: var(--card-box-shadow);
+  background-color: var(--white-color);
   cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease;
+  position: relative;
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--box-shadow);
+  }
+  @media (max-width: 600px) {
+    height: 380px;
   }
 `;
 
@@ -76,23 +79,33 @@ const ImageWrapper = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 12px;
+  padding: 0;
+`;
+
+const TextContent = styled.div`
+  padding: 20px;
 `;
 
 const DateText = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 13px;
   color: var(--text-color);
-  margin: 0 0 4px 0;
+  margin: 10px 0 4px 0;
 `;
 
 const Title = styled.h3`
   font-size: 16px;
-  margin: 5px 0 6px 0;
-  color: #222;
+  margin: 5px 0 16px 0;
+  color: var(--item-title-color);
 `;
 
 const Location = styled.p`
   display: flex;
+  align-items: center;
+  display: flex;
+  gap: 5px;
   align-items: center;
   gap: 2px;
   font-size: 12px;
@@ -100,16 +113,20 @@ const Location = styled.p`
   margin: 0 0 4px 0;
 `;
 
+const Text = styled.span`
+  font-size: 14px;
+`;
+
 const CategoryBadge = styled.div`
   position: absolute;
   top: 10px;
   right: 10px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--category-background);
   padding: 4px 10px;
   border-radius: 16px;
   font-size: 12px;
   font-weight: 500;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--category-shadow);
   color: var(--title-color);
 `;
 
@@ -123,11 +140,14 @@ const CardFooter = styled.div`
 const Price = styled.div`
   font-size: 18px;
   font-weight: 600;
-  color: #2563eb;
+  color: var(--main-color);
+  position: absolute;
+  bottom: 25px;
+  left: 20px;
 `;
 
 const DetailsButton = styled.button`
-  background: #2563eb;
+  background: var(--main-color);
   color: white;
   border: none;
   padding: 8px 20px;
@@ -135,7 +155,10 @@ const DetailsButton = styled.button`
   font-size: 13px;
   cursor: pointer;
   transition: 0.2s;
+  position: absolute;
+  bottom: 25px;
+  right: 20px;
   &:hover {
-    background: #1d4ed8;
+    background: var(--main-hover-color);
   }
 `;

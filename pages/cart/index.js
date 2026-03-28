@@ -6,6 +6,7 @@ import { useState } from "react";
 import { mutate } from "swr";
 import Error from "@/components/Error";
 import Loading from "@/components/Loading";
+import { ShoppingCart } from "lucide-react";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -38,16 +39,23 @@ export default function CartPage() {
 
   return (
     <Container>
-      {cartItems.length !== 0 && (
+      {(!cartItems || cartItems.length === 0) && (
         <Header>
           {clearCartMessage && <Message>{clearCartMessage}</Message>}
-          <TitleBlock>
-            <Title>Shopping Cart</Title>
-            <CartInfo>
-              {quantityItems}
-              {quantityItems === 1 ? ` item` : ` items`} in your cart
-            </CartInfo>
-          </TitleBlock>
+
+          {cartItems && cartItems.length !== 0 && (
+            <TitleBlock>
+              <Title>
+                <ShoppingCart size={25} />
+                Shopping Cart
+              </Title>
+              <CartInfo>
+                {quantityItems}
+                {quantityItems === 1 ? ` item` : ` items`} in your cart
+              </CartInfo>
+            </TitleBlock>
+          )}
+
           {confirmClear && (
             <ConfirmBox>
               <p>Delele all tickets?</p>
@@ -92,7 +100,7 @@ const CartLayout = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
 `;
 
 const TitleBlock = styled.div`
@@ -103,12 +111,15 @@ const TitleBlock = styled.div`
 const Title = styled.h2`
   font-size: 28px;
   margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
 `;
 
 const Clear = styled.button`
   background: none;
   border: none;
-  color: red;
+  color: var(--main-color);
   cursor: pointer;
 `;
 
@@ -119,7 +130,7 @@ const ConfirmBox = styled.div`
   background: white;
   padding: 14px 18px;
   border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--confirm-box-shadow);
   z-index: 10;
 `;
 
@@ -135,11 +146,11 @@ const ConfirmButtons = styled.div`
     cursor: pointer;
   }
   button:first-child {
-    background: #e74c3c;
-    color: white;
+    background: var(--delete-color);
+    color: var(--white-color);
   }
   button:last-child {
-    background: #ddd;
+    background: var(--delete-bg);
   }
 `;
 
@@ -148,7 +159,7 @@ const Message = styled.div`
   left: 50%;
   transform: translateX(-50%);
   top: 20px;
-  color: white;
+  color: var(--white-color);
   padding: 10px 15px;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -160,6 +171,6 @@ const Message = styled.div`
 
 const CartInfo = styled.p`
   font-size: 14px;
-  color: #666;
+  color: var(--info-color);
   margin: 0;
 `;
