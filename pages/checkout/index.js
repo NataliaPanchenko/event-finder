@@ -10,7 +10,9 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function CheckoutPage() {
   const { data: cartItems } = useSWR("/api/cart", fetcher);
-  if (!cartItems || cartItems.length === 0)
+  if (!cartItems) return null;
+
+  if (cartItems.length === 0)
     return (
       <NoElements
         titel="Your cart is empty"

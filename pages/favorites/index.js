@@ -13,7 +13,9 @@ export default function Favorites({ favorites }) {
 
   const router = useRouter();
 
-  if (!favorites || favorites.length === 0)
+  if (!favorites) return null;
+
+  if (favorites.length === 0)
     return (
       <EmptyWrapper>
         <NoElements
