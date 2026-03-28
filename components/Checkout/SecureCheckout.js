@@ -284,7 +284,7 @@ export default function SecureCheckout({ cartItems }) {
 }
 
 const Wrapper = styled.div`
-  background: var(white-color);
+  background: var(--surface-color);
   padding: 32px;
   border-radius: 20px;
   box-shadow: 0 10px 30px var(--overlay-checkout);
@@ -389,6 +389,7 @@ const Input = styled.input`
   border-radius: 12px;
   border: 1px solid var(--category-button-hover);
   background: var(--search-input-bg);
+  color: var(--black-color);
   outline: none;
   &:focus {
     border-color: var(--main-color);
@@ -413,7 +414,7 @@ const Card = styled.button`
     ${({ active }) =>
       active ? "var(--main-color)" : "var(--category-button-hover)"};
   background: ${({ active }) =>
-    active ? "var(--card-bg)" : "var(--white-color)"};
+    active ? "var(--payment-bg)" : "var(--payment-color)"};
   text-align: left;
   cursor: pointer;
   transition: 0.2s;
@@ -495,7 +496,7 @@ const Overlay = styled.div`
 `;
 
 const CheckoutMessage = styled.div`
-  background: white;
+  background: var(--surface-color);
   padding: 40px 30px;
   border-radius: 20px;
   text-align: center;
@@ -537,7 +538,7 @@ const ButtonGroup = styled.div`
 
 const HomeButton = styled.button`
   background: var(--item-title-color);
-  color: white;
+  color: var(--white-color);
   padding: 12px 0;
   border-radius: 12px;
   border: none;
@@ -546,7 +547,7 @@ const HomeButton = styled.button`
 `;
 
 const EventsButton = styled.button`
-  background: white;
+  background: var(--surface-color);
   color: var(--item-title-color);
   padding: 12px 0;
   border-radius: 12px;

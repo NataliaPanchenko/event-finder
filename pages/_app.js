@@ -60,4 +60,5 @@ const AppWrapper = styled.div`
 const ContentWrapper = styled.div`
   flex: 1;
   position: relative;
+  background-color: var(--search-input-bg);
 `;

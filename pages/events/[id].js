@@ -142,11 +142,12 @@ const PageContainer = styled.div`
   align-items: center;
   padding: 20px;
   min-height: 70vh;
+  background-color: var(--search-input-bg);
 `;
 
 const Card = styled.div`
   position: relative;
-  background-color: var(--white-color);
+  background-color: var(--surface-color);
   padding: 30px 40px;
   border-radius: 12px;
   box-shadow: var(--card-box-shadow);
@@ -176,7 +177,7 @@ const Message = styled.div`
   transform: translateX(-50%);
   border: 1px solid var(--success-color);
   color: var(--text-color);
-  background-color: white;
+  background-color: var(--surface-color);
   padding: 10px 15px;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -261,7 +262,7 @@ const Meta = styled.div`
 
 const DateText = styled.div`
   font-size: 0.95rem;
-  color: var(--icon-color);
+  color: var(--location-color);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -273,7 +274,7 @@ const Location = styled.div`
   justify-content: center;
   gap: 4px;
   font-size: 0.95rem;
-  color: var(--icon-color);
+  color: var(--location-color);
   margin: 0;
 `;
 

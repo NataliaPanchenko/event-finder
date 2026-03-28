@@ -11,7 +11,7 @@ export default function Button({ onClick }) {
 
 const StyledButton = styled.button`
   background-color: var(--main-color);
-  color: white;
+  color: var(--white-color);
   display: flex;
   padding: 8px;
   justify-content: center;

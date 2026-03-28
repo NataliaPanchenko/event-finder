@@ -14,7 +14,7 @@ export default function ToggleTheme() {
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme === THEME_STATES.DARK) {
       setIsDark(true);
-      document.body.classList.add(THEME_STATES.DARK);
+      document.documentElement.classList.add(THEME_STATES.DARK);
     } else {
       localStorage.setItem("theme", THEME_STATES.LIGHT);
       setIsDark(false);
@@ -23,11 +23,11 @@ export default function ToggleTheme() {
 
   function toggleDark() {
     if (isDark) {
-      document.body.classList.remove(THEME_STATES.DARK);
+      document.documentElement.classList.remove(THEME_STATES.DARK);
       localStorage.setItem("theme", THEME_STATES.LIGHT);
       setIsDark(false);
     } else {
-      document.body.classList.add(THEME_STATES.DARK);
+      document.documentElement.classList.add(THEME_STATES.DARK);
       localStorage.setItem("theme", THEME_STATES.DARK);
       setIsDark(true);
     }

@@ -22,11 +22,11 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background: #f9f9f9;
+  background: var(--search-input-bg);
 `;
 
 const ErrorCard = styled.div`
-  background: white;
+  background: var(--surface-color);
   padding: 40px 45px;
   border-radius: 14px;
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
@@ -43,19 +43,19 @@ const Icon = styled.div`
 const Title = styled.h2`
   margin: 0 0 10px 0;
   font-size: 22px;
-  color: #222;
+  color: var(--item-title-color);
 `;
 
 const Message = styled.p`
   margin: 0 0 22px 0;
   font-size: 15px;
-  color: #666;
+  color: var(--info-color);
   line-height: 1.5;
 `;
 
 const RetryButton = styled.button`
-  background: #0070f3;
-  color: white;
+  background: var(--main-color);
+  color: var(--white-color);
   border: none;
   padding: 10px 18px;
   border-radius: 8px;
@@ -64,7 +64,7 @@ const RetryButton = styled.button`
   transition: all 0.2s ease;
 
   &:hover {
-    background: #0497ff;
+    background: var(--main-hover-color);
     transform: translateY(-1px);
   }
 

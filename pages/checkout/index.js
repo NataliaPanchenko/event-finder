@@ -53,7 +53,7 @@ const BackButton = styled(Link)`
   align-items: center;
   gap: 5px;
   text-decoration: none;
-  color: #474747;
+  color: var(--title-color);
   font-weight: 600;
   font-size: 16px;
   &:hover {

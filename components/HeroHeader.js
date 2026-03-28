@@ -53,8 +53,9 @@ const Title = styled.h1`
 
 const Subtitle = styled.p`
   font-size: 18px;
-  color: var(--subtitle-color);
+  color: var(--subtitile-color);
   margin-bottom: 30px;
+  color: var(--desc-color);
   @media (max-width: 480px) {
     font-size: 16px;
   }
@@ -82,6 +83,8 @@ const SearchInput = styled.input`
   border-radius: 8px;
   border: none;
   font-size: 16px;
+  background: var(--white-color);
+  color: #333;
   &:focus {
     outline: 2px solid var(--search-outline);
   }
@@ -92,7 +95,7 @@ const SearchInput = styled.input`
 
 const SearchButton = styled.button`
   background-color: var(--white-color);
-  color: black;
+  color: var(--search-button);
   padding: 12px 25px;
   border: none;
   border-radius: 8px;
