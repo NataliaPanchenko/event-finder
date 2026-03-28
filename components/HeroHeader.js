@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { SearchIcon } from "lucide-react";
 
-export default function HeroHeader() {
+export default function HeroHeader({ search, setSearch }) {
   return (
     <HeroSection>
       <HeroContent>
@@ -9,7 +10,13 @@ export default function HeroHeader() {
           Find and book tickets for concerts, sports, theater, and more
         </Subtitle>
         <SearchWrapper>
-          <SearchInput placeholder="Search for events..." />
+          <StyledIcon size={20} />
+          <SearchInput
+            placeholder="Search for events..."
+            type="text"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
           <SearchButton>Search</SearchButton>
         </SearchWrapper>
       </HeroContent>
@@ -54,9 +61,14 @@ const Subtitle = styled.p`
 `;
 
 const SearchWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   gap: 10px;
+  position: relative;
+  width: 100%;
+  margin: 0 auto 10px auto;
+  max-width: 500px;
   @media (max-width: 480px) {
     flex-direction: column;
     gap: 10px;
@@ -64,8 +76,8 @@ const SearchWrapper = styled.div`
 `;
 
 const SearchInput = styled.input`
-  padding: 12px 20px;
-  width: 500px;
+  padding: 12px 20px 12px 40px;
+  width: 100%;
   max-width: 100%;
   border-radius: 8px;
   border: none;
@@ -94,4 +106,11 @@ const SearchButton = styled.button`
   @media (max-width: 480px) {
     width: 100%;
   }
+`;
+
+const StyledIcon = styled(SearchIcon)`
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  color: var(--icon-color);
 `;

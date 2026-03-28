@@ -50,12 +50,10 @@ export default function HomePage({ events, error, isLoading, categories }) {
 
   return (
     <>
-      <HeroHeader />
+      <HeroHeader search={search} setSearch={setSearch} />
       <Wrapper>
         <Sidebar>
           <SearchEvents
-            search={search}
-            setSearch={setSearch}
             categories={categories}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
