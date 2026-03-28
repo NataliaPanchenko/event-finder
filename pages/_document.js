@@ -26,7 +26,24 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function () {
+                  try {
+                    var theme = localStorage.getItem("theme");
+                    if (theme === "dark") {
+                      document.documentElement.classList.add("dark");
+                    } else {
+                      document.documentElement.classList.remove("dark");
+                    }
+                  } catch (e) {}
+                })();
+            `,
+            }}
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />

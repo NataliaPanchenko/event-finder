@@ -15,6 +15,7 @@ import {
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 import NoResults from "../NoResults";
+import ToggleTheme from "../ToggleTheme";
 
 export default function Profile({ user, orders }) {
   const [activeTab, setActiveTab] = useState("profile");
@@ -244,6 +245,7 @@ export default function Profile({ user, orders }) {
           </Section>
         )}
       </Content>
+      <ToggleTheme />
     </Wrapper>
   );
 }
