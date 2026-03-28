@@ -31,7 +31,17 @@ function FlyToUser({ location }) {
 
 export default function EventsMap({ events }) {
   const [userLocation, setUserLocation] = useState(null);
+  const [isDark, setIsDark] = useState(false);
   const center = [52.52, 13.405];
+
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains("dark"));
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
 
   const router = useRouter();
 
@@ -77,7 +87,11 @@ export default function EventsMap({ events }) {
         style={{ height: "500px", width: "100%" }}
       >
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+          url={
+            isDark
+              ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              : "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+          }
           attribution='&copy; <a href="https://www.carto.com/">CARTO</a>'
         />
 
@@ -126,7 +140,7 @@ const FindMeButton = styled.button`
   border-radius: 20px;
   border: none;
   background-color: var(--main-color);
-  color: white;
+  color: var(--white-color);
   padding: 5px 10px;
   cursor: pointer;
   transition: 0.2s;

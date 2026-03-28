@@ -52,7 +52,7 @@ const Card = styled.div`
   border-radius: 16px;
   overflow: hidden;
   box-shadow: var(--card-box-shadow);
-  background-color: var(--white-color);
+  background-color: var(--surface-color);
   cursor: pointer;
   transition: box-shadow 0.2s ease;
   position: relative;
@@ -98,7 +98,7 @@ const DateText = styled.p`
 const Title = styled.h3`
   font-size: 16px;
   margin: 5px 0 16px 0;
-  color: var(--item-title-color);
+  color: var(--item-title-text);
 `;
 
 const Location = styled.p`
@@ -148,7 +148,7 @@ const Price = styled.div`
 
 const DetailsButton = styled.button`
   background: var(--main-color);
-  color: white;
+  color: var(--white-color);
   border: none;
   padding: 8px 20px;
   border-radius: 10px;

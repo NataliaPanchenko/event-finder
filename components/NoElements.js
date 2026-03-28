@@ -51,7 +51,7 @@ const Description = styled.p`
 
 const ButtonLink = styled(Link)`
   background: var(--main-color);
-  color: white;
+  color: var(--white-color);
   padding: 12px 28px;
   border-radius: 10px;
   text-decoration: none;

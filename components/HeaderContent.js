@@ -78,7 +78,7 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px 30px;
-  background-color: var(--white-color);
+  background-color: var(--surface-color);
   box-shadow: var(--header-shadow);
   @media (max-width: 768px) {
     padding: 10px 15px;
@@ -132,7 +132,7 @@ const IconWrapper = styled(Link)`
   align-items: center;
   gap: 3px;
   position: relative;
-  color: --black-color;
+  color: var(--black-color);
   height: 30px;
   padding: 2px 15px;
   border-radius: 5px;
@@ -140,6 +140,12 @@ const IconWrapper = styled(Link)`
   text-decoration: none;
   &:hover {
     background-color: var(--icon-background);
+    p {
+      color: var(--black-color);
+    }
+    div {
+      color: var(--black-color);
+    }
   }
 `;
 
@@ -164,7 +170,7 @@ const CartBadge = styled.div`
   position: absolute;
   top: -6px;
   right: 0;
-  color: white;
+  color: var(--white-color);
   font-size: 12px;
   font-weight: 700;
   width: 20px;

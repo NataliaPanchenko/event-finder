@@ -39,7 +39,7 @@ export default function CartPage() {
 
   return (
     <Container>
-      {(!cartItems || cartItems.length === 0) && (
+      {cartItems && cartItems.length > 0 && (
         <Header>
           {clearCartMessage && <Message>{clearCartMessage}</Message>}
 
@@ -119,7 +119,7 @@ const Title = styled.h2`
 const Clear = styled.button`
   background: none;
   border: none;
-  color: var(--main-color);
+  color: var(--clear-cart);
   cursor: pointer;
 `;
 
@@ -127,7 +127,7 @@ const ConfirmBox = styled.div`
   position: absolute;
   top: 80px;
   right: 20px;
-  background: white;
+  background: var(--surface-color);
   padding: 14px 18px;
   border-radius: 10px;
   box-shadow: var(--confirm-box-shadow);

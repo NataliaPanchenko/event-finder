@@ -38,7 +38,7 @@ export default function OrderSummary({ cartItems }) {
 }
 
 const SummaryCard = styled.div`
-  background: var(--white-color);
+  background: var(--surface-color);
   border-radius: 14px;
   padding: 24px;
   height: fit-content;

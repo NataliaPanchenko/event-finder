@@ -64,7 +64,7 @@ export default function CheckoutSummary({ cartItems }) {
 }
 
 const Wrapper = styled.div`
-  background: #fff;
+  background: var(--surface-color);
   padding: 24px;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -77,7 +77,7 @@ const Title = styled.h2`
 `;
 
 const Item = styled.div`
-  background: #f9fafb;
+  background: var(--search-input-bg);
   padding: 16px;
   border-radius: 14px;
   display: flex;
@@ -103,12 +103,12 @@ const ItemSubWrapper = styled.div`
 
 const ItemSub = styled.p`
   font-size: 13px;
-  color: #777;
+  color: var(--date-row-color);
 `;
 
 const ItemSubPrice = styled.p`
   font-size: 13px;
-  color: black;
+  color: var(--black-color);
   font-weight: 600;
 `;
 
@@ -131,13 +131,13 @@ const Row = styled.div`
   justify-content: space-between;
   font-size: 14px;
   margin-bottom: 6px;
-  color: #555;
+  color: var(--icon-color);
 `;
 
 const Divider = styled.hr`
   margin: 16px 0;
   border: none;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
 `;
 
 const Total = styled.div`

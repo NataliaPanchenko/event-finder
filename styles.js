@@ -7,11 +7,14 @@ export default createGlobalStyle`
     --black-color: #000000;
     --delete-color: red;
     --main-color: #61544B;
+    --clear-cart: #61544B;
     --main-hover-color: #9d8a7c;
     --white-color: #ffffff;
     --item-title-color: #222;
+    --item-title-text: #222;
     --icon-background: #ecebeb;
     --icon-color: #555;
+    --location-color: #555;
     --info-color: #666;
     --date-color: #222;
     --descr-color: #333;
@@ -31,8 +34,16 @@ export default createGlobalStyle`
     --no-elements-icon: #9aa0a6;
     --no-elem-desc: #6b7280;
     --card-bg: #faf5ff;
+    --payment-bg: #faf5ff;
     --message-color: #3a3a3a;
     --secondary-button-bg: #24292e;
+    --search-color: #ffffff;
+    --filter-color: black;
+    --item-title-color-light: #d2d0d0;
+    --search-button: black;
+    
+    --dark-mode: #ffffff;
+    --dark-mode-bg: #000000;
 
     --subtitile-color: #d3d3d3;
     --search-outline: #d5d5d5;
@@ -49,14 +60,17 @@ export default createGlobalStyle`
     --success-color: #4caf50;
     --delete-bg: #ddd;
 
+    --surface-color: #ffffff;
+
     --category-background: rgba(255, 255, 255, 0.8);
     --category-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
     --header-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     --input-border: 1px solid #e5e7eb;
     --sidebar-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        --card-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     --button-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
 
-    --card-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    -box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     --footer-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
     --confirm-box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
@@ -65,6 +79,69 @@ export default createGlobalStyle`
       0 / 0% no-repeat,
     repeating-linear-gradient(135deg, #ddd 0 10px, #eee 0 20px) 0 / 100%;
     --hero-gradient: linear-gradient(90deg, #ddccb6, var(--main-color));
+  }
+
+  .dark {
+    --title-color: #e0e0e0;
+    --text-color: #aaa;
+    --black-color: #ffffff;
+    --item-title-color: #d8d5d5;
+    --item-title-text: #dedbdb;
+    --icon-background: #2a2a2a;
+    --icon-color: #ccc;
+    --location-color: #bebcbc;
+    --info-color: #aaa;
+    --date-color: #e0e0e0;
+    --descr-color: #bebebe;
+    --date-row-color: #999;
+    --clear-cart: #999;
+    --price-row-color: #999;
+    --delete-bg: #444;
+    --border-color: #444;
+    --cart-controls-bg: #2a2a2a;
+    --logout-text: #777;
+    --success-text-color: #ccc;
+    --no-results: #777;
+    --no-results-bg: #2a2a2a;
+    --no-elements-icon: #777;
+    --no-elem-desc: #999;
+    --card-bg: #1a1a2e;
+    --payment-bg: #888;
+    --message-color: #e0e0e0;
+    --secondary-button-bg: #333;
+    --search-color: #2a2a2a;
+    --filter-color: #363434;
+    --dark-title-color: #2a2a2a;
+    --search-button: black;
+
+    --subtitile-color: #444;
+    --search-outline: #444;
+    --search-bachground: #2a2a2a;
+    --search-input-bg: #121212;
+    --category-button-hover: #3a3a3a;
+    --category-button-bg: #2a2a2a;
+    --category-button-color: #e0e0e0;
+    --gray-color: #aaa;
+    --order-status-bg: #1a3a1a;
+    --order-color: #4caf50;
+
+    --category-background: rgba(20, 20, 20, 0.95);
+    --category-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    --header-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    --input-border: 1px solid #444;
+    --sidebar-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    --button-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+
+    --card-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    --footer-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
+    --confirm-box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+    --hero-gradient: linear-gradient(90deg, #2f2d2b, var(--main-color));
+
+    --surface-color: #1e1e1e;
+
+    --dark-mode: #000000;
+    --dark-mode-bg: #ffffff;
   }
 
   *,
@@ -76,5 +153,7 @@ export default createGlobalStyle`
   body {
     margin: 0;
     font-family: system-ui;
+    background-color: var(--search-input-bg);
+    color: var(--black-color);
   }
 `;

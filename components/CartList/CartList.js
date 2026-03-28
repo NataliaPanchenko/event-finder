@@ -75,6 +75,7 @@ export default function CartList({ cartItems }) {
                   item.quantity > 1 &&
                   updateQuantity(item._id, item.quantity - 1)
                 }
+                style={{ color: "var(--title-color)" }}
               >
                 −
               </button>
@@ -82,6 +83,7 @@ export default function CartList({ cartItems }) {
               <button
                 disabled={item.quantity >= item.eventId?.availableTickets}
                 onClick={() => updateQuantity(item._id, item.quantity + 1)}
+                style={{ color: "var(--title-color)" }}
               >
                 +
               </button>
@@ -132,7 +134,7 @@ const TicketCard = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;
-  background: white;
+  background: var(--surface-color);
   border-radius: 12px;
   border: 1px solid var(--subtitile-color);
   transition: transform 0.15s ease;
@@ -214,7 +216,7 @@ const ConfirmBox = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background: var(--surface-color);
   padding: 12px 16px;
   border-radius: 8px;
   border: 1px solid var(--subtitile-color);
@@ -237,7 +239,7 @@ const ConfirmButtons = styled.div`
     }
     &:last-child {
       background: var(--delete-bg);
-      color: black;
+      color: var(--black-color);
     }
   }
 `;
@@ -249,7 +251,7 @@ const Message = styled.div`
   top: 20px;
   border: 1px solid var(--success-color);
   color: var(--text-color);
-  background-color: white;
+  background-color: var(--surface-color);
   padding: 10px 15px;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -269,7 +271,7 @@ const CartItemControls = styled.div`
     height: 28px;
     border-radius: 6px;
     border: 1px solid var(--border-color);
-    background: white;
+    background: var(--surface-color);
     cursor: pointer;
     font-size: 16px;
     display: flex;

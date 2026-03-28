@@ -15,6 +15,7 @@ import {
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 import NoResults from "../NoResults";
+import ToggleTheme from "../ToggleTheme";
 
 export default function Profile({ user, orders }) {
   const [activeTab, setActiveTab] = useState("profile");
@@ -89,7 +90,7 @@ export default function Profile({ user, orders }) {
           <Avatar src={user.image} />
           <Name>{user.name}</Name>
           <Email>
-            <Mail size="15" color="grey" />
+            <Mail size="15" color="var(--gray-color)" />
             {user.email}
           </Email>
         </AvatarBlock>
@@ -127,7 +128,7 @@ export default function Profile({ user, orders }) {
             My Orders
           </MenuItem>
           <LogoutText onClick={() => signOut()}>
-            <LogOut size="15" color="red" />
+            <LogOut size="15" color="var(--delete-color)" />
             Logout
           </LogoutText>
         </Menu>
@@ -161,7 +162,8 @@ export default function Profile({ user, orders }) {
 
               <Field>
                 <Label>
-                  <Mail size="12" color="grey" /> &nbsp; Email Address
+                  <Mail size="12" color="var(--gray-color)" /> &nbsp; Email
+                  Address
                 </Label>
                 <Value>{user.email}</Value>
               </Field>
@@ -244,6 +246,7 @@ export default function Profile({ user, orders }) {
           </Section>
         )}
       </Content>
+      <ToggleTheme />
     </Wrapper>
   );
 }
@@ -262,7 +265,7 @@ const Wrapper = styled.div`
 
 const Sidebar = styled.div`
   width: 300px;
-  background: white;
+  background: var(--surface-color);
   border-radius: 20px;
   padding: 25px;
   box-shadow: var(--sidebar-shadow);
@@ -296,7 +299,7 @@ const Name = styled.h2`
 `;
 
 const Email = styled.p`
-  color: gray;
+  color: var(--gray-color);
   font-size: 14px;
   display: flex;
   gap: 5px;
@@ -347,7 +350,8 @@ const MenuItem = styled.div`
   padding: 12px;
   border-radius: 10px;
   margin-bottom: 10px;
-  background: ${(props) => (props.active ? "var(--main-color)" : "#f5f5f5")};
+  background: ${(props) =>
+    props.active ? "var(--main-color)" : "var(--category-button-bg)"};
   color: ${(props) =>
     props.active ? "var(--white-color)" : "var(--category-button-color)"};
   cursor: pointer;
@@ -369,13 +373,13 @@ const LogoutText = styled.div`
   color: var(--logout-text);
   cursor: pointer;
   &:hover {
-    color: red;
+    color: var(--delete-color);
   }
 `;
 
 const Content = styled.div`
   flex: 1;
-  background: white;
+  background: var(--surface-color);
   border-radius: 20px;
   padding: 30px;
   box-shadow: var(--sidebar-shadow);
@@ -438,7 +442,7 @@ const Value = styled.div`
 `;
 
 const OrderCard = styled.div`
-  background: white;
+  background: var(--surface-color);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
@@ -519,11 +523,12 @@ const TicketQuantityPrice = styled.div`
 
 const OrderFooter = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding-top: 10px;
   font-weight: 600;
   font-size: 14px;
   @media (max-width: 600px) {
+    justify-content: flex-start;
     flex-direction: column;
     gap: 10px;
   }

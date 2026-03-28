@@ -70,6 +70,7 @@ const FilterTitle = styled.p`
   font-weight: 600;
   margin-bottom: 8px;
   font-size: 13px;
+  color: var(--filter-color);
 `;
 
 const CategoryWrapper = styled.div`
@@ -100,9 +101,13 @@ const PriceSelect = styled.select`
   padding: 8px 10px;
   border-radius: 12px;
   border: var(--input-border);
-  background: var(--search-input-bg);
+  background: var(--search-color);
+  color: var(--black-color);
   font-size: 14px;
   outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   &:focus {
     border-color: var(--main-color);
   }
