@@ -140,12 +140,6 @@ const IconWrapper = styled(Link)`
   text-decoration: none;
   &:hover {
     background-color: var(--icon-background);
-    p {
-      color: var(--black-color);
-    }
-    div {
-      color: var(--black-color);
-    }
   }
 `;
 
