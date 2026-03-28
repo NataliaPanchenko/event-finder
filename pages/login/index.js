@@ -13,10 +13,10 @@ export default function Login() {
   return (
     <PageWrapper>
       <LoginBox>
-        <Title>
-          🎫 <GradientWord>Event</GradientWord>{" "}
-          <GraphiteWord>Finder</GraphiteWord>
-        </Title>
+        <TitelWrapper>
+          <EventIcon>EF</EventIcon>
+          <GraphiteWord> Event Finder</GraphiteWord>
+        </TitelWrapper>
 
         {session ? (
           <>
@@ -62,9 +62,6 @@ export default function Login() {
               &nbsp; <Shield size={15} />
               &nbsp;Secure Login
             </SecureTitle>
-            <SecureDescription>
-              Your credentials are protected with end-to-end encryption
-            </SecureDescription>
           </SecureTextWrapper>
         </SecureBlock>
       </LoginBox>
@@ -77,44 +74,56 @@ const PageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f7f7f7;
+  background: var(--search-input-bg);
 `;
 
 const LoginBox = styled.div`
-  background: #fff;
+  background: var(--white-color);
   padding: 40px 50px;
   border-radius: 16px;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--sidebar-shadow);
   text-align: center;
   max-width: 400px;
   width: 100%;
 `;
 
-const Title = styled.h1`
-  font-size: 36px;
+const EventIcon = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  background: var(--hero-gradient);
+  color: var(--white-color);
+  padding: 5px;
+  font-size: 18px;
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+  align-items: center;
   font-weight: 700;
-  margin-bottom: 30px;
 `;
 
-const GradientWord = styled.span`
-  background: linear-gradient(90deg, #b23cfb, #d147ff, #fb39ee);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+const TitelWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
 `;
 
 const GraphiteWord = styled.span`
-  color: #3a3a3a;
+  color: var(--main-color);
+  font-weight: 700;
+  font-size: 26px;
 `;
 
 const Message = styled.p`
   font-size: 16px;
   margin-bottom: 25px;
-  color: #3a3a3a;
+  color: var(--message-color);
 `;
 
 const Button = styled.button`
-  background: linear-gradient(90deg, #b23cfb, #d147ff, #fb39ee);
-  color: #fff;
+  background: var(--main-hover-color);
+  color: var(--white-color);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -131,7 +140,7 @@ const Button = styled.button`
     box-shadow 0.2s ease;
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+    background: var(--main-color);
   }
 `;
 
@@ -142,8 +151,8 @@ const ButtonsWrapper = styled.div`
 `;
 
 const SecondaryButton = styled.button`
-  background: #24292e;
-  color: #fff;
+  background: var(--secondary-button-bg);
+  color: var(--white-color);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -160,7 +169,7 @@ const SecondaryButton = styled.button`
     box-shadow 0.2s ease;
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--button-shadow);
   }
 `;
 
@@ -171,13 +180,14 @@ const ButtonText = styled.p`
 const SecureBlock = styled.div`
   margin-top: 30px;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 12px;
-  background: #f5f7ff;
-  padding: 16px 18px;
+  background: var(--category-button-bg);
+  padding: 8px 18px;
   border-radius: 16px;
-  border: 1px solid #dbe3ff;
-  color: #1d4ed8;
+  border: 1px solid var(--no-results-bg);
+  color: var(--main-hover-color);
 `;
 
 const SecureTextWrapper = styled.div`
@@ -189,9 +199,4 @@ const SecureTextWrapper = styled.div`
 const SecureTitle = styled.div`
   font-weight: 600;
   font-size: 15px;
-`;
-
-const SecureDescription = styled.div`
-  font-size: 13px;
-  color: #3b82f6;
 `;

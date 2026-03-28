@@ -2,10 +2,9 @@ import { getDate } from "@/components/EventsList/EventItem/EventItem";
 import Link from "next/link";
 import styled from "styled-components";
 import Image from "next/image";
-import { MapPin } from "lucide-react";
+import { MapPin, Heart, Calendar, ShoppingCart } from "lucide-react";
 import getEventById from "@/services/eventService";
 import { useState } from "react";
-import { Heart } from "lucide-react";
 import { mutate } from "swr";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -71,21 +70,22 @@ export default function EventPage({ event, favorites }) {
 
   return (
     <PageContainer>
+      <BackLink href="/">← Back</BackLink>
       <Card>
         {addMessage && <Message>{addMessage}</Message>}
         <FavoriteIcon
-          size="40"
+          size={30}
           onClick={() => handleFavorites(event._id)}
           $active={isFavorite}
-          fill={isFavorite ? "white" : "none"}
+          fill={isFavorite ? "red" : "white"}
         />
-        <Title>{event.title}</Title>
         <ImageWrapper onClick={() => setImageOpen(true)}>
           <Image
             src={event.image ? event.image : "/event-img.jpg"}
             alt={event.title}
             fill
           />
+          <Category>{event.category?.name}</Category>
         </ImageWrapper>
 
         {imageOpen && (
@@ -102,23 +102,28 @@ export default function EventPage({ event, favorites }) {
           </ModalOverlay>
         )}
 
+        <Title>{event.title}</Title>
+
         <Meta>
-          <DateText>{getDate(event.date)}</DateText>
+          <DateText>
+            <Calendar size={15} />
+            {getDate(event.date)}
+          </DateText>
           <Location>
-            <MapPin size={12} />
+            <MapPin size={15} />
             {event.location?.name}
           </Location>
-          <Category>{event.category?.name}</Category>
         </Meta>
+        <DescTitle>Description</DescTitle>
         <Description>{event.description}</Description>
         <Tickets>
           <Price>€{event.price}</Price>
           <Available>Available: {event.availableTickets}</Available>
         </Tickets>
         <AddButton onClick={() => handleAddToCart(event.title)}>
+          <ShoppingCart size={17} />
           Add to cart
         </AddButton>
-        <BackLink href="/">← Back to Events</BackLink>
       </Card>
     </PageContainer>
   );
@@ -133,39 +138,43 @@ export async function getServerSideProps({ params }) {
 
 const PageContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
-  background-color: #f9f9f9;
   min-height: 70vh;
 `;
 
 const Card = styled.div`
   position: relative;
-  background-color: #ffffff;
+  background-color: var(--white-color);
   padding: 30px 40px;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--card-box-shadow);
   max-width: 600px;
   width: 100%;
 `;
 
 const FavoriteIcon = styled(Heart)`
   position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 10px;
-  background-color: #f4f2f2;
-  border-radius: 20px;
+  top: 10px;
+  right: 10px;
+  padding: 7px;
+  background-color: var(--cart-controls-bg);
+  border: ${({ $active }) =>
+    $active ? "none" : "1px solid var(--icon-color)"};
+  border-radius: 10px;
   cursor: pointer;
-  color: ${({ $active }) => ($active ? "white" : "#555")};
-  background-color: ${({ $active }) => ($active ? "#ff4d4d" : "#f4f2f2")};
+  color: ${({ $active }) =>
+    $active ? "var(--dekete-color)" : "var(--icon-color)"};
+  background-color: ${({ $active }) =>
+    $active ? "var(--category-button-bg)" : "var(--category-button-bg)"};
 `;
 
 const Message = styled.div`
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  border: 1px solid #4caf50;
+  border: 1px solid var(--success-color);
   color: var(--text-color);
   background-color: white;
   padding: 10px 15px;
@@ -179,8 +188,8 @@ const Message = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   margin: 0 auto 12px;
   border-radius: 8px;
   overflow: hidden;
@@ -197,7 +206,7 @@ const ModalOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--overlay-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -220,7 +229,7 @@ const CloseButton = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--icon-background);
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
@@ -233,41 +242,57 @@ const CloseButton = styled.button`
   z-index: 10;
 `;
 
-const Title = styled.h1`
-  font-size: 2rem;
-  margin: 10px auto 20px auto;
-  color: #222;
+const Title = styled.h2`
+  font-size: 1.8rem;
+  margin: 30px auto 20px auto;
+  color: var(--item-title-color);
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const Meta = styled.div`
   display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 30px;
 `;
 
-const DateText = styled.span`
+const DateText = styled.div`
   font-size: 0.95rem;
-  color: #555;
+  color: var(--icon-color);
   display: flex;
   align-items: center;
+  gap: 4px;
 `;
 
-const Location = styled.span`
+const Location = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
   font-size: 0.95rem;
-  color: #555;
+  color: var(--icon-color);
   margin: 0;
+`;
+
+const DescTitle = styled.span`
+  padding: 4px 10px;
+  font-size: 1rem;
+  font-weight: 400px;
+  border-radius: 20px;
+  background-color: var(--icon-background);
 `;
 
 const Description = styled.p`
   font-size: 1rem;
   line-height: 1.6;
-  color: #333;
-  margin-bottom: 20px;
+  color: var(--descr-color);
+  margin: 20px auto;
+  @media (max-width: 600px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const Tickets = styled.div`
@@ -280,28 +305,34 @@ const Tickets = styled.div`
 const Price = styled.span`
   font-size: 1.25rem;
   font-weight: bold;
-  color: #111;
+  color: var(--black-color);
 `;
 
 const Available = styled.span`
   font-size: 0.95rem;
-  color: #666;
+  color: var(--info-color);
 `;
 
 const BackLink = styled(Link)`
+  align-self: flex-start;
+  margin-bottom: 10px;
   font-size: 0.95rem;
-  color: #0070f3;
+  color: var(--black-color);
+  font-weight: 500;
   text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
   &:hover {
-    text-decoration: underline;
+    background-color: var(--icon-background);
   }
 `;
 
 const AddButton = styled.button`
   width: 100%;
   padding: 12px 0;
-  background-color: #0070f3;
-  color: white;
+  background-color: var(--main-color);
+  color: var(--white-color);
   font-size: 1rem;
   font-weight: 500;
   border-radius: 8px;
@@ -314,17 +345,22 @@ const AddButton = styled.button`
   transition: all 0.2s ease;
   border: none;
   &:hover {
-    background-color: rgb(4, 151, 255);
+    background-color: var(--main-hover-color);
+  }
+  &:active {
+    border: 2px solid var(--white-color);
   }
 `;
 
 const Category = styled.p`
-  display: block;
-  width: fit-content;
-  background-color: rgba(129, 177, 255, 0.7);
-  border-radius: 5px;
-  font-size: 0.95rem;
-  padding: 5px;
-  color: rgb(26, 7, 123);
-  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  background: var(--category-background);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: var(--category-shadow);
+  color: var(--title-color);
 `;

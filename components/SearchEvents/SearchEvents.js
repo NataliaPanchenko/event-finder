@@ -67,12 +67,12 @@ export default function SearchEvents({
 }
 
 const Wrapper = styled.div`
-  margin-top: 15px;
-  background: #fff;
+  margin: 10px 0 20px 0;
+  background: var(--white-color);
   padding: 20px;
   border-radius: 16px;
   width: 90%;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow);
 `;
 
 const InputWrapper = styled.div`
@@ -85,20 +85,20 @@ const StyledIcon = styled(SearchIcon)`
   position: absolute;
   left: 10px;
   top: 10px;
-  color: #555;
+  color: var(--icon-color);
 `;
 
 const SearchInput = styled.input`
   width: 100%;
   padding: 10px 12px 10px 35px;
   border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background: #f9fafb;
+  border: var(--input-border);
+  background: var(--search-input-bg);
   margin-bottom: 10px;
   outline: none;
   font-size: 14px;
   &:focus {
-    border-color: #4b4cfa;
+    border-color: var(--main-color);
   }
 `;
 
@@ -119,16 +119,19 @@ const CategoryWrapper = styled.div`
 `;
 
 const CategoryButton = styled.button`
-  padding: 8px 12px;
+  padding: 5px 10px;
   border-radius: 10px;
   border: none;
-  background: ${({ active }) => (active ? "#3872ff" : "#f1f3f5")};
-  color: ${({ active }) => (active ? "#fff" : "#333")};
+  background: ${({ active }) =>
+    active ? "var(--main-color)" : "var(--category-button-bg)"};
+  color: ${({ active }) =>
+    active ? "var(--white-color)" : "var(--category-button-color)"};
   font-size: 13px;
   cursor: pointer;
   transition: 0.2s;
   &:hover {
-    background: ${({ active }) => (active ? "#2c5adf" : "#e2e5e8")};
+    background: ${({ active }) =>
+      active ? "var(--main-color)" : "var(--category-button-hover)"};
   }
 `;
 
@@ -136,11 +139,11 @@ const PriceSelect = styled.select`
   width: 100%;
   padding: 8px 10px;
   border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background: #f9fafb;
+  border: var(--input-border);
+  background: var(--search-input-bg);
   font-size: 14px;
   outline: none;
   &:focus {
-    border-color: #4b4cfa;
+    border-color: var(--main-color);
   }
 `;

@@ -12,6 +12,7 @@ import {
   Smartphone,
   Wallet,
   CheckCircle2,
+  ParkingSquare,
 } from "lucide-react";
 
 export default function SecureCheckout({ cartItems }) {
@@ -97,7 +98,7 @@ export default function SecureCheckout({ cartItems }) {
         setCheckoutMessage(false);
         await clearCart();
         router.push("/");
-      }, 2500);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [checkoutMessage, router]);
@@ -108,7 +109,7 @@ export default function SecureCheckout({ cartItems }) {
       title: "Credit / Debit Card",
       sub: "Visa, Mastercard, Amex",
       icon: CreditCard,
-      gradient: "linear-gradient(135deg, #3872ff, #4b4cfa)",
+      background: "var(--main-color)",
     },
     {
       id: "apple",
@@ -128,7 +129,7 @@ export default function SecureCheckout({ cartItems }) {
       id: "paypal",
       title: "PayPal",
       sub: "Trusted worldwide",
-      icon: Wallet,
+      icon: ParkingSquare,
       gradient: "linear-gradient(135deg, #1558f7, #144bea)",
     },
   ];
@@ -147,27 +148,26 @@ export default function SecureCheckout({ cartItems }) {
           </Subtitle>
         </SecuredWrapper>
       </Header>
-
       {checkoutMessage && (
         <Overlay>
           <CheckoutMessage>
             <SuccessIcon>
-              <CheckCircle2 size="25" />
+              <CheckCircle2 size="30" />
             </SuccessIcon>
-            <SuccessTitle>Payment Successful!</SuccessTitle>
-            <SuccessText>Your tickets have been confirmed</SuccessText>
-            <SuccessSubText>
-              Check your email for confirmation details
-            </SuccessSubText>
+            <SuccessTitle>Order Confirmed!</SuccessTitle>
+            <SuccessText>
+              Thank you for your purchase! Your tickets have been sent to your
+              email.
+            </SuccessText>
 
-            <SummaryBox>
-              <SummaryTotal>
-                Order Total: <p>€{total.toFixed(2)}</p>
-              </SummaryTotal>
-              <SummaryTickets>Tickets: {totalTickets}</SummaryTickets>
-            </SummaryBox>
-
-            <RedirectText>Redirecting you to home page...</RedirectText>
+            <ButtonGroup>
+              <HomeButton onClick={() => router.push("/")}>
+                Back to Home
+              </HomeButton>
+              <EventsButton onClick={() => router.push("/favorites")}>
+                View My Events
+              </EventsButton>
+            </ButtonGroup>
           </CheckoutMessage>
         </Overlay>
       )}
@@ -180,52 +180,56 @@ export default function SecureCheckout({ cartItems }) {
         </SectionTitle>
 
         <Grid>
-          <InputTitle name="first-name">First Name *</InputTitle>
-          <Input
-            placeholder="John"
-            id="first-name"
-            name="first-name"
-            type="text"
-            required
-          />
+          <Field>
+            <InputTitle>First Name *</InputTitle>
+            <Input
+              placeholder="John"
+              id="first-name"
+              name="first-name"
+              type="text"
+              required
+            />
+          </Field>
+
+          <Field>
+            <InputTitle>Last Name *</InputTitle>
+            <Input
+              placeholder="Doe"
+              name="last-name"
+              id="last-name"
+              type="text"
+              required
+            />
+          </Field>
         </Grid>
 
         <Grid>
-          <InputTitle name="last-name">Last Name *</InputTitle>
-          <Input
-            placeholder="Doe"
-            name="last-name"
-            id="last-name"
-            type="text"
-            required
-          />
-        </Grid>
+          <Field>
+            <InputWrapper>
+              <Mail size="15" />
+              <InputTitle>Email Address *</InputTitle>
+            </InputWrapper>
+            <Input
+              placeholder="john.doe@example.com"
+              name="email"
+              id="email"
+              type="email"
+              required
+            />
+          </Field>
 
-        <Grid>
-          <InputWrapper>
-            <Mail size="15" />
-            <InputTitle name="email">Email Adress *</InputTitle>
-          </InputWrapper>
-          <Input
-            placeholder="john.doe@example.com"
-            name="email"
-            id="email"
-            type="email"
-            required
-          />
-        </Grid>
-
-        <Grid>
-          <InputWrapper>
-            <Phone size="15" />
-            <InputTitle name="phone">Phone Number *</InputTitle>
-          </InputWrapper>
-          <Input
-            placeholder="+1 (555) 123-4567"
-            name="phone"
-            id="phone"
-            required
-          />
+          <Field>
+            <InputWrapper>
+              <Phone size="15" />
+              <InputTitle>Phone Number *</InputTitle>
+            </InputWrapper>
+            <Input
+              placeholder="+1 (555) 123-4567"
+              name="phone"
+              id="phone"
+              required
+            />
+          </Field>
         </Grid>
 
         <Divider />
@@ -245,7 +249,9 @@ export default function SecureCheckout({ cartItems }) {
                 active={payment === option.id}
                 onClick={() => setPayment(option.id)}
               >
-                <IconPayment style={{ background: option.gradient }}>
+                <IconPayment
+                  style={{ background: option.gradient || option.background }}
+                >
                   <IconComponent size="25" />
                 </IconPayment>
                 <div>
@@ -261,9 +267,7 @@ export default function SecureCheckout({ cartItems }) {
           <PayIcon size="20" />
           <PayText>
             {loading ? (
-              <>
-                <Spinner /> Processing...
-              </>
+              <>Processing...</>
             ) : (
               `Complete Payment - € ${total.toFixed(2)}`
             )}
@@ -280,10 +284,10 @@ export default function SecureCheckout({ cartItems }) {
 }
 
 const Wrapper = styled.div`
-  background: #fff;
+  background: var(white-color);
   padding: 32px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px var(--overlay-checkout);
 `;
 
 const Header = styled.div`
@@ -305,11 +309,11 @@ const Icon = styled.div`
   width: 48px;
   height: 48px;
   border-radius: 14px;
-  background-color: #2563eb;
+  background-color: var(--main-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--white-color);
   font-size: 20px;
 `;
 
@@ -324,7 +328,7 @@ const Subtitle = styled.p`
   align-items: center;
   gap: 2px;
   font-size: 14px;
-  color: #777;
+  color: var(--date-row-color);
   margin: 0;
   font-weight: 400;
 `;
@@ -344,18 +348,27 @@ const SectionTitleText = styled.p`
 `;
 
 const UserIcon = styled(User)`
-  color: #2563eb;
+  color: var(--main-color);
 `;
 
 const WalletIcon = styled(Wallet)`
-  color: #4c54fc;
+  color: var(--main-color);
 `;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 2fr;
+  grid-template-columns: 1fr;
   gap: 12px;
   margin-bottom: 16px;
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+const Field = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 `;
 
 const InputWrapper = styled.div`
@@ -374,18 +387,18 @@ const InputTitle = styled.label`
 const Input = styled.input`
   padding: 12px;
   border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background: #f9fafb;
+  border: 1px solid var(--category-button-hover);
+  background: var(--search-input-bg);
   outline: none;
   &:focus {
-    border-color: #2563eb;
+    border-color: var(--main-color);
   }
 `;
 
 const Divider = styled.hr`
   margin: 24px 0;
   border: none;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--delete-bg);
 `;
 
 const Card = styled.button`
@@ -396,13 +409,16 @@ const Card = styled.button`
   justify-content: flex-start;
   padding: 16px;
   border-radius: 14px;
-  border: 2px solid ${({ active }) => (active ? "#2563eb" : "#e5e7eb")};
-  background: ${({ active }) => (active ? "#faf5ff" : "#fff")};
+  border: 2px solid
+    ${({ active }) =>
+      active ? "var(--main-color)" : "var(--category-button-hover)"};
+  background: ${({ active }) =>
+    active ? "var(--card-bg)" : "var(--white-color)"};
   text-align: left;
   cursor: pointer;
   transition: 0.2s;
   &:hover {
-    border-color: #a855f7;
+    border-color: var(--main-hover-color);
   }
 `;
 
@@ -414,21 +430,7 @@ const CardTitle = styled.div`
 
 const CardSub = styled.div`
   font-size: 13px;
-  color: #777;
-`;
-
-const SecurityText = styled.p`
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 20px;
-`;
-
-const ShieldIcon = styled(Shield)`
-  color: green;
-  margin-right: 5px;
+  color: var(--date-row-color);
 `;
 
 const PayButton = styled.button`
@@ -443,8 +445,8 @@ const PayButton = styled.button`
   border: none;
   font-size: 16px;
   font-weight: 600;
-  color: white;
-  background-color: #2563eb;
+  color: var(--white-color);
+  background-color: var(--main-color);
   cursor: pointer;
   &:hover {
     opacity: 0.9;
@@ -470,13 +472,13 @@ const IconPayment = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--white-color);
   font-size: 20px;
 `;
 
 const Terms = styled.p`
   font-size: 12px;
-  color: #999;
+  color: var(--logout-text);
   margin-top: 20px;
   text-align: center;
   padding: 0 10px;
@@ -485,7 +487,7 @@ const Terms = styled.p`
 const Overlay = styled.div`
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--overlay-checkout);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -493,114 +495,62 @@ const Overlay = styled.div`
 `;
 
 const CheckoutMessage = styled.div`
-  background: #f3f4f6;
-  padding: 40px;
-  border-radius: 24px;
+  background: white;
+  padding: 40px 30px;
+  border-radius: 20px;
   text-align: center;
-  width: 360px;
+  width: 380px;
+  box-shadow: var(--button-shadow);
   animation: fadeIn 0.3s ease;
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
 `;
 
 const SuccessIcon = styled.div`
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: #16a34a;
-  color: white;
-  font-size: 32px;
+  background: var(--success-bg);
+  color: var(--success-title);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px;
-  animation: float 2s ease-in-out infinite;
-  @keyframes float {
-    0% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-8px);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
 `;
 
 const SuccessTitle = styled.h2`
-  color: #16a34a;
+  color: var(--black-color);
+  font-size: 22px;
+  font-weight: 700;
   margin-bottom: 10px;
 `;
 
 const SuccessText = styled.p`
-  margin: 0;
-  color: #444;
-`;
-
-const SuccessSubText = styled.p`
   font-size: 14px;
-  color: #777;
-  margin-bottom: 20px;
+  color: var(--icon-color);
+  margin-bottom: 25px;
 `;
 
-const SummaryBox = styled.div`
-  background: #d1fae5;
-  border-radius: 14px;
-  padding: 15px;
-  margin-bottom: 20px;
-  font-weight: 500;
-  border: 1px solid #6ba86e;
-`;
-
-const SummaryTotal = styled.div`
+const ButtonGroup = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  font-size: 14px;
-  color: #135416;
-  font-weight: 500;
-  p {
-    font-weight: 300;
-  }
-  margin: 0;
+  flex-direction: column;
+  gap: 10px;
 `;
 
-const SummaryTickets = styled.p`
-  font-size: 14px;
-  color: #165319;
-  margin: 0;
-  font-weight: 400;
+const HomeButton = styled.button`
+  background: var(--item-title-color);
+  color: white;
+  padding: 12px 0;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
 `;
 
-const RedirectText = styled.p`
-  font-size: 13px;
-  color: #777;
-  font-weight: 400;
-`;
-
-const Spinner = styled.div`
-  display: inline;
-  width: 16px;
-  height: 16px;
-  border: 2px solid white;
-  border-top: 2px solid transparent;
-  border-radius: 50%;
-  animation: spin 0.6s linear infinite;
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
+const EventsButton = styled.button`
+  background: white;
+  color: var(--item-title-color);
+  padding: 12px 0;
+  border-radius: 12px;
+  border: 1px solid var(--delete-bg);
+  font-weight: 600;
+  cursor: pointer;
 `;

@@ -14,19 +14,20 @@ export default function NoElements({ icon, title, description }) {
 
 const EmptyCart = styled.div`
   display: flex;
-  margin-top: 80px;
+  height: 70vh;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   width: 100%;
+  margin-top: 0;
 `;
 
 const IconWrapper = styled.div`
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: #f2f3f5;
+  background: var(--no-results-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,7 +35,7 @@ const IconWrapper = styled.div`
   svg {
     width: 36px;
     height: 36px;
-    color: #9aa0a6;
+    color: var(--no-elements-icon);
   }
 `;
 
@@ -44,12 +45,12 @@ const Title = styled.h2`
 `;
 
 const Description = styled.p`
-  color: #6b7280;
+  color: var(--no-elem-desc);
   margin-bottom: 24px;
 `;
 
 const ButtonLink = styled(Link)`
-  background: #2563eb;
+  background: var(--main-color);
   color: white;
   padding: 12px 28px;
   border-radius: 10px;
@@ -58,6 +59,6 @@ const ButtonLink = styled(Link)`
   transition: background 0.2s;
   cursor: pointer;
   &:hover {
-    background: #1d4ed8;
+    background: var(--main-hover-color);
   }
 `;

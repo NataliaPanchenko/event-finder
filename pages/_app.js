@@ -2,7 +2,6 @@ import { SessionProvider } from "next-auth/react";
 import GlobalStyle from "../styles";
 import useSWR from "swr";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
 import HeaderContent from "@/components/HeaderContent";
 import ProtectedRoute from "@/components/ProtectedRoute";

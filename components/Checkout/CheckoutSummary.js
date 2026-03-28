@@ -153,17 +153,17 @@ const TotalText = styled.p`
 `;
 
 const TotalPrice = styled.span`
-  color: #2563eb;
+  color: var(--main-color);
   font-weight: 700;
 `;
 
 const Benefits = styled.div`
-  background: #eff6ff;
+  background: var(--category-button-bg);
   padding: 14px;
   border-radius: 14px;
   font-size: 14px;
-  color: #4346b1;
-  border: 1px solid #bfc2ff;
+  color: var(--icon-color);
+  border: 1px solid var(--main-hover-color);
 `;
 
 const BenefitItem = styled.p`
@@ -180,5 +180,5 @@ const BenefitText = styled.p`
 `;
 
 const Circle = styled(CircleCheck)`
-  color: #2b5eeb;
+  color: var(--main-hover-color);
 `;

@@ -15,11 +15,13 @@ export default function Favorites({ favorites }) {
 
   if (!favorites || favorites.length === 0)
     return (
-      <NoElements
-        title="Your wishlist is empty"
-        description="Add some events to your wishlist to get started"
-        icon={<Heart size="30" />}
-      />
+      <EmptyWrapper>
+        <NoElements
+          title="Your wishlist is empty"
+          description="Add some events to your wishlist to get started"
+          icon={<Heart size="30" />}
+        />
+      </EmptyWrapper>
     );
 
   return (
@@ -27,7 +29,10 @@ export default function Favorites({ favorites }) {
       <Container>
         <Header>
           <TitleBlock>
-            <Title>My Wishlist</Title>
+            <Title>
+              <StyledHeart size={25} />
+              My Favorites
+            </Title>
             {favorites.length}
             {favorites.length === 1 ? ` event` : ` events`}
           </TitleBlock>
@@ -47,11 +52,14 @@ export default function Favorites({ favorites }) {
   );
 }
 
+const EmptyWrapper = styled.div`
+  margin-top: 60px;
+`;
+
 const Container = styled.div`
-  min-height: 100vh;
-  padding: 20px;
-  max-width: 1000px;
-  margin: 20px;
+  padding: 10px;
+  max-width: 100vh;
+  margin: 10px auto;
   @media (max-width: 600px) {
     padding: 20px 10px;
   }
@@ -66,6 +74,9 @@ const Header = styled.div`
 const Title = styled.h2`
   font-size: 28px;
   margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
 `;
 
 const TitleBlock = styled.div`
@@ -75,7 +86,13 @@ const TitleBlock = styled.div`
 
 const EventsWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
   margin: 10px;
+`;
+
+const StyledHeart = styled(Heart)`
+  margin-top: 2px;
+  color: var(--delete-color);
+  fill: var(--delete-color);
 `;
