@@ -7,9 +7,11 @@
     "description": "An energetic live concert featuring popular alternative rock bands with a full stage show and immersive lighting.",
     "date": "2026-06-15T19:30:00Z",
     "price": 45,
-    "availableTickets": 320,
+    "availableTickets": 281,
     "location": "69aff990e7b7e45874fe4890",
-    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670573/cold_waves_itbqco.png"
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670573/cold_waves_itbqco.png",
+    "lat": "52.3782",
+    "lng": "9.7381"
   },
   {
     "_id": {
@@ -20,9 +22,11 @@
     "description": "Discover contemporary artworks from emerging European artists at the opening night of the gallery exhibition.",
     "date": "2026-05-12T17:00:00Z",
     "price": 12,
-    "availableTickets": 150,
+    "availableTickets": 144,
     "location": "69aff987e7b7e45874fe488f",
-    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670574/modern_art_ecxbsq.png"
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670574/modern_art_ecxbsq.png",
+    "lat": "53.5526",
+    "lng": "9.9973"
   },
   {
     "_id": {
@@ -33,9 +37,11 @@
     "description": "A night of electronic music with well-known DJs performing techno and house sets until sunrise.",
     "date": "2026-07-03T22:00:00Z",
     "price": 25,
-    "availableTickets": 500,
+    "availableTickets": 491,
     "location": "69b1725be7b7e45874fe48be",
-    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670575/berlin_techno_axdteb.png"
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670575/berlin_techno_axdteb.png",
+    "lat": "52.5245",
+    "lng": "13.4092"
   },
   {
     "_id": {
@@ -46,9 +52,11 @@
     "description": "A spectacular theatre performance of the famous musical with a live orchestra and dramatic stage production.",
     "date": "2026-08-21T18:30:00Z",
     "price": 60,
-    "availableTickets": 210,
+    "availableTickets": 202,
     "location": "69aff9aae7b7e45874fe4893",
-    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670575/phantom_of_the_opera_n2fvnk.png"
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670575/phantom_of_the_opera_n2fvnk.png",
+    "lat": "48.1367",
+    "lng": "11.5863"
   },
   {
     "_id": {
@@ -59,9 +67,11 @@
     "description": "Watch an exciting basketball match between two top European teams in a high-energy arena atmosphere.",
     "date": "2026-04-30T20:00:00Z",
     "price": 35,
-    "availableTickets": 850,
+    "availableTickets": 843,
     "location": "69aff950e7b7e45874fe4888",
-    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670574/basketball_match_dllorj.png"
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670574/basketball_match_dllorj.png",
+    "lat": "50.9361",
+    "lng": "6.9664"
   },
   {
     "_id": {
@@ -72,9 +82,11 @@
     "description": "A hilarious evening with three well-known stand-up comedians performing their newest material.",
     "date": "2026-05-18T19:00:00Z",
     "price": 20,
-    "availableTickets": 180,
+    "availableTickets": 172,
     "location": "69aff9b5e7b7e45874fe4895",
-    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670573/stand_up_gqzxrt.png"
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670573/stand_up_gqzxrt.png",
+    "lat": "48.7741",
+    "lng": "9.1808"
   },
   {
     "_id": {
@@ -87,7 +99,9 @@
     "price": 15,
     "availableTickets": 20,
     "location": "69aff977e7b7e45874fe488d",
-    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670574/summer_city_festival_aj5o9m.png"
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670574/summer_city_festival_aj5o9m.png",
+    "lat": "50.1147",
+    "lng": "8.6789"
   },
   {
     "_id": {
@@ -98,9 +112,11 @@
     "description": "Taste food from international street kitchens and enjoy craft beer from local breweries.",
     "date": "2026-06-10T13:00:00Z",
     "price": 10,
-    "availableTickets": 700,
+    "availableTickets": 697,
     "location": "69aff966e7b7e45874fe488b",
-    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670574/street_food_tthol0.png"
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670574/street_food_tthol0.png",
+    "lat": "51.2298",
+    "lng": "6.7759"
   },
   {
     "_id": {
@@ -111,9 +127,11 @@
     "description": "A fun event for families with games, kids shows, creative workshops, and interactive attractions.",
     "date": "2026-05-25T10:00:00Z",
     "price": 8,
-    "availableTickets": 400,
+    "availableTickets": 397,
     "location": "69aff93de7b7e45874fe4885",
-    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670573/family_fun_x3nbdx.png"
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670573/family_fun_x3nbdx.png",
+    "lat": "50.7362",
+    "lng": "7.1013"
   },
   {
     "_id": {
@@ -124,8 +142,100 @@
     "description": "Learn professional photography techniques from an experienced photographer in a hands-on workshop.",
     "date": "2026-06-05T14:00:00Z",
     "price": 50,
-    "availableTickets": 40,
+    "availableTickets": 31,
     "location": "69aff9a1e7b7e45874fe4892",
-    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670575/photography_masterclass_pltxk6.png"
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1773670575/photography_masterclass_pltxk6.png",
+    "lat": "51.3408",
+    "lng": "12.3767"
+  },
+  {
+    "_id": {
+      "$oid": "69bd6861beeed74835f28fbd"
+    },
+    "category": "69aff635e7b7e45874fe4870",
+    "title": "Cooking Masterclass",
+    "description": "Learn to cook gourmet dishes with a professional chef.",
+    "date": "2026-06-03T15:00:00Z",
+    "price": 75,
+    "availableTickets": 27,
+    "location": "69aff990e7b7e45874fe4890",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1774207980/cooking_masterclass_inqyf4.png",
+    "lat": "52.3756",
+    "lng": "9.7473"
+  },
+  {
+    "_id": {
+      "$oid": "69bd6861beeed74835f28fbe"
+    },
+    "category": "a5e3c065bc6b2368e853c05c",
+    "title": "90s Throwback Party",
+    "description": "Dance all night to the biggest hits of the 90s.",
+    "date": "2026-07-30T22:00:00Z",
+    "price": 18,
+    "availableTickets": 398,
+    "location": "69aff99ae7b7e45874fe4891",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1774207981/90s_throwback__arty_beuovf.png",
+    "lat": "49.4098",
+    "lng": "8.6943"
+  },
+  {
+    "_id": {
+      "$oid": "69bd6861beeed74835f28fbf"
+    },
+    "category": "69aff635e7b7e45874fe4870",
+    "title": "Photography Exhibition",
+    "description": "A curated exhibition of urban photography from Berlin artists.",
+    "date": "2026-05-27T17:00:00Z",
+    "price": 14,
+    "availableTickets": 100,
+    "location": "69bd6a2dbeeed74835f28fda",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1774207982/photography_exhibition_krjcjo.png",
+    "lat": "50.9405",
+    "lng": "6.9602"
+  },
+  {
+    "_id": {
+      "$oid": "69bd6861beeed74835f28fc0"
+    },
+    "category": "dee4580400fb9baa2a36010a",
+    "title": "Boxing Championship Night",
+    "description": "Watch professional fighters compete in an electrifying boxing event.",
+    "date": "2026-08-28T20:00:00Z",
+    "price": 130,
+    "availableTickets": 600,
+    "location": "69aff9aae7b7e45874fe4893",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1774207983/boxing_qd7xvk.png",
+    "lat": "50.9337",
+    "lng": "6.9467"
+  },
+  {
+    "_id": {
+      "$oid": "69bd695dbeeed74835f28fc5"
+    },
+    "category": "68230fbc0a5e71225b7b9fc5",
+    "title": "Indie Rock Summer Night",
+    "description": "An open-air concert featuring rising indie rock bands with a relaxed summer vibe.",
+    "date": "2026-08-05T19:00:00Z",
+    "price": 30,
+    "availableTickets": 250,
+    "location": "69aff950e7b7e45874fe4888",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1774207981/indie_hanacq.png",
+    "lat": "50.9496",
+    "lng": "6.9081"
+  },
+  {
+    "_id": {
+      "$oid": "69bd695dbeeed74835f28fd4"
+    },
+    "category": "69aff603e7b7e45874fe486e",
+    "title": "Luxury Food & Wine Gala",
+    "description": "Exclusive fine dining event with premium wines.",
+    "date": "2026-09-10T19:00:00Z",
+    "price": 220,
+    "availableTickets": 78,
+    "location": "69aff966e7b7e45874fe488b",
+    "image": "https://res.cloudinary.com/dkt0ovglo/image/upload/v1774207981/luxury_gala_inner_rkxgpf.png",
+    "lat": "51.2191",
+    "lng": "6.7838"
   }
 ]
