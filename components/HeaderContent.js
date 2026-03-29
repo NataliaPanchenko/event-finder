@@ -119,9 +119,6 @@ const StyledTitel = styled(Link)`
     justify-content: space-between;
     width: 100%;
   }
-  @media (max-width: 400px) {
-    display: none;
-  }
 `;
 
 const IconWrapper = styled(Link)`
