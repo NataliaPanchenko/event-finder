@@ -280,6 +280,11 @@ const CartItemControls = styled.div`
     &:hover {
       background: var(--cart-controls-bg);
     }
+    &:disabled {
+      color: var(--date-row-color);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
   }
   span {
     min-width: 24px;
