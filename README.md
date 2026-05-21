@@ -4,7 +4,7 @@
 
 Event Finder is a web platform for discovering and booking local events such as concerts, meetups, conferences, and community activities.
 
-Users can browse events, search for interesting activities, view event details, and reserve tickets. Organizers can create and manage their own events through the platform.
+Users can browse events, search for interesting activities, view event details, and reserve tickets. 
 
 ### Main Features
 
